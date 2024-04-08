@@ -114,18 +114,23 @@ const Jobdetail = () => {
           {/*---------------------------02 grid------------------------------------------------------- */}
           <Box sx={{ padding: '0', marginTop:'30px', marginLeft: 'auto', marginRight: 'auto', maxWidth: '1000px' }}>
   <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} justifyContent="center" alignItems="center">
-    {/*-----------table left----------- */}
-    <Grid item xs={12} sm={6} sx={{ height: '100%' }}>
-      <Card sx={{ display: 'flex', width: '80%', justifyContent: 'center', alignItems: 'center', overflow: 'auto', height: '100%' }}>       
-        <JobDetailTable />
-      </Card>
-    </Grid>
-    {/*-----------form-Right----------- */}
-    <Grid item xs={12} sm={6} sx={{ height: '100%' }}>
-      <Card sx={{ display: 'flex', width: '100%', justifyContent: 'center', alignItems: 'center', overflow: 'auto', height: '100%' }}>        
-        <FormJobDetail />
-      </Card>
-    </Grid>
+  <Grid container spacing={1}>
+  {/*-----------form-left----------- */}
+  <Grid item xs={12} sm={8} sx={{ height: '100%' }}>
+    <Card sx={{ display: 'flex', width: '100%', justifyContent: 'center', alignItems: 'center', overflow: 'auto', height: '100%' }}>        
+      <FormJobDetail />
+    </Card>
+  </Grid>
+  {/*----------Left detail----------- */}
+  <Grid item xs={12} sm={4} sx={{ height: '100%' }}>
+    <Card sx={{ display: 'flex', width: '80%', justifyContent: 'center', alignItems: 'center', overflow: 'auto', height: '100%' }}>       
+      <JobDetailTable />
+    </Card>
+  </Grid>
+</Grid>
+
+
+
      {/*----------Jod Demand per a day----------- */}
     <Grid item xs={12} sm={12}>
     <Card sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', maxWidth: 'auto', overflow: 'auto',marginTop:'30px'}}>        <CardContent>

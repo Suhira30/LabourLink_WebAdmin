@@ -1,45 +1,51 @@
-import React from "react"
+import React, { useEffect, useState } from "react";
 import MUIDataTable from "mui-datatables";
+import axios from 'axios';
 
-  export default function UserNew() {
-    const columns = ["Name", "Company", "City", "State"];
-
-const data = [
- ["Joe James", "Test Corp", "Yonkers", "NY"],
- ["John Walsh", "Test Corp", "Hartford", "CT"],
- ["Bob Herm", "Test Corp", "Tampa", "FL"],
- ["James Houston", "Test Corp", "Dallas", "TX"],
- ["John Walsh", "Test Corp", "Hartford", "CT"],
- ["Bob Herm", "Test Corp", "Tampa", "FL"],
- ["James Houston", "Test Corp", "Dallas", "TX"],
- ["John Walsh", "Test Corp", "Hartford", "CT"],
- ["Bob Herm", "Test Corp", "Tampa", "FL"],
- ["James Houston", "Test Corp", "Dallas", "TX"],
- ["John Walsh", "Test Corp", "Hartford", "CT"],
- ["Bob Herm", "Test Corp", "Tampa", "FL"],
- ["James Houston", "Test Corp", "Dallas", "TX"],
- ["John Walsh", "Test Corp", "Hartford", "CT"],
- ["Bob Herm", "Test Corp", "Tampa", "FL"],
- ["James Houston", "Test Corp", "Dallas", "TX"],
+const columns = [
+  { name: 'name', label: "User Name" },
+  { name: 'email', label: "Email" },
+  { name: 'joinDate', label: "Join Date" },
+  { name: 'role', label: "Role" },
 ];
 
-const options = {
-  filterType: 'checkbox',
-  rowsPerPage:6,
-  
-};
+const UserNew = () => {
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [rowData, setRowData] = useState([]);
+
+  useEffect(() => {
+    axios.get("http://localhost:1000/user")
+      .then((response) => {
+        setRowData(response.data);
+      })
+      .catch((error) => {
+        setError(error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
+
+  const options = {
+    selectableRows: "none",
+    rowsPerPageOptions: [5, 10, 15],
+    rowsPerPage: 5,
+  };
 
   return (
-    <div style={{ width: '1000px', maxWidth: 'auto%',height:'auto'}}>
+    <div style={{ width: '1000px', maxWidth: 'auto%', height: 'auto' }}>
+      <MUIDataTable
+        title={"User"}
+        data={rowData}
+        columns={columns}
+        options={options}
+      />
+    </div>
+  );
+};
 
-  <MUIDataTable
-    title={"New User"}
-    data={data}
-    columns={columns}
-    options={options}
-  />
- </div>
-  
-      );
-}
-
+export default UserNew;

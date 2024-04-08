@@ -41,7 +41,6 @@ function App() {
       <Route path="/"   element={<Dashboard/>}></Route>
         <Route path="/dashboard"   element={<Dashboard/>}></Route>
         <Route path="/calender"   element={<Calender/> }></Route>
-        {/*<Route path="/chat"   element={<Chat/> }></Route>*/}
         <Route path="/job-detail"   element={<Jobdetail/> }></Route>
         <Route path="/notification"   element={<Notification/> }></Route>
         <Route path="/review"   element={<Review/> }></Route>

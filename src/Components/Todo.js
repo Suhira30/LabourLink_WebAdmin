@@ -34,7 +34,7 @@ const Todo = () => {
 const containerStyle1={
   display: "flex",
     alignItems: "center",
-    marginTop: 20,
+    marginTop: 0,
 }
   const listStyle = {
     width: "80%",
@@ -103,7 +103,7 @@ const onDelete = async (id) => {
 
   return (
     <Container component="main" style={containerStyle}>
-     <containe component ="submain" style={containerStyle1}>
+     <Container component ="submain" style={containerStyle1}>
       <TextField
         variant="outlined"
         onChange={onChange}
@@ -120,7 +120,7 @@ const onDelete = async (id) => {
         disabled={inputVal ? false : true}
       >
         Add Task
-      </Button></containe>
+      </Button></Container>
       <List>
         {todos.map((todo) => {
           return (

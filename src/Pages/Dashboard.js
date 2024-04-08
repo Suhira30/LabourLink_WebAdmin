@@ -19,7 +19,7 @@ import Order from '../charts/DashBoardLineChart';
 import { Revenue } from '../charts/DashboardRevenue';
 import Pie_Dashboard from '../charts/Pie_Dashboard';
 import Todo from "../Components/Todo"
- 
+ import Calender from '../Components/Calender';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -137,14 +137,15 @@ const Dashboard = () => {
   <Box sx={{ padding: '0',marginTop:'30px', marginLeft: 'auto', marginRight: 'auto',maxWidth: '1000px' }}>
   <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} justifyContent="center" alignItems="center"  >
     
-{/*Calendar-------------------------*/}
+{/*----------------Calendar-------------------------*/}
     <Grid item xs={12} sm={6}>
-    <Card sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', maxWidth: 'auto', overflow: 'auto'}}>        <CardContent>
-          <Barchart />
+    <Card sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', maxWidth: 'auto', overflow: 'auto',height:'435px'}}>        <CardContent>
+          <Calender/>
         </CardContent>
       </Card>
     </Grid>
-    {/*-----------Todo list----------- */}
+    {/*----------------Todo list-------------------------*/}
+    
     <Grid item xs={12} sm={6}>
     <Card sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', maxWidth: 'auto', overflow: 'auto' ,height:'435px'}}>        <CardContent>
     <Todo/>
