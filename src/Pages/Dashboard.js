@@ -133,7 +133,6 @@ const Dashboard = () => {
         </Box>
       </div>
       
-  {/*---------------------------graph------------------------------------------------------- */}
   <Box sx={{ padding: '0',marginTop:'30px', marginLeft: 'auto', marginRight: 'auto',maxWidth: '1000px' }}>
   <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} justifyContent="center" alignItems="center"  >
     

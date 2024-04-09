@@ -1,14 +1,8 @@
 import React, { useEffect, useState } from "react";
 import MUIDataTable from "mui-datatables";
 import axios from 'axios';
-
-const columns = [
-  { name: 'name', label: "User Name" },
-  { name: 'email', label: "Email" },
-  { name: 'joinDate', label: "Join Date" },
-  { name: 'role', label: "Role" },
-];
-
+import { Link } from "react-router-dom";
+import IndividualUserDetail from "../Pages/IndividualUserDetail";
 const UserNew = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -27,14 +21,47 @@ const UserNew = () => {
       });
   }, []);
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
+  const handleViewClick = (rowData) => {
+    // Handle view button click logic here, using rowData if needed
+    console.log("View button clicked!", rowData);
+  };
+
+  const columns = [
+    { name: 'name', label: "User Name" },
+    { name: 'email', label: "Email" },
+    { name: 'joinDate', label: "Join Date" },
+    { name: 'role', label: "Role" },
+    {
+      name: 'View',
+      label: "View",
+      options: {
+        customBodyRender: (value, tableMeta, updateValue) => (
+          <Link to={`/user-detail/${tableMeta.rowData[1]}`}
+          style={{
+            display: "inline-block",
+            padding: "10px 20px",
+            backgroundColor: "#007bff",
+            color: "#fff",
+            border: "none",
+            borderRadius: "5px",
+            textDecoration: "none",
+            cursor: "pointer",
+          }}>
+            View</Link>
+          
+        )
+      }
+    }
+  ];
 
   const options = {
     selectableRows: "none",
     rowsPerPageOptions: [5, 10, 15],
     rowsPerPage: 5,
   };
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
 
   return (
     <div style={{ width: '1000px', maxWidth: 'auto%', height: 'auto' }}>

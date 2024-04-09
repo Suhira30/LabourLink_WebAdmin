@@ -111,8 +111,8 @@ const Jobdetail = () => {
         </Grid>
         </Box>
       </div>
-          {/*---------------------------02 grid------------------------------------------------------- */}
-          <Box sx={{ padding: '0', marginTop:'30px', marginLeft: 'auto', marginRight: 'auto', maxWidth: '1000px' }}>
+  {/*---------------------------02 grid------------------------------------------------------- */}
+  <Box sx={{ padding: '0', marginTop:'30px', marginLeft: 'auto', marginRight: 'auto', maxWidth: '1000px' }}>
   <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} justifyContent="center" alignItems="center">
   <Grid container spacing={1}>
   {/*-----------form-left----------- */}
@@ -128,9 +128,6 @@ const Jobdetail = () => {
     </Card>
   </Grid>
 </Grid>
-
-
-
      {/*----------Jod Demand per a day----------- */}
     <Grid item xs={12} sm={12}>
     <Card sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', maxWidth: 'auto', overflow: 'auto',marginTop:'30px'}}>        <CardContent>

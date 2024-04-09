@@ -14,7 +14,7 @@ import Userdetail from "./Pages/Userdetail";
 import Footer from "./Components/Footer";
 import Searchbar from './Components/Searchbar';
 import Sidebar from "./Components/Sidebar";
-
+import IndividualUserDetail  from './Pages/IndividualUserDetail';
 function App() {
 
       const Layout = () => {
@@ -47,55 +47,12 @@ function App() {
         <Route path="/setting-page"   element={<Settingpage/> }></Route>
         <Route path="/user-detail"   element={<Userdetail/> }></Route>
         <Route path="/appointment"   element={<Appointment/> }></Route>
-
+        <Route path="/user-detail/:email" element={<IndividualUserDetail />} />
       </Routes>
       </BrowserRouter>
     </div>
   );
-/*
-const router=createBrowserRouter([
-  
-    {
-      path:"/",
-      element:<Dashboard/> 
-     },
-     {
-       path:"/calender",
-       element:<Calender/> 
-      },
-      {
-        path:"/chat",
-        element:<Chat/> 
-       },
-       {
-        path:"/appointment",
-        element:<Appointment/> 
-       },
-       ,
-       {
-        path:"/appointment",
-        element:<Appointment/> 
-       },
-       ,
-       {
-        path:"/appointment",
-        element:<Appointment/> 
-       },
-       ,
-       {
-        path:"/appointment",
-        element:<Appointment/> 
-       },
-       ,
-       {
-        path:"/appointment",
-        element:<Appointment/> 
-       },
-       
 
-]);
- return
-  <RouterProvider router={router}/>;*/
  
 }
 export default App;
