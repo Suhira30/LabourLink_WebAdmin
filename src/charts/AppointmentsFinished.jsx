@@ -1,39 +1,52 @@
-import React from "react"
+import React, { useEffect, useState } from "react";
 import MUIDataTable from "mui-datatables";
+import axios from 'axios';
 
-  export default function AppointmentsFinished() {
-    const columns = ["User Id","Name", "Labour", "Job", "Date"];
+const AppointmentsUpcoming = () => {
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [rowData, setRowData] = useState([]);
+    
+    useEffect(() => {
+        axios.get("http://localhost:1000/app/deliver")
+            .then(response => {
+                setRowData(response.data); 
+                setLoading(false); 
+            })
+            .catch(error => {
+                setError(error);
+                setLoading(false); 
+            });
+    }, []); 
+    
+    const columns = [
+        { name: 'id', label: "Number" },
+        { name: 'customerName', label: "Customer" },
+        { name: 'customerEmail', label: "Customer Email" },
+        { name: 'labourName', label: "Labour" },
+        { name: 'jobTitle', label: "Job" },
+        { name: 'appointmentFixedDate', label: "Date" }
+    ];
 
-    const data = [
-      ["C001","John Walsh","Alice Johnson","Driver","2024-03-31"],
-      ["C002", "James Houston","Alice Johnson", "Artist", "2024-04-08"],
-      ["C045", "Bob Herm", "Emily Hernandez","Chef", "2024-04-07"],
-      ["C015", "John Walsh","Olivia Anderson" ,"Driver", "2024-04-08"],
-      ["C100", "Test Corp", "Michael Wilson","Artist", "2024-04-13"],
-      ["C001","John Walsh","Alice Johnson","Driver","2024-03-31"],
-      ["C002", "James Houston","Alice Johnson", "Artist", "2024-04-08"],
-      ["C045", "Bob Herm", "Emily Hernandez","Chef", "2024-04-07"],
-      ["C015", "John Walsh","Olivia Anderson" ,"Driver", "2024-04-08"],
-      ["C100", "Test Corp", "Michael Wilson","Artist", "2024-04-13"],];
+    const options = {
+        selectableRows: "none",
+        rowsPerPageOptions: [5, 10, 15],
+        rowsPerPage: 5,
+    };
 
+    if (loading) return <div>Loading...</div>; 
+    if (error) return <div>Error: {error.message}</div>; 
 
-const options = {
-  filterType: 'checkbox',
-  rowsPerPage:6,
-  
+    return (
+        <div style={{ width: '1000px', maxWidth: 'auto%', height: 'auto' }}>
+            <MUIDataTable
+                title={"Delivered Appointments"}
+                data={rowData}
+                columns={columns}
+                options={options}
+            />
+        </div>
+    );
 };
 
-  return (
-    <div style={{ width: '1000px', maxWidth: 'auto%',height:'auto'}}>
-
-  <MUIDataTable
-    title={"Finished Appointment"}
-    data={data}
-    columns={columns}
-    options={options}
-  />
- </div>
-  
-      );
-}
-
+export default AppointmentsUpcoming;

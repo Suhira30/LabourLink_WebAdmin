@@ -13,9 +13,13 @@ import delivery from '../Img/delivery.png';
 import order from '../Img/order.png';
 import revenue from '../Img/revenue.png';
 import { styled } from '@mui/material/styles';
-import UpTabledata from '../charts/AppointmentsUpcomming';
+import AppTabledata from '../charts/AppointmentsUpcomming';
 import FinishedTabledata from '../charts/AppointmentsFinished';
 import CancelTabledata from '../charts/AppointmentsCancel';
+import AppointmentJob_vs_Total from '../charts/AppointmentJob_vs_Total';
+import AppointmentDate_vs_Total from '../charts/AppointmentDate_vs_Total';
+import axios from 'axios';
+import { useEffect, useState } from "react";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -25,6 +29,50 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 const Appointment = () => {
+  //------------------------Pending------------------
+  const [pendingCount, setPendingCount] = useState(0);
+  useEffect(() => {
+    axios.get("http://localhost:1000/app/pending_count")
+        .then(response => {
+            setPendingCount(response.data);
+        })
+        .catch(error => {
+            console.error("Error fetching pending appointments count:", error);
+        });
+}, []);
+//-------------cancel-----------------------
+const [cancelCount, setCancelCount] = useState(0);
+useEffect(() => {
+  axios.get("http://localhost:1000/app/cancel_count")
+      .then(response => {
+          setCancelCount(response.data);
+      })
+      .catch(error => {
+          console.error("Error fetching pending appointments count:", error);
+      });
+}, []);
+//-------------delivered--------------------
+const [deliveredCount, setDeliveredCount] = useState(0);
+useEffect(() => {
+  axios.get("http://localhost:1000/app/delivered_count")
+      .then(response => {
+          setDeliveredCount(response.data);
+      })
+      .catch(error => {
+          console.error("Error fetching pending appointments count:", error);
+      });
+}, []);
+//-------------Revenue--------------------
+const [Revenue, setRevenue] = useState(0);
+useEffect(() => {
+  axios.get("http://localhost:1000/app/total_revenue")
+      .then(response => {
+          setRevenue(response.data);
+      })
+      .catch(error => {
+          console.error("Error fetching pending appointments count:", error);
+      });
+}, []);
   const pageStyle = {
     backgroundColor: '#F3F2F7',
   };
@@ -45,7 +93,7 @@ const Appointment = () => {
       <Grid container spacing={2} justifyContent="center" alignItems="center" >
     {/*top 4 boxes--01--------------------------------------------------------------------------------- */}
       <Grid item xs={12} sm={6} md={3} >
-          <Card  sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', maxWidth: 220,'&:hover': { backgroundColor: '#f0f0f0' } }}>
+          <Card  sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', maxWidth: 220,height: 120}}>
       <CardMedia
         sx={{
         width: 65,
@@ -56,10 +104,10 @@ const Appointment = () => {
       />
       <CardContent sx={{ flex: '1' }}>
       <Typography gutterBottom variant="h5" component="div">
-        65
+        {pendingCount}
         </Typography>
         <Typography >
-        Total Orders
+       Pending Appointment
         </Typography>
       </CardContent>
     </Card>
@@ -67,7 +115,7 @@ const Appointment = () => {
 
   {/*top 4 boxes--02--------------------------------------------------------------------------------- */}
   <Grid item xs={12} sm={6} md={3}>
-          <Card sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', maxWidth: 220}}>
+          <Card sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', maxWidth: 220,height: 120}}>
       <CardMedia
         sx={{
           width: 65,
@@ -78,16 +126,16 @@ const Appointment = () => {
       />
       <CardContent sx={{ flex: '1' }}>
       <Typography gutterBottom variant="h5" component="div">
-        60
+        {cancelCount}
         </Typography>
-        <Typography >        Total Delivery
+        <Typography >        Cancelled Appointment
         </Typography>
       </CardContent>
     </Card>
         </Grid>
       {/*top 4 boxes--03--------------------------------------------------------------------------------- */}
       <Grid item xs={12} sm={6} md={3}>
-          <Card sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', maxWidth: 220}}>
+          <Card sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', maxWidth: 220,height: 120}}>
       <CardMedia
          sx={{
           width: 65,
@@ -98,9 +146,9 @@ const Appointment = () => {
       />
       <CardContent sx={{ flex: '1' }}>
       <Typography gutterBottom variant="h5" component="div">
-        57
+       {deliveredCount}
         </Typography>
-        <Typography >        Total Cancel
+        <Typography >        Delivered Appointment
         </Typography>
       </CardContent>
     </Card>
@@ -108,7 +156,7 @@ const Appointment = () => {
     {/*top 4 boxes--04--------------------------------------------------------------------------------- */}
  
     <Grid item xs={12} sm={6} md={3}>
-          <Card  sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', maxWidth: 220}}>
+          <Card  sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', maxWidth: 220,height: 120}}>
       <CardMedia
          sx={{
           width: 65,
@@ -119,7 +167,7 @@ const Appointment = () => {
       />
       <CardContent sx={{ flex: '1' }}>
       <Typography gutterBottom variant="h5" component="div">
-        6
+        {Revenue}
         </Typography>
         <Typography > Total Revenue</Typography>
       </CardContent>
@@ -132,7 +180,22 @@ const Appointment = () => {
   {/*---------------------------Table------------------------------------------------------- */}
   <Box sx={{ padding: '0',marginTop:'30px', marginLeft: 'auto', marginRight: 'auto',maxWidth: '1000px',paddingRight:'0'}}>
   <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 2 }}>
-      {/*--------------------01 table ------------------- */}
+    {/*--------------------chart : Date VS Total order ------------------- */}    
+  <Grid item xs={12} sm={6}>
+    <Card sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', maxWidth: 'auto', overflow: 'auto',height:'500px'}}>        <CardContent>
+          <AppointmentJob_vs_Total/>
+        </CardContent>
+      </Card>
+    </Grid>
+         {/*--------------------chart : Job VS Total order ------------------- */}
+    
+    <Grid item xs={12} sm={6}>
+    <Card sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', maxWidth: 'auto', overflow: 'auto' ,height:'500px'}}>        <CardContent>
+    <AppointmentDate_vs_Total/>
+        </CardContent>
+      </Card>
+    </Grid>
+      {/*--------------------01 table : All Appointment  -------------------*/}
     <Grid item xs={12} sm={12}   >
     <Card sx={{ 
     display: 'flex', 
@@ -143,8 +206,9 @@ const Appointment = () => {
     padding:'0',
     border: 'none',
     marginBottom:'0',
-   
-  }}>       <UpTabledata />
+    marginTop:'30px',
+  }}>     
+    <AppTabledata />
        
       </Card>
     </Grid>

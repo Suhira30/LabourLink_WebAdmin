@@ -1,85 +1,80 @@
-
-import * as React from 'react';
-
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import InputLabel from '@mui/material/InputLabel';
-import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Axios from 'axios';
-import { useEffect, useState } from 'react';
 
-    export const FormJobDetail = () => {
-      const [user,setUser]=useState({
-        Jobtitle:" ",
-        Jobid:" ",
-        Description:" " 
-    });
-    const{Jobtitle,username,email}=user
-const onInputChange=(e)=>{
-    setUser({...user,[e.target.name]:e.target.value})
-}
+export const FormJobDetail = () => {
+  const [job, setJob] = useState({
+    jobName: '',
+    description: ''
+  });
+
+  const onInputChange = (e) => {
+    setJob({ ...job, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async () => {
+    try {
+      const response = await Axios.post('http://localhost:1000/job',job);
+      console.log(response.data); // log response from server
+      // Optionally, you can reset the form fields after successful submission
+      setJob({
+        jobName: '',
+        description: ''
+      });
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
   return (
-    <div style={{
+    <div style={{ width: '80%', maxWidth: '600px', margin: '0 auto' }}>
+      <Box sx={{ margin: '10px' }}>
+        <Typography variant="h6" gutterBottom>
+          Add new Job
+        </Typography>
+        <Box
+          component="form"
+          onSubmit={(e) => {
+            e.preventDefault(); // Prevent default form submission behavior
+            handleSubmit(); // Call handleSubmit function on form submission
+          }}
+          sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '10px' }}
+          noValidate
+          autoComplete="off"
+        >
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
+            <label htmlFor="jobName">Job Name</label>
+            <TextField
+              id="jobName"
+              name="jobName"
+              variant="outlined"
+              style={{ width: '500px' }}
+              value={job.jobName}
+              onChange={onInputChange}
+            />
 
-        width: '80%',
-        maxWidth: '600px', // Set maximum width if needed
-      
-    }}><Box sx={{ margin: '10px' }}>
-    <Typography variant="h6" gutterBottom>
-      Register User
-    </Typography>
-    <Box
-      component="form"
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center', // Align items to the center of the container
-        margin: '10px'
-      }}
-      noValidate
-      autoComplete="off"
-    >
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
-        <label htmlFor="Name">Job title</label>
-        <TextField 
-        id="Jobtitle" 
-        name="Jobtitle"
-        variant="outlined" 
-        style={{ width: '500px' }}
-        value ={user.Jobtitle}
-        onChange={(e)=>onInputChange(e)}/>
-        
-        <label htmlFor="Jobid">Job Id</label>
-        <TextField 
-        id="Jobid" 
-        variant="outlined" 
-        name="Jobid"
-        style={{ width: '500px' }}
-        value ={user.Jobid}
-        onChange={(e)=>onInputChange(e)}/>
-        
-        <label htmlFor="Description">Description</label>
-        <TextField
-          id="Description"
-          variant="outlined"  
-          name="Description"
-          style={{ width: '500px' }}
-          value ={user.Description}
-          onChange={(e)=>onInputChange(e)}
-        />
-      <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '20px' }}>
-  <Button variant="contained" color="primary">Submit</Button>
-  <div style={{ marginLeft: '10px' }}></div> 
-  <Button variant="contained" color="primary">Cancel</Button>
-</div>
-
-      </div>
-    </Box>
-  </Box>
-</div>
-
-  
-  )
-}
+            <label htmlFor="description">Description</label>
+            <TextField
+              id="description"
+              variant="outlined"
+              name="description"
+              style={{ width: '500px' }}
+              value={job.description}
+              onChange={onInputChange}
+            />
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '20px' }}>
+              <Button type="submit" variant="contained" color="primary">
+                ADD
+              </Button>
+              <div style={{ marginLeft: '10px' }}></div>
+              
+            </div>
+          </div>
+        </Box>
+      </Box>
+    </div>
+  );
+};

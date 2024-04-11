@@ -11,7 +11,7 @@ import Grid from '@mui/material/Grid';
 import { styled } from '@mui/material/styles';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-
+import { Link } from "react-router-dom";
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
   ...theme.typography.body2,
@@ -51,7 +51,7 @@ const IndividualUserDetail = () => {
                 <Card sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', maxWidth: 'auto', overflow: 'auto', height: 'auto' }}>        
                   <CardContent>
                     <Typography variant="h6" gutterBottom>
-                      Personal Detail
+                    {user.name}
                     </Typography>
                     {user && (
       <Box
@@ -62,72 +62,68 @@ const IndividualUserDetail = () => {
         }}
         noValidate
         autoComplete="off"
-      >
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
-          <label htmlFor={`name`}>Name</label>
-          <Box
-            id={`name`}
-            name={`name`}
-            value={user.name}
-            sx={{
-              width: '400px',
-              height: '50px',
-              border: '0.5px solid grey',
-              opacity: 0.5,
-            }}
-          ></Box>
-          <label htmlFor={`email`}>Email</label>
-          <Box
-            id={`email`}
-            name={`email`}
-            value={user.email}
-            sx={{
-              width: '400px',
-              height: '50px',
-              border: '0.5px solid grey',
-              opacity: 0.5,
-            }}
-          ></Box>
-          <label htmlFor={`role`}>Role</label>
-          <Box
-            id={`role`}
-            name={`role`}
-            value={user.role}
-            sx={{
-              width: '400px',
-              height: '50px',
-              border: '0.5px solid grey',
-              opacity: 0.5,
-            }}
-          ></Box>
-          <label htmlFor={`join_date`}>Join date</label>
-          <Box
-            id={`join_date`}
-            name={`join_date`}
-            value={user.join_date}
-            sx={{
-              width: '400px',
-              height: '50px',
-              border: '0.5px solid grey',
-              opacity: 0.5,
-            }}
-          ></Box>
-          
-        </div>
+      ><div style={{ display: 'flex', justifyContent: 'left' }}>
+      <table style={{ width: '50%' }}>
+        <tbody>
+          <tr>
+            <td style={{ width: '50%' }}> <strong>Name</strong></td>
+            <td>:</td>
+            <td>{user.name}</td>
+          </tr>
+          <tr>
+            <td style={{ width: '50%' }}><strong>Email</strong></td>
+            <td>:</td>
+            <td>{user.email}</td>
+          </tr>
+          <tr>
+            <td style={{ width: '50%' }}><strong>Role</strong></td>
+            <td>:</td>
+            <td>{user.role}</td>
+          </tr>
+          <tr  >
+            <td style={{ width: '50%'  }}><strong>Join date</strong></td>
+            <td>:</td>
+            <td>{user.joinDate}</td>
+          </tr>
+          <tr  >
+            <td style={{ width: '50%'  }}><strong>Mobile Number</strong></td>
+            <td>:</td>
+            <td>{user.mobileNumber}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    
       </Box>
     )}
                       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '20px' }}>
-                      <Button variant="contained" color="primary" style={{ marginRight: '20px' }}>Back</Button>
+                     
+                      <Link to={`/user-detail`}
+          style={{
+            display: "inline-block",
+            padding: "10px 20px",
+            backgroundColor: "#007bff",
+            color: "#fff",
+            border: "none",
+            borderRadius: "5px",
+            textDecoration: "none",
+            cursor: "pointer",
+            marginRight: '20px',
+          }}>
+            Back</Link>
+                      
+
                       <Button variant="contained" color="primary">Remove</Button>
+
                   </div>
                   </CardContent>
                 </Card>
               </Grid>
-              {/*----------------Todo list-------------------------*/}
+              {/*----------------Project List-------------------------*/}
               <Grid item xs={12} sm={6}>
                 <Card sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', maxWidth: 'auto', overflow: 'auto' ,height:'435px'}}>        
                   <CardContent>
-                    {/* Todo component goes here */}
+                    {/* Project List */}
                   </CardContent>
                 </Card>
               </Grid>

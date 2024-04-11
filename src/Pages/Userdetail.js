@@ -43,7 +43,7 @@ const Item = styled(Paper)(({ theme }) => ({
   }}>  
     <Box sx={{ flexGrow: 1,padding: '0',paddingRight:'0',marginTop:'30px', marginLeft: '15px', marginRight: 'auto',maxWidth: '1000px' }}>
        <Grid container rowSpacing={2} justifyContent= 'center' columnSpacing={{ xs: 1, sm: 2, md: 2 }}>
-     {/*top 4 boxes--01--------------------------------------------------------------------------------- */}
+     {/*top  boxes--01--------------------------------------------------------------------------------- */}
       <Grid item xs={12} sm={6} md={3}>
           <Card  sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', maxWidth: 220,'&:hover': { backgroundColor: '#f0f0f0' } }}>
       <CardMedia
