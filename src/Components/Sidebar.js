@@ -41,17 +41,6 @@ import imglogo from '../Img/app-logo.png';
 import { Link } from 'react-router-dom';
 
 const drawerWidth = 280;
-/*
-const GradientCircle = styled(Box)(({ theme }) => ({
-  width: theme.spacing(5),
-  height: theme.spacing(5),
-  borderRadius: '45%',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  background: `linear-gradient(45deg, rgba(255, 141, 41, 1) 90%, rgba(252, 177, 112, 0.8) 70%)`,  margin: '0 5px'
-}));*/
-
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
@@ -82,7 +71,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: 'inherit',
   '& .MuiInputBase-input': {
     padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
+   
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create('width'),
     width: '100%',
@@ -424,7 +413,7 @@ const Sidebar =  ({ children }) => {
         </DrawerHeader>
       
         <List>
-          {['Dashboard', 'Appointment', 'User detail', 'Job detail','Review','Notification','Setting page'].map((text, index) => (
+          {['Dashboard', 'Appointment', 'User detail', 'Job detail','Review','Notification','Log out'].map((text, index) => (
             <ListItem key={text} disablePadding onClick={() => handleItemClick(`/${text.toLowerCase().replace(' ', '-')}`)}
             sx={{
               '&:hover': {
@@ -455,7 +444,7 @@ const Sidebar =  ({ children }) => {
         </List>
       </Drawer>
       <Main open={open}>
-        {/* Render children (main content) */}
+      
         {children}
       </Main>
     </Box>

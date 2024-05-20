@@ -13,11 +13,11 @@ import delivery from '../Img/delivery.png';
 import order from '../Img/order.png';
 import revenue from '../Img/revenue.png';
 import { styled } from '@mui/material/styles';
-import AppTabledata from '../charts/AppointmentsUpcomming';
+import AppTabledata from '../charts/AppointmentsAll';
 import FinishedTabledata from '../charts/AppointmentsFinished';
 import CancelTabledata from '../charts/AppointmentsCancel';
 import AppointmentJob_vs_Total from '../charts/AppointmentJob_vs_Total';
-import AppointmentDate_vs_Total from '../charts/AppointmentDate_vs_Total';
+import CancelledAppointment_vs_Total from '../charts/AppointmentCancelled_vs_Total';
 import axios from 'axios';
 import { useEffect, useState } from "react";
 
@@ -106,9 +106,7 @@ useEffect(() => {
       <Typography gutterBottom variant="h5" component="div">
         {pendingCount}
         </Typography>
-        <Typography >
-       Pending Appointment
-        </Typography>
+        <Typography >Pending Appointment</Typography>
       </CardContent>
     </Card>
         </Grid>
@@ -128,8 +126,7 @@ useEffect(() => {
       <Typography gutterBottom variant="h5" component="div">
         {cancelCount}
         </Typography>
-        <Typography >        Cancelled Appointment
-        </Typography>
+        <Typography >Cancelled Appointment</Typography>
       </CardContent>
     </Card>
         </Grid>
@@ -148,8 +145,7 @@ useEffect(() => {
       <Typography gutterBottom variant="h5" component="div">
        {deliveredCount}
         </Typography>
-        <Typography >        Delivered Appointment
-        </Typography>
+        <Typography >Delivered Appointment</Typography>
       </CardContent>
     </Card>
         </Grid>
@@ -180,18 +176,18 @@ useEffect(() => {
   {/*---------------------------Table------------------------------------------------------- */}
   <Box sx={{ padding: '0',marginTop:'30px', marginLeft: 'auto', marginRight: 'auto',maxWidth: '1000px',paddingRight:'0'}}>
   <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 2 }}>
-    {/*--------------------chart : Date VS Total order ------------------- */}    
+    {/*--------------------chart : appointmet  VS Total order ------------------- */}    
   <Grid item xs={12} sm={6}>
     <Card sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', maxWidth: 'auto', overflow: 'auto',height:'500px'}}>        <CardContent>
           <AppointmentJob_vs_Total/>
         </CardContent>
       </Card>
     </Grid>
-         {/*--------------------chart : Job VS Total order ------------------- */}
+         {/*--------------------chart : cancelled appointment VS Total  ------------------- */}
     
     <Grid item xs={12} sm={6}>
     <Card sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', maxWidth: 'auto', overflow: 'auto' ,height:'500px'}}>        <CardContent>
-    <AppointmentDate_vs_Total/>
+    <CancelledAppointment_vs_Total/>
         </CardContent>
       </Card>
     </Grid>
@@ -209,7 +205,6 @@ useEffect(() => {
     marginTop:'30px',
   }}>     
     <AppTabledata />
-       
       </Card>
     </Grid>
     {/*--------------------02 table ------------------- */}

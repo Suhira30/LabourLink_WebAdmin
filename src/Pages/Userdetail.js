@@ -5,10 +5,9 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import Typography from '@mui/material/Typography';
-import cancel4 from '../Img/cancel.png';
-import delivery from '../Img/delivery.png';
-import order from '../Img/order.png';
-import revenue from '../Img/revenue.png';
+import suspenduser from '../Img/suspenduser.png';
+import totaluser from '../Img/totaluser.png';
+import deactiveuser from '../Img/deactiveuser.png';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import UserNew from '../charts/UserNew';
@@ -16,6 +15,8 @@ import UserSuspend from '../charts/UserSuspend';
 import UserDeactivate from '../charts/UserDeactivate';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
+import { useEffect, useState } from "react";
+import axios from 'axios';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -25,6 +26,16 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
  const Userdetail = () => {
+  const [userCount, setUserCount] = useState(0);
+  useEffect(() => {
+    axios.get("http://localhost:1000/user/count")
+        .then(response => {
+         setUserCount(response.data);
+        })
+        .catch(error => {
+            console.error("Error fetching pending appointments count:", error);
+        });
+}, []);
   const pageStyle = {
     backgroundColor: '#F3F2F7',
   };
@@ -52,14 +63,14 @@ const Item = styled(Paper)(({ theme }) => ({
         height:65,
         ml: 2
        }}
-        image={order}
+        image={totaluser}
       />
       <CardContent sx={{ flex: '1' }}>
       <Typography gutterBottom variant="h5" component="div">
-        65
+        {userCount}
         </Typography>
         <Typography >
-        Total Orders
+        Total Users
         </Typography>
       </CardContent>
     </Card>
@@ -74,13 +85,13 @@ const Item = styled(Paper)(({ theme }) => ({
           height:65,
           ml: 2
          }}
-        image={cancel4}
+        image={suspenduser}
       />
       <CardContent sx={{ flex: '1' }}>
       <Typography gutterBottom variant="h5" component="div">
-        60
+        --
         </Typography>
-        <Typography >        Total Delivery
+        <Typography >        Suspend User
         </Typography>
       </CardContent>
     </Card>
@@ -94,13 +105,12 @@ const Item = styled(Paper)(({ theme }) => ({
           height:65,
           ml: 2
          }}
-        image={delivery}
-      />
+         image={ deactiveuser}      />
       <CardContent sx={{ flex: '1' }}>
       <Typography gutterBottom variant="h5" component="div">
-        57
+       --
         </Typography>
-        <Typography >        Total Cancel
+        <Typography >        Deactive User
         </Typography>
       </CardContent>
     </Card>

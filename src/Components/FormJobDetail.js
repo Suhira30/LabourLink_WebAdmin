@@ -18,9 +18,7 @@ export const FormJobDetail = () => {
   const handleSubmit = async () => {
     try {
       const response = await Axios.post('http://localhost:1000/job',job);
-      console.log(response.data); // log response from server
-      // Optionally, you can reset the form fields after successful submission
-      setJob({
+           setJob({
         jobName: '',
         description: ''
       });
@@ -38,8 +36,8 @@ export const FormJobDetail = () => {
         <Box
           component="form"
           onSubmit={(e) => {
-            e.preventDefault(); // Prevent default form submission behavior
-            handleSubmit(); // Call handleSubmit function on form submission
+            e.preventDefault();
+            handleSubmit(); 
           }}
           sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '10px' }}
           noValidate

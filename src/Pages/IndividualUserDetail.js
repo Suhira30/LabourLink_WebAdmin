@@ -21,7 +21,7 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 const IndividualUserDetail = () => {
-  const { email } = useParams(); // Extract email ID from URL
+  const { email } = useParams(); 
   const [user, setUser] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -29,7 +29,6 @@ const IndividualUserDetail = () => {
   useEffect(() => {
     axios.get(`http://localhost:1000/user/${email}`)
       .then((response) => {
-        console.log(response.data);
         setUser(response.data);
       })
       .catch((error) => {
@@ -39,7 +38,14 @@ const IndividualUserDetail = () => {
         setLoading(false);
       });
   }, [email]); 
-
+  const handleClick=()=>{
+    axios.put(`http://localhost:1000/user/${email}`)
+          .then(response =>{
+            console.log("success");
+          }).catch(error=>{
+            console.log('failed');
+          });
+  }
   
   return (
     <>
@@ -96,9 +102,8 @@ const IndividualUserDetail = () => {
     
       </Box>
     )}
-                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '20px' }}>
-                     
-                      <Link to={`/user-detail`}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '20px' }}>
+      <Link to={`/user-detail`}
           style={{
             display: "inline-block",
             padding: "10px 20px",
@@ -111,10 +116,19 @@ const IndividualUserDetail = () => {
             marginRight: '20px',
           }}>
             Back</Link>
-                      
 
-                      <Button variant="contained" color="primary">Remove</Button>
-
+           <Button     
+           style={{
+            display: "inline-block",
+            padding: "10px 20px",
+            backgroundColor: "#007bff",
+            color: "#fff",
+            border: "none",
+            borderRadius: "5px",
+            textDecoration: "none",
+            cursor: "pointer",
+            marginRight: '20px',
+          }} onClick={handleClick}>Remove</Button>
                   </div>
                   </CardContent>
                 </Card>

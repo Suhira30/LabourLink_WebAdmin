@@ -3,6 +3,7 @@ import MUIDataTable from "mui-datatables";
 import axios from 'axios';
 import { Link } from "react-router-dom";
 import IndividualUserDetail from "../Pages/IndividualUserDetail";
+
 const UserNew = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -21,11 +22,7 @@ const UserNew = () => {
       });
   }, []);
 
-  const handleViewClick = (rowData) => {
-    // Handle view button click logic here, using rowData if needed
-    console.log("View button clicked!", rowData);
-  };
-
+  
   const columns = [
     { name: 'name', label: "User Name" },
     { name: 'email', label: "Email" },
@@ -40,7 +37,7 @@ const UserNew = () => {
           style={{
             display: "inline-block",
             padding: "10px 20px",
-            backgroundColor: "#007bff",
+            backgroundColor: "blue",
             color: "#fff",
             border: "none",
             borderRadius: "5px",

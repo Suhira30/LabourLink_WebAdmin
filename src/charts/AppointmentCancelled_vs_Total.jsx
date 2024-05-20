@@ -1,10 +1,9 @@
-
 import React, { useEffect ,useState} from "react";
 import { Chart } from "react-google-charts";
 import axios from "axios";
 
 
-const AppointmentJob_vs_Total = () => {
+const AppointmentCancelled_vs_Total = () => {
   const [dataFromBackend, setDataFromBackend] = useState([]);
 
 useEffect(()=>{
@@ -12,7 +11,7 @@ useEffect(()=>{
 },[]);
 const fetchData=async() => {
   try {
-    const response = await axios.get("http://localhost:1000/app/graphleft"); 
+    const response = await axios.get("http://localhost:1000/app/graphright"); 
      const formattedData = response.data.map(item => [item[0], parseInt(item[1])]);
      setDataFromBackend([["Job", "Total"], ...formattedData]);
   } catch (error) {
@@ -20,12 +19,12 @@ const fetchData=async() => {
   }
 };
 const options = {
-  title:"Job vs Total Appointment",
+  title:"Cancelled Appointment vs Total ",
   titleTextStyle: {
     fontSize: 16,
     bold: true,
  
-    textAlign: 'center', 
+    textAlign: 'Cancelled Appointment', 
   },
   hAxis: {
     title: "Job",
@@ -54,4 +53,5 @@ const options = {
   )
 }
 
-export default AppointmentJob_vs_Total
+
+export default AppointmentCancelled_vs_Total

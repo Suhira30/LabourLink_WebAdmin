@@ -1,40 +1,57 @@
 
-
-import React from "react";
+import React, { useEffect ,useState} from "react";
 import { Chart } from "react-google-charts";
+import axios from "axios";
 
-export const data = [
-  ["x", "Order"],
-  ["Mon", 0],
-  ["Tues", 10],
-  ["Thu", 23],
-  ["Fri", 17],
-  ["Sat", 18],
-  ["Sun", 9]
-];
 
-export const options = {
+const DashBoardLineChart = () => {
+  const [dataFromBackend, setDataFromBackend] = useState([]);
+
+useEffect(()=>{
+  fetchData();
+},[]);
+const fetchData=async() => {
+  try {
+    const response = await axios.get("http://localhost:1000/app/dashboard/g_AppCount"); 
+     const formattedData = response.data.map(item => [item[0], parseInt(item[1])]);
+     setDataFromBackend([["Job", "Total"], ...formattedData]);
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+};
+const options = {
+  title:"Day vs Total Appointment",
+  titleTextStyle: {
+    fontSize: 16,
+    bold: true,
+ 
+    textAlign: 'center', 
+  },
   hAxis: {
-    title: "Day",
+    title: "Job",
+    slantedTextAngle: 90,
+    textStyle: {
+      fontSize: 10, 
+    },
   },
   vAxis: {
-    title: "Total Order",
+    title: "Total",
   },
   series: {
     1: { curveType: "function" },
   },
+  legend: 'none',
 };
 
-export default function DashBoardOrder() {
   return (
     <Chart
     chartType="LineChart"
     width="100%"
-    height="100%"
-    data={data}
+    height="400px"
+    data={dataFromBackend} 
     options={options}
-  />
-  );
+    />
+  )
 }
 
-
+export default DashBoardLineChart

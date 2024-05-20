@@ -1,4 +1,4 @@
-import React from 'react'
+/*import React from 'react'
 import Sidebar from '../Components/Sidebar';
 import Footer from '../Components/Footer';
 
@@ -25,4 +25,4 @@ const chat = () => {
     )
 }
 
-export default chat;
+export default chat;*/

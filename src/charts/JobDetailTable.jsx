@@ -16,15 +16,15 @@ function createData(Job, Total) {
 }
 
 const rows = [
-  createData('Driver', 159),
-  createData('Plumber', 237),
-  createData('Carpenter', 262),
-  createData('Painter', 305),
-  createData('Chef', 356),
+  createData('------', 0),
+  createData('------', 0),
+  createData('------', 0),
+  createData('------', 0),
+  createData('------', 0),
  
 ];
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
-  padding: '30px', // Adjust padding to reduce the space between columns
+  padding: '30px',
 }));
 
 const StyledTableHead = styled(TableHead)({

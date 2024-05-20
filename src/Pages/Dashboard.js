@@ -9,9 +9,9 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import cancel4 from '../Img/cancel.png';
-import order from '../Img/order.png';
-import revenue from '../Img/revenue.png';
+import appointment from '../Img/appointment.png';
+import job from '../Img/job.png';
+import user from '../Img/user.png';
 import Barchart from '../charts/DashBoardBarchartLeft';
 import DashBoardBarchartRight from '../charts/DashBoardBarchartRight';
 import Order from '../charts/DashBoardLineChart';
@@ -29,6 +29,28 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 const Dashboard = () => {
+   //------------------------Count of user------------------
+   const [userCount, setUserCount] = useState(0);
+   useEffect(() => {
+     axios.get("http://localhost:1000/user/count")
+         .then(response => {
+          setUserCount(response.data);
+         })
+         .catch(error => {
+             console.error("Error fetching pending appointments count:", error);
+         });
+ }, []);
+  //------------------------Count of job------------------
+  const [jobCount, setJobCount] = useState(0);
+  useEffect(() => {
+    axios.get("http://localhost:1000/job/count")
+        .then(response => {
+          setJobCount(response.data);
+        })
+        .catch(error => {
+            console.error("Error fetching pending appointments count:", error);
+        });
+}, []);
   //-------------Total appointment-----------------------
 const [appointmentCount, setAppointmentCount] = useState(0);
 useEffect(() => {
@@ -69,11 +91,11 @@ useEffect(() => {
         height:65,
         ml: 2
        }}
-        image={order}
+        image={user}
       />
       <CardContent sx={{ flex: '1' }}>
       <Typography gutterBottom variant="h5" component="div">
-        65
+        {userCount}
         </Typography>
         <Typography >
         Total Users
@@ -91,11 +113,11 @@ useEffect(() => {
           height:65,
           ml: 2
          }}
-        image={cancel4}
+        image={job}
       />
       <CardContent sx={{ flex: '1' }}>
       <Typography gutterBottom variant="h5" component="div">
-        60
+        {jobCount}
         </Typography>
         <Typography >        Total Job
         </Typography>
@@ -111,7 +133,7 @@ useEffect(() => {
           height:65,
           ml: 2
          }}
-        image={order}
+        image={appointment}
       />
       <CardContent sx={{ flex: '1' }}>
       <Typography gutterBottom variant="h5" component="div">
@@ -161,16 +183,16 @@ useEffect(() => {
       </Card>
     </Grid>
     {/*-----------graph-line-Order---------- */}
-    <Grid item xs={12} sm={8}>
-    <Card sx={{ width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', overflow: 'auto',marginTop:'30px', height:'300px'  }}>
+    <Grid item xs={12} sm={6}>
+    <Card sx={{  display: 'flex', justifyContent: 'center', alignItems: 'center', overflow: 'auto',marginTop:'30px', maxWidth: 'auto' }}>
          <CardContent>
     <Order/>
         </CardContent>
       </Card>
     </Grid>
     {/*-----------graph-pie-Demands order---------- */}
-    <Grid item xs={12} sm={4}>
-    <Card sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', maxWidth: 'auto',marginTop:'30px', height:'300px' }}>        <CardContent>
+    <Grid item xs={12} sm={6}>
+    <Card sx={{ display: 'flex', justifyContent: 'center', marginTop:'30px',alignItems: 'center', maxWidth: 'auto', overflow: 'auto',height:'440px' }}>        <CardContent>
     <Pie_Dashboard />
         </CardContent>
       </Card>

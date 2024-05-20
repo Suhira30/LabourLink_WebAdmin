@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import MUIDataTable from "mui-datatables";
 import axios from 'axios';
 
-const AppointmentsUpcoming = () => {
+const AppointmentsAll = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [rowData, setRowData] = useState([]);
@@ -49,4 +49,4 @@ const AppointmentsUpcoming = () => {
     );
 };
 
-export default AppointmentsUpcoming;
+export default AppointmentsAll;

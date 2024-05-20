@@ -8,16 +8,14 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import cancel4 from '../Img/cancel.png';
-import delivery from '../Img/delivery.png';
-import order from '../Img/order.png';
-import revenue from '../Img/revenue.png';
-import { Table } from '@mui/material';
+import user from '../Img/user.png';
+import job from '../Img/job.png';
 import { styled } from '@mui/material/styles';
 import JobDetailTable from '../charts/JobDetailTable';
 import JobDemandLine from '../charts/JobDemandLine';
 import { FormJobDetail } from '../Components/FormJobDetail';
-
+import axios from 'axios';
+import { useEffect, useState } from "react";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -27,6 +25,17 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 const Jobdetail = () => {
+  //------------------------Count of job------------------
+  const [jobCount, setJobCount] = useState(0);
+  useEffect(() => {
+    axios.get("http://localhost:1000/job/count")
+        .then(response => {
+          setJobCount(response.data);
+        })
+        .catch(error => {
+            console.error("Error fetching pending appointments count:", error);
+        });
+}, []);
   const pageStyle = {
     backgroundColor: '#F3F2F7',
   };
@@ -47,21 +56,21 @@ const Jobdetail = () => {
        <Grid container rowSpacing={2} justifyContent= 'center' columnSpacing={{ xs: 1, sm: 2, md: 2 }}>
      {/*top 4 boxes--01--------------------------------------------------------------------------------- */}
       <Grid item xs={12} sm={6} md={3}>
-          <Card  sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', maxWidth: 220,'&:hover': { backgroundColor: '#f0f0f0' } }}>
+          <Card  sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', maxWidth: 220}}>
       <CardMedia
         sx={{
         width: 65,
         height:65,
         ml: 2
        }}
-        image={order}
+        image={job}
       />
       <CardContent sx={{ flex: '1' }}>
       <Typography gutterBottom variant="h5" component="div">
-        65
+       {jobCount}
         </Typography>
         <Typography >
-        Total Orders
+        Jobs
         </Typography>
       </CardContent>
     </Card>
@@ -76,54 +85,34 @@ const Jobdetail = () => {
           height:65,
           ml: 2
          }}
-        image={cancel4}
+        image={user}
       />
       <CardContent sx={{ flex: '1' }}>
       <Typography gutterBottom variant="h5" component="div">
-        60
+        --
         </Typography>
-        <Typography >        Total Delivery
+        <Typography >        High number
         </Typography>
       </CardContent>
     </Card>
         </Grid>
-      {/*top 4 boxes--03--------------------------------------------------------------------------------- */}
-      <Grid item xs={12} sm={6} md={3}>
-          <Card sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', maxWidth: 220}}>
-      <CardMedia
-         sx={{
-          width: 65,
-          height:65,
-          ml: 2
-         }}
-        image={delivery}
-      />
-      <CardContent sx={{ flex: '1' }}>
-      <Typography gutterBottom variant="h5" component="div">
-        57
-        </Typography>
-        <Typography >        Total Cancel
-        </Typography>
-      </CardContent>
-    </Card>
-        </Grid>
+      
   
         </Grid>
         </Box>
       </div>
   {/*---------------------------02 grid------------------------------------------------------- */}
-  <Box sx={{ padding: '0', marginTop:'30px', marginLeft: 'auto', marginRight: 'auto', maxWidth: '1000px' }}>
+  <Box sx={{ padding: '0', marginTop:'30px', marginLeft: 'auto', marginRight: 'auto', maxWidth: '1000px' ,paddingRight:'0'}}>
   <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} justifyContent="center" alignItems="center">
-  <Grid container spacing={1}>
   {/*-----------form-left----------- */}
-  <Grid item xs={12} sm={8} sx={{ height: '100%' }}>
+  <Grid item xs={12} sm={8} >
     <Card sx={{ display: 'flex', width: '100%', justifyContent: 'center', alignItems: 'center', overflow: 'auto', height: '100%' }}>        
       <FormJobDetail />
     </Card>
   </Grid>
-  {/*----------Left detail----------- */}
+  {/*----------Rigtht detail----------- */}
   <Grid item xs={12} sm={4} sx={{ height: '100%' }}>
-    <Card sx={{ display: 'flex', width: '80%', justifyContent: 'center', alignItems: 'center', overflow: 'auto', height: '100%' }}>       
+    <Card sx={{ display: 'flex', width: '100%', justifyContent: 'center', alignItems: 'center', overflow: 'auto', height: '100%' }}>       
       <JobDetailTable />
     </Card>
   </Grid>
@@ -135,7 +124,7 @@ const Jobdetail = () => {
         </CardContent>
       </Card>
     </Grid>
-    </Grid></Box>
+    </Box>
 
   {/*---------------------------Footer------------------------------------------------------- */}
    
