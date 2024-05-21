@@ -4,7 +4,7 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route, Outlet,createBrowserRouter, RouterProvider,Switch  } from "react-router-dom";
 import Appointment from "./Pages/Appointment";
 import Calender from "./Pages/Calender";
-
+import Login from "./Pages/Login";
 import Dashboard from './Pages/Dashboard';
 import Jobdetail from "./Pages/Jobdetail"
 import Notification from "./Pages/Notification"
@@ -38,7 +38,7 @@ function App() {
     <div >
       <BrowserRouter>
       <Routes>
-      <Route path="/"   element={<Dashboard/>}></Route>
+        <Route path="/" index element={ <Login />}/>
         <Route path="/dashboard"   element={<Dashboard/>}></Route>
         <Route path="/calender"   element={<Calender/> }></Route>
         <Route path="/job-detail"   element={<Jobdetail/> }></Route>

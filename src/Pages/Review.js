@@ -13,13 +13,11 @@ import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import cancel4 from '../Img/cancel.png';
-import order from '../Img/order.png';
+import averagereview from '../Img/averagereview.png';
+import review from '../Img/review.png';
 import Pagination from '@mui/material/Pagination';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
-import CheckIcon from '@mui/icons-material/Check';
-import CloseIcon from '@mui/icons-material/Close';
 import ReviewRating from '../Components/ReviewRating';
 
 const Review = () => {
@@ -106,7 +104,7 @@ const Review = () => {
                         height: 65,
                         ml: 2,
                       }}
-                      image={order}
+                      image={review}
                     />
                     <CardContent sx={{ flex: '1' }}>
                       <Typography gutterBottom variant="h5" component="div">
@@ -134,7 +132,7 @@ const Review = () => {
                         height: 65,
                         ml: 2,
                       }}
-                      image={cancel4}
+                      image={averagereview}
                     />
                     <CardContent sx={{ flex: '1' }}>
                       <Typography gutterBottom variant="h5" component="div">
@@ -162,7 +160,7 @@ const Review = () => {
                         height: 65,
                         ml: 2,
                       }}
-                      image={order}
+                      image={review}
                     />
                     <CardContent sx={{ flex: '1' }}>
                       <Typography gutterBottom variant="h5" component="div">
