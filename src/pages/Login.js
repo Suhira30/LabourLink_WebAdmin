@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import Box from '@mui/material/Box';
 import Item from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
@@ -13,29 +13,38 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useNavigate } from 'react-router-dom';
+import { loginAdmin } from '../services/AuthService';
 
-function Copyright(props) {
-    return (
-      <Typography variant="body2" color="text.secondary" align="center" {...props}>
-        {'Copyright © '}
-        <Link color="inherit" href="https://mui.com/">
-          Your Website
-        </Link>{' '}
-        {new Date().getFullYear()}
-        {'.'}
-      </Typography>
-    );
-  }
+
   const defaultTheme = createTheme();
-export const Login = () => {   
-      const handleSubmit = (event) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log({
-          email: data.get('email'),
-          password: data.get('password'),
-        });
-      };
+export const Login = () => {  
+  
+  const [logError, setLogError] = useState('');
+  const navigate = useNavigate();
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    console.log({
+      email: data.get('email'),
+      password: data.get('password'),
+    });
+
+    try{
+      let response = await loginAdmin("ADMIN", data.get('email'), data.get('password')); 
+
+      localStorage.setItem("token", response.data.accessToken);
+      localStorage.setItem("refreshToken", response.data.refreshToken);
+
+      console.log(response);
+      navigate('/'); // Navigate to the home page.
+            
+      setLogError("");
+    } catch (e){
+      setLogError("Invalid login, please try again");
+    }
+  };
 
 
   return (
@@ -65,7 +74,7 @@ export const Login = () => {
 >
    <Box
    sx={{
-    my: 12,
+    my: 9,
     display: 'flex',
     justifyContent: 'center', 
     alignItems: 'center', 
@@ -78,14 +87,14 @@ export const Login = () => {
    >
    <img 
   src={require('./images/app-logo3.png')} 
-  style={{ maxWidth: '152px', maxHeight: '153px'}} />
+  style={{ maxWidth: '80px', maxHeight: '80px'}} />
 </Box>
     </Box>
 
         <CssBaseline />
           <Box
             sx={{
-              my: 25,
+              my: 15,
               mx: 4,
               display: 'flex',
               flexDirection: 'column',
@@ -94,14 +103,29 @@ export const Login = () => {
             }}
           >
            
-            <Typography component="h1" variant="h4" >
-              Labor <span style={{ color: '#ec762f' }}>Link</span>
+            <Typography component="h4" variant="h4" >
+              Labour <span style={{ color: '#ec762f', fontWeight: '550' }}>LINK</span>
             </Typography>
-            <Typography component="h1" variant="h6">
+            <Typography variant="subtitle1" gutterBottom sx={{ mt: 2, mb:0 }} style={{ fontWeight: '550'  }}>
             Log in to your Account
             </Typography>
            
-            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 0 }}>
+
+            { logError &&
+              <Typography variant="subtitle2" gutterBottom color="#742F2F" backgroundColor="#F4D6D2" 
+                sx={{ mt: 0,
+                      mb:0,
+                      pt: 1, 
+                      pr: 2,
+                      pb: 1, 
+                      pl: 2, 
+                      borderRadius: 1
+                        }}>
+                {logError}
+              </Typography>
+            }
+
             <Typography variant="subtitle1" gutterBottom style={{ marginBottom: '-15px' }}>
       Email Address
     </Typography>
@@ -137,10 +161,13 @@ export const Login = () => {
                 fullWidth
                 variant="contained"
                 sx={{ 
-                  mt: 3, 
-                  mb: 2,
+                  mt: 1, 
+                  mb: 1,
                   backgroundColor: '#ec762f',
-                borderRadius:'20px'
+                  borderRadius:'20px',
+                  '&:hover': {
+                  backgroundColor: '#f2a272', // Light orange color
+                },
                 }}
                
               >
@@ -148,18 +175,18 @@ export const Login = () => {
               </Button>
               <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
-                <Link href="#" variant="body2">
+                <Link href="#" variant="body2"  sx={{mx:2, color:'#ec762f', textDecoration: 'none'}}>
                   Forgot password?
                 </Link>
               </Grid>
               <Grid item xs={12} sm={6}>
-                <Link href="#" variant="body2">
+                <Link href="#" variant="body2" sx={{mx:1, color:'#ec762f', textDecoration: 'none'}}>
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
             </Grid>
 
-              <Copyright sx={{ mt: 5 }} />
+              {/* <Copyright sx={{ mt: 5 }} /> */}
             </Box>
           </Box>
        
