@@ -221,9 +221,9 @@ const Review = () => {
               </Box>
             </Grid>
           </Box>
-
-          <div style={{ marginTop: '100px', marginLeft: '150px', marginRight: '150px' }}>
-            <Footer />
+  {/*---------------------------Footer------------------------------------------------------- */}
+          <div style={{marginTop:'30px',maxWidth:'100%'}}> 
+          <Footer />
           </div>
         </Sidebar>
       </div>

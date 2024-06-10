@@ -22,7 +22,6 @@ const UserNew = () => {
     fetchdata();
     },[]);
 
-  
   const columns = [
     { name: 'name', label: "User Name" },
     { name: 'email', label: "Email" },
@@ -37,7 +36,7 @@ const UserNew = () => {
           style={{
             display: "inline-block",
             padding: "10px 20px",
-            backgroundColor: "blue",
+            backgroundColor: "#1976d2",
             color: "#fff",
             border: "none",
             borderRadius: "5px",

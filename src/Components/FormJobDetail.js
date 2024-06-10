@@ -54,9 +54,9 @@ export const FormJobDetail = () => {
           </Alert>
         </Stack>
       )}
-      <div style={{ width: '100%', maxWidth: '600px', margin: '0 auto' }}>
-          <div style ={{marginTop:'0px',padding:'0px',height:'35px'}}>
-          <Typography variant="h6" gutterBottom>
+     <div style={{ width: '100%', maxWidth: '600px', margin: '0 ' }}>
+      <div style={{ backgroundColor: '#f0f0f0', marginTop: '0px', paddingLeft: '0px', height: '45px', marginLeft: '-29px', marginRight: '-29.3px',width:'auto',alignItems:'center' }}>
+       <Typography variant="h5" gutterBottom style={{ marginLeft: '20px' }}>
             Add new Job
           </Typography>
           </div>
@@ -91,7 +91,7 @@ export const FormJobDetail = () => {
                 onChange={onInputChange}
               />
               <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '10px' }}>
-                <Button type="submit" variant="contained" color="primary">
+                <Button type="submit" variant="contained" sx={{backgroundcolor:"#1976d2"}}>
                   ADD
                 </Button>
                 <div style={{ marginLeft: '10px' }}></div>
