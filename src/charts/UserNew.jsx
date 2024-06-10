@@ -1,26 +1,26 @@
 import React, { useEffect, useState } from "react";
 import MUIDataTable from "mui-datatables";
-import axios from 'axios';
 import { Link } from "react-router-dom";
 import IndividualUserDetail from "../Pages/IndividualUserDetail";
-
+import userService from "../Pages/Service/userService";
 const UserNew = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [rowData, setRowData] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:1000/user")
-      .then((response) => {
-        setRowData(response.data);
-      })
-      .catch((error) => {
-        setError(error);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, []);
+    const fetchdata=async () => {
+        try{
+            const tabledata=await userService.fetchNewUserData();
+            setRowData(tabledata.data);
+            setLoading(false);
+           }catch(error){
+            setError(error);
+            setLoading(false);
+           }
+    };
+    fetchdata();
+    },[]);
 
   
   const columns = [

@@ -21,8 +21,6 @@ import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined
 import WorkOutlineOutlinedIcon from '@mui/icons-material/WorkOutlineOutlined';
 import RateReviewOutlinedIcon from '@mui/icons-material/RateReviewOutlined';
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
-import DateRangeOutlinedIcon from '@mui/icons-material/DateRangeOutlined';
-import SmsOutlinedIcon from '@mui/icons-material/SmsOutlined';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import Menu from '@mui/material/Menu';
 import Badge from '@mui/material/Badge';
@@ -34,7 +32,6 @@ import InputBase from '@mui/material/InputBase';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import { useNavigate } from 'react-router-dom';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
-import CardGiftcardIcon from '@mui/icons-material/CardGiftcard';
 import MailOutlinedIcon from '@mui/icons-material/MailOutlined';
 import Avatar from '@mui/material/Avatar';
 import imglogo from '../Img/app-logo.png';

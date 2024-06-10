@@ -16,42 +16,38 @@ import JobDemandLine from '../charts/JobDemandLine';
 import { FormJobDetail } from '../Components/FormJobDetail';
 import axios from 'axios';
 import { useEffect, useState } from "react";
+import jobService from './Service/jobService';
 
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: 'center',
-  color: theme.palette.text.secondary,
-}));
 const Jobdetail = () => {
   //------------------------Count of job------------------
   const [jobCount, setJobCount] = useState(0);
   useEffect(() => {
-    axios.get("http://localhost:1000/job/count")
-        .then(response => {
-          setJobCount(response.data);
-        })
-        .catch(error => {
-            console.error("Error fetching pending appointments count:", error);
-        });
+    const fetchData = async () => {
+    try{
+      const jobs=await jobService.fetchJobCount();
+      setJobCount(jobs);}
+    catch (error) {
+      console.error('Error fetching count:', error);
+    }
+  };
+  fetchData();
 }, []);
   const pageStyle = {
     backgroundColor: '#F3F2F7',
   };
   return (
     <>
-        <div style={pageStyle}>
+  <div style={pageStyle}>
     <Sidebar>
     <div style={{display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  padding: '0',
-  marginTop: '80px',
-  marginLeft: 'auto',
-  marginRight: 'auto',
-  maxWidth: '1000px'
-  }}>  
+      justifyContent: 'center',
+      alignItems: 'center',
+      padding: '0',
+      marginTop: '80px',
+      marginLeft: 'auto',
+      marginRight: 'auto',
+      maxWidth: '1000px'
+      }}>  
     <Box sx={{ flexGrow: 1,padding: '0',paddingRight:'0',marginTop:'30px', marginLeft: '15px', marginRight: 'auto',maxWidth: '1000px' }}>
        <Grid container rowSpacing={2} justifyContent= 'center' columnSpacing={{ xs: 1, sm: 2, md: 2 }}>
      {/*top 4 boxes--01--------------------------------------------------------------------------------- */}
@@ -96,23 +92,21 @@ const Jobdetail = () => {
       </CardContent>
     </Card>
         </Grid>
-      
-  
         </Grid>
         </Box>
       </div>
   {/*---------------------------02 grid------------------------------------------------------- */}
-  <Box sx={{ padding: '0', marginTop:'30px', marginLeft: 'auto', marginRight: 'auto', maxWidth: '1000px' ,paddingRight:'0'}}>
+  <Box sx={{ padding: '0', marginTop:'30px', marginLeft: 'auto', marginRight: 'auto', maxWidth: '1000px' }}>
   <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} justifyContent="center" alignItems="center">
   {/*-----------form-left----------- */}
   <Grid item xs={12} sm={8} >
-    <Card sx={{ display: 'flex', width: '100%', justifyContent: 'center', alignItems: 'center', overflow: 'auto', height: '100%' }}>        
+    <Card sx={{ display: 'flex', width: '100%', justifyContent: 'center', alignItems: 'center', overflow: 'auto', height: '300px' }}>        
       <FormJobDetail />
     </Card>
   </Grid>
-  {/*----------Rigtht detail----------- */}
+  {/*----------Right detail----------- */}
   <Grid item xs={12} sm={4} sx={{ height: '100%' }}>
-    <Card sx={{ display: 'flex', width: '100%', justifyContent: 'center', alignItems: 'center', overflow: 'auto', height: '100%' }}>       
+    <Card sx={{ display: 'flex', width: '100%', justifyContent: 'center', overflow: 'auto', height: '300px' }}>       
       <JobDetailTable />
     </Card>
   </Grid>

@@ -27,7 +27,7 @@ const IndividualUserDetail = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    axios.get(`http://localhost:1000/user/${email}`)
+    axios.get(`http://localhost:1000/user/api/user/u/${email}`)
       .then((response) => {
         setUser(response.data);
       })
@@ -39,7 +39,7 @@ const IndividualUserDetail = () => {
       });
   }, [email]); 
   const handleClick=()=>{
-    axios.put(`http://localhost:1000/user/${email}`)
+    axios.put(`http://localhost:1000/user/api/user/u/${email}`)
           .then(response =>{
             console.log("success");
           }).catch(error=>{

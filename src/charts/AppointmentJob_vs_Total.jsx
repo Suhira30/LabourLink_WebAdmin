@@ -1,56 +1,42 @@
-
-import React, { useEffect ,useState} from "react";
+import React, { useEffect, useState } from "react";
 import { Chart } from "react-google-charts";
-import axios from "axios";
-
+import appointmentService from "../Pages/Service/appointmentService";
 
 const AppointmentJob_vs_Total = () => {
   const [dataFromBackend, setDataFromBackend] = useState([]);
 
 useEffect(()=>{
-  fetchData();
-},[]);
-const fetchData=async() => {
+const fetchData = async () => {
   try {
-    const response = await axios.get("http://localhost:1000/app/graphleft"); 
-     const formattedData = response.data.map(item => [item[0], parseInt(item[1])]);
-     setDataFromBackend([["Job", "Total"], ...formattedData]);
+    const chartdata = await appointmentService.fetchAppointmentVsTotal(); 
+     setDataFromBackend(chartdata);
   } catch (error) {
     console.error("Error fetching data:", error);
   }
 };
-const options = {
-  title:"Job vs Total Appointment",
-  titleTextStyle: {
-    fontSize: 16,
-    bold: true,
- 
-    textAlign: 'center', 
-  },
-  hAxis: {
-    title: "Job",
-    slantedTextAngle: 90,
-    textStyle: {
-      fontSize: 10, 
-    },
-  },
-  vAxis: {
-    title: "Total",
-  },
-  series: {
-    1: { curveType: "function" },
-  },
-  legend: 'none',
-};
-
+  fetchData();
+},[]);
+    const options = {
+      chart: {
+        title: "Appointment vs Total ",
+        hAxis: {
+          title: "Total",
+        },
+        vAxis: {
+          title: "Job",
+        },
+      },
+    };
   return (
+    <div>
     <Chart
-    chartType="LineChart"
-    width="100%"
-    height="400px"
-    data={dataFromBackend} 
-    options={options}
+      chartType="Bar"
+      width="100%"
+      height="400px"
+      data={dataFromBackend}
+      options={options}
     />
+</div>
   )
 }
 

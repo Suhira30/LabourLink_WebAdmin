@@ -3,76 +3,103 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import Axios from 'axios';
+import jobService from '../Pages/Service/jobService';
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
+import Stack from '@mui/material/Stack';
 
 export const FormJobDetail = () => {
   const [job, setJob] = useState({
     jobName: '',
     description: ''
   });
-
+  const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
   const onInputChange = (e) => {
     setJob({ ...job, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async () => {
     try {
-      const response = await Axios.post('http://localhost:1000/job',job);
-           setJob({
+      const response = await jobService.createJob(job);
+      console.log('Response:', response); 
+      setSuccessMessage(response.data.message || "Successfully added");
+    setErrorMessage("");
+
+      setJob({
         jobName: '',
         description: ''
       });
     } catch (error) {
       console.error('Error:', error);
+      setErrorMessage("Already exist");
     }
   };
 
   return (
-    <div style={{ width: '80%', maxWidth: '600px', margin: '0 auto' }}>
-      <Box sx={{ margin: '10px' }}>
-        <Typography variant="h6" gutterBottom>
-          Add new Job
-        </Typography>
-        <Box
-          component="form"
-          onSubmit={(e) => {
-            e.preventDefault();
-            handleSubmit(); 
-          }}
-          sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '10px' }}
-          noValidate
-          autoComplete="off"
-        >
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
-            <label htmlFor="jobName">Job Name</label>
-            <TextField
-              id="jobName"
-              name="jobName"
-              variant="outlined"
-              style={{ width: '500px' }}
-              value={job.jobName}
-              onChange={onInputChange}
-            />
-
-            <label htmlFor="description">Description</label>
-            <TextField
-              id="description"
-              variant="outlined"
-              name="description"
-              style={{ width: '500px' }}
-              value={job.description}
-              onChange={onInputChange}
-            />
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '20px' }}>
-              <Button type="submit" variant="contained" color="primary">
-                ADD
-              </Button>
-              <div style={{ marginLeft: '10px' }}></div>
-              
-            </div>
+    <>
+      {successMessage && (
+        <Stack sx={{ width: '100%' }} spacing={1}>
+          <Alert severity="success">
+            <AlertTitle>Success</AlertTitle>
+            {successMessage}
+          </Alert>
+        </Stack>
+      )}
+      {errorMessage && (
+        <Stack >
+          <Alert severity="error">
+            <AlertTitle>Error</AlertTitle>
+            {errorMessage}
+          </Alert>
+        </Stack>
+      )}
+      <div style={{ width: '100%', maxWidth: '600px', margin: '0 auto' }}>
+          <div style ={{marginTop:'0px',padding:'0px',height:'35px'}}>
+          <Typography variant="h6" gutterBottom>
+            Add new Job
+          </Typography>
           </div>
+          <Box
+            component="form"
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleSubmit();
+            }}
+            sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '8px' }}
+            noValidate
+            autoComplete="off"
+          >
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
+              <label htmlFor="jobName">Job Name</label>
+              <TextField
+                id="jobName"
+                name="jobName"
+                variant="outlined"
+                style={{ width: '350px' }}
+                value={job.jobName}
+                onChange={onInputChange}
+              />
+
+              <label htmlFor="description">Description</label>
+              <TextField
+                id="description"
+                variant="outlined"
+                name="description"
+                style={{ width: '350px' }}
+                value={job.description}
+                onChange={onInputChange}
+              />
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '10px' }}>
+                <Button type="submit" variant="contained" color="primary">
+                  ADD
+                </Button>
+                <div style={{ marginLeft: '10px' }}></div>
+
+              </div>
+            </div>
         </Box>
-      </Box>
-    </div>
+      </div>
+    </>
   );
 };

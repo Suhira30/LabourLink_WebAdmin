@@ -13,32 +13,26 @@ import CardMedia from '@mui/material/CardMedia';
 import UserNew from '../charts/UserNew';
 import UserSuspend from '../charts/UserSuspend';
 import UserDeactivate from '../charts/UserDeactivate';
-import { styled } from '@mui/material/styles';
-import Paper from '@mui/material/Paper';
 import { useEffect, useState } from "react";
-import axios from 'axios';
+import userService from './Service/userService';
 
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: 'center',
-  color: theme.palette.text.secondary,
-}));
+const pageStyle = {
+  backgroundColor: '#F3F2F7',
+};
  const Userdetail = () => {
   const [userCount, setUserCount] = useState(0);
   useEffect(() => {
-    axios.get("http://localhost:1000/user/count")
-        .then(response => {
-         setUserCount(response.data);
-        })
-        .catch(error => {
-            console.error("Error fetching pending appointments count:", error);
-        });
+    const fetchData = async () => {
+    try{
+      const users=await userService.fetchUserCount();
+      setUserCount(users);}
+      catch (error) {
+        console.error('Error fetching count:', error);
+      }
+    };
+    fetchData();
 }, []);
-  const pageStyle = {
-    backgroundColor: '#F3F2F7',
-  };
+ 
   return (
     <>
         <div style={pageStyle}>

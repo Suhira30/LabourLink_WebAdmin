@@ -1,41 +1,40 @@
 
 import React, { useEffect ,useState} from "react";
 import { Chart } from "react-google-charts";
-import axios from "axios";
-
+import dashboardService from '../Pages/Service/dashboardService';
 
 const DashBoardLineChart = () => {
   const [dataFromBackend, setDataFromBackend] = useState([]);
 
 useEffect(()=>{
-  fetchData();
-},[]);
 const fetchData=async() => {
   try {
-    const response = await axios.get("http://localhost:1000/app/dashboard/g_AppCount"); 
-     const formattedData = response.data.map(item => [item[0], parseInt(item[1])]);
-     setDataFromBackend([["Job", "Total"], ...formattedData]);
+    const chartData = await dashboardService.fetchTotalAppointmentPerDay();
+    setDataFromBackend(chartData);
   } catch (error) {
-    console.error("Error fetching data:", error);
+    console.error("Error fetching fetch total appointment per day:", error);
   }
-};
+};    
+fetchData();
+}, []);
 const options = {
   title:"Day vs Total Appointment",
-  titleTextStyle: {
-    fontSize: 16,
-    bold: true,
- 
-    textAlign: 'center', 
-  },
+
   hAxis: {
-    title: "Job",
+    title: "Day",
     slantedTextAngle: 90,
     textStyle: {
-      fontSize: 10, 
+      fontSize: 10,
+    },
+    gridlines: {
+      count: -1,
+    },
+    minorGridlines: {
+      count: 0,
     },
   },
   vAxis: {
-    title: "Total",
+    title: "Appointment total",
   },
   series: {
     1: { curveType: "function" },

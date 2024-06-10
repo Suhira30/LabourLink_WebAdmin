@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import MUIDataTable from "mui-datatables";
-import axios from 'axios';
+import appointmentService from "../Pages/Service/appointmentService";
 
 const AppointmentsFinished = () => {
     const [loading, setLoading] = useState(true);
@@ -8,15 +8,17 @@ const AppointmentsFinished = () => {
     const [rowData, setRowData] = useState([]);
     
     useEffect(() => {
-        axios.get("http://localhost:1000/app/deliver")
-            .then(response => {
-                setRowData(response.data); 
-                setLoading(false); 
-            })
-            .catch(error => {
-                setError(error);
-                setLoading(false); 
-            });
+        const fetchdata =async () =>{
+            try{
+            const tabledata=await appointmentService.fetchDeliveredAppointmentData();
+            setRowData(tabledata.data);
+            setLoading(false);
+            }catch (error){
+            setError(error);
+            setLoading(false);
+            }
+        };
+       fetchdata();
     }, []); 
     
     const columns = [
