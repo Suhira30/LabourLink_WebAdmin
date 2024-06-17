@@ -3,9 +3,6 @@ const BASE_URL='http://localhost:1000';
 const dashboardService=axios.create({
     baseURL:BASE_URL,});
    
-    const token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdWhpcmFiM0BnbWFpbC5jb20iLCJpYXQiOjE3MTc3MzU0MTAsImV4cCI6MTcxODM0MDIxMH0.Xyn9P3_638rYrNNV-7tiS0-234xOzZAXePpYq12NOoc';
-    localStorage.setItem('token', token);
-
     dashboardService.interceptors.request.use(
         (config)=>
             {
@@ -43,7 +40,7 @@ const dashboardService=axios.create({
   //---------------------------Total appointment-----------------------
  const fetchAppointmentCount = async ()=> {
 try{
-    const response=await dashboardService.get('/app/total_app');
+    const response=await dashboardService.get('/api/bookings/total_app');
     return response.data;
 }catch(error){
     console.log('Error fetching appointment count:', error);
@@ -52,7 +49,7 @@ try{
   //---------------------------Dashboard barchart - Active Customer- left---------------------
   const fetchActiveCustomerData = async () => {
     try {
-      const response = await dashboardService.get("/app/dashboard/g_active"); 
+      const response = await dashboardService.get("/api/bookings/dashboard/g_active"); 
       const formattedData = response.data.reduce((acc, item) => {
         acc[item[0]] = parseInt(item[1]);
         return acc;
@@ -73,7 +70,7 @@ try{
 //---------------------------Dashboard barchart -Active labour - right----------------------
 const fetchActiveLabourData = async () => {
     try {
-      const response = await dashboardService.get("/app/dashboard/g_active_l"); 
+      const response = await dashboardService.get("/api/bookings/dashboard/g_active_l"); 
       const formattedData = response.data.reduce((acc, item) => {
         acc[item[0]] = parseInt(item[1]);
         return acc;
@@ -94,7 +91,7 @@ const fetchActiveLabourData = async () => {
 //---------------------------Dashboard barchart -Active labour - right----------------------
 const fetchTotalAppointmentPerDay = async () => {
   try {
-    const response = await dashboardService.get("/app/dashboard/g_AppCount"); 
+    const response = await dashboardService.get("/api/bookings/dashboard/g_AppCount"); 
     const formattedData = response.data.reduce((acc, item) => {
       acc[item[0]] = parseInt(item[1]);
       return acc;

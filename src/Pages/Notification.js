@@ -12,6 +12,7 @@ import Grid from '@mui/material/Grid';
 import Pagination from '@mui/material/Pagination';
 import Typography from '@mui/material/Typography';
 
+
 const Notification = () => {
   const pageStyle = {
     backgroundColor: '#F3F2F7',

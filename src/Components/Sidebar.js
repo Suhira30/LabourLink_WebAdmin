@@ -295,7 +295,7 @@ const Sidebar =  ({ children }) => {
           >
             LABOR LINK
           </Typography>
-          <Search>
+          {/* <Search>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
@@ -304,7 +304,7 @@ const Sidebar =  ({ children }) => {
               inputProps={{ 'aria-label': 'search' }}
             />
           </Search>
-          
+           */}
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
           <Box style={{ display: 'flex', alignItems: 'center', marginRight:"30px"}}>

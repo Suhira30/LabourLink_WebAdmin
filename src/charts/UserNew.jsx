@@ -3,6 +3,7 @@ import MUIDataTable from "mui-datatables";
 import { Link } from "react-router-dom";
 import IndividualUserDetail from "../Pages/IndividualUserDetail";
 import userService from "../Pages/Service/userService";
+
 const UserNew = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -12,7 +13,8 @@ const UserNew = () => {
     const fetchdata=async () => {
         try{
             const tabledata=await userService.fetchNewUserData();
-            setRowData(tabledata.data);
+            console.log('Fetched data:', tabledata); 
+            setRowData(tabledata);
             setLoading(false);
            }catch(error){
             setError(error);
@@ -53,7 +55,7 @@ const UserNew = () => {
   const options = {
     selectableRows: "none",
     rowsPerPageOptions: [5, 10, 15],
-    rowsPerPage: 5,
+    rowsPerPage: 4,
   };
 
   if (loading) return <div>Loading...</div>;

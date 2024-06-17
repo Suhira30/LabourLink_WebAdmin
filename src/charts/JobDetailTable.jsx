@@ -2,18 +2,22 @@ import React, { useEffect, useState } from "react";
 import MUIDataTable from "mui-datatables";
 import { BorderColor, Height } from "@mui/icons-material";
 import { makeStyles } from '@mui/styles';
-import { colors } from "@mui/material";
+import jobService from "../Pages/Service/jobService";
 
 const useStyles = makeStyles({
   root: {
     '& .MuiPaper-root': {
       boxShadow: 'none', 
+      Height:'100%',
     },
     '& .MuiTable-root': {
       border: 'none', 
+      Height:'100%',
     },
-    '& .MuiTableCell-root': {
-      borderBottom: 'none',
+    '& .MuiTableCell-root, & .MuiTableCell-body, & .MuiTableCell-sizeMedium, & .tss-1qtl85h-MUIDataTableBodyCell-root, & .tss-1y3wvy9-MUIDataTableBodyCell-stackedParent, & .tss-iwylj0-MUIDataTableBodyCell-responsiveStackedSmallParent, & .css-1ex1afd-MuiTableCell-root': {
+      height: '15px', // Set the desired height for table cells
+      paddingLeft: '15px', 
+      paddingRight: '0px', 
     },
     '& .MuiTableFooter-root': {
       border: 'none', 
@@ -37,13 +41,14 @@ const JobDetailTable = () => {
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  //const [rowData, setRowData] = useState([]);
-  /*
+  const [rowData, setRowData] = useState([]);
+  
   useEffect(() => {
       const fetchdata = async () =>{
           try{
-          const tabledata = await appointmentService.fetchDeliveredAppointmentData();
-          setRowData(tabledata.data);
+          const tabledata = await jobService.fetchLabour_Job();
+          console.log('Fetched data:', tabledata); 
+          setRowData(tabledata);
           setLoading(false);
           } catch (error) {
           setError(error);
@@ -51,27 +56,19 @@ const JobDetailTable = () => {
           }
       };
     fetchdata();
-  }, []); */
+  }, []); 
 
   const columns = [
       { name: 'job', label: "Job" },
       { name: 'total', label: "Total" }
   ];
 
-  const rowData = [
-    ["Driver", 10],
-    ["Driver", 10],
-    ["Driver", 10],
-    ["Driver", 10],
-    ["Driver", 10],
-    ["Driver", 10],
-    ["Driver", 10],
-  ];
+
 
   const options = {
       selectableRows: "none",
       rowsPerPageOptions: false,
-      rowsPerPage: 6,
+      rowsPerPage: 4,
       search: false,
       download: false,
       print: false,
@@ -79,9 +76,9 @@ const JobDetailTable = () => {
       filter: false,
   };
 
-  {/*if (loading) return <div>Loading...</div>; 
-  if (error) return <div>Error: {error.message}</div>; 
-  */}
+ 
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
 
   return (
       <div className={classes.root} style={{ height: "100%", width: "400px" }}>

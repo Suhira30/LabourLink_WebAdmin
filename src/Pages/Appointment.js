@@ -40,8 +40,7 @@ const Appointment = () => {
       setCancelCount(cancel);
       const deliver=await appointmentService.fetchDeliveredAppointmentCount();
       setDeliveredCount(deliver);
-      const revenue=await appointmentService.fetchRevenueAmount();
-      setRevenue(revenue);
+     
   }catch(error){
     console.error('Error fetching count:', error);
   }
@@ -109,21 +108,6 @@ const Appointment = () => {
     </Card>
   </Grid>
 
-  {/*top 4 boxes--04--------------------------------------------------------------------------------- */}
-  <Grid item xs={12} sm={6} md={3}>
-    <Card  sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', maxWidth: 220,height: 120}}>
-      <CardMedia
-        sx={{
-        width: 65,
-        height:65,
-        ml: 2
-        }}image={revenue}/>
-      <CardContent sx={{ flex: '1' }}>
-        <Typography gutterBottom variant="h5" component="div">{Revenue}</Typography>
-        <Typography > Total Revenue</Typography>
-      </CardContent>
-    </Card>
-  </Grid>
   </Grid>
   </Box>
   </div>

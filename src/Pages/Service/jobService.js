@@ -2,9 +2,6 @@ import axios from 'axios';
 const BASE_URL='http://localhost:1000';
 const jobService=axios.create({
     baseURL:BASE_URL,});
-   
-    const token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdWhpcmFiM0BnbWFpbC5jb20iLCJpYXQiOjE3MTc3MzU0MTAsImV4cCI6MTcxODM0MDIxMH0.Xyn9P3_638rYrNNV-7tiS0-234xOzZAXePpYq12NOoc';
-    localStorage.setItem('token', token);
 
     jobService.interceptors.request.use(
         (config)=>
@@ -38,8 +35,28 @@ const jobService=axios.create({
           throw error;
         }
       };
+//--------------------------------Table  :- JOb and labour   -------------------
+  const fetchLabour_Job = async () => {
+    try {
+    const response = await jobService.get('/job/countwithname');
+    return (response.data);
+    }catch (error) {
+       throw (error);
+    }
+    };
+    //--------------------------------Table  :- JOb and labour   -------------------
+  const fetchLabourJobCountsForPie = async () => {
+    try {
+    const response = await jobService.get('/job/countwithname');
+    return (response.data);
+    }catch (error) {
+       throw (error);
+    }
+    };
     export default{
         jobService,
         createJob,
         fetchJobCount,
+        fetchLabour_Job,
+        fetchLabourJobCountsForPie,
       }

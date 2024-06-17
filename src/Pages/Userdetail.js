@@ -21,11 +21,18 @@ const pageStyle = {
 };
  const Userdetail = () => {
   const [userCount, setUserCount] = useState(0);
+  const [suspendUserCount, setSuspendUserCount] = useState(0);
+  const [deactivatedUserCount, setDeactivatedUserCount] = useState(0);
   useEffect(() => {
     const fetchData = async () => {
     try{
       const users=await userService.fetchUserCount();
-      setUserCount(users);}
+      setUserCount(users);
+      const suspendusers=await userService.fetchSuspendUserCount();
+      setSuspendUserCount(suspendusers);
+      const deactivatedusers=await userService.fetchDeactivatedUserCount();
+      setDeactivatedUserCount(deactivatedusers);
+    }
       catch (error) {
         console.error('Error fetching count:', error);
       }
@@ -34,18 +41,18 @@ const pageStyle = {
 }, []);
  
   return (
-    <>
-        <div style={pageStyle}>
+  <>
+  <div style={pageStyle}>
     <Sidebar>
     <div style={{display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  padding: '0',
-  marginTop: '80px',
-  marginLeft: 'auto',
-  marginRight: 'auto',
-  maxWidth: '1000px'
-  }}>  
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: '0',
+    marginTop: '80px',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    maxWidth: '1000px'
+    }}>  
     <Box sx={{ flexGrow: 1,padding: '0',paddingRight:'0',marginTop:'30px', marginLeft: '15px', marginRight: 'auto',maxWidth: '1000px' }}>
        <Grid container rowSpacing={2} justifyContent= 'center' columnSpacing={{ xs: 1, sm: 2, md: 2 }}>
      {/*top  boxes--01--------------------------------------------------------------------------------- */}
@@ -83,10 +90,9 @@ const pageStyle = {
       />
       <CardContent sx={{ flex: '1' }}>
       <Typography gutterBottom variant="h5" component="div">
-        --
+      {suspendUserCount}
         </Typography>
-        <Typography >        Suspend User
-        </Typography>
+        <Typography >Suspend User</Typography>
       </CardContent>
     </Card>
         </Grid>
@@ -102,10 +108,9 @@ const pageStyle = {
          image={ deactiveuser}      />
       <CardContent sx={{ flex: '1' }}>
       <Typography gutterBottom variant="h5" component="div">
-       --
+      {deactivatedUserCount}
         </Typography>
-        <Typography >        Deactive User
-        </Typography>
+        <Typography >Deactive User</Typography>
       </CardContent>
     </Card>
         </Grid>

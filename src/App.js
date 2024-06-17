@@ -1,6 +1,7 @@
 
 import './App.css';
-import ReactDOM from "react-dom/client";
+import ReactDOM from 'react-dom';
+//import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route, Outlet,createBrowserRouter, RouterProvider,Switch  } from "react-router-dom";
 import Appointment from "./Pages/Appointment";
 import Login from "./Pages/Login";
