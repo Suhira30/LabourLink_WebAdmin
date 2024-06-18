@@ -20,18 +20,18 @@ import jobService from './Service/jobService';
 
 const Jobdetail = () => {
   //------------------------Count of job------------------
-  const [jobCount, setJobCount] = useState(0);
-  useEffect(() => {
-    const fetchData = async () => {
-    try{
-      const jobs=await jobService.fetchJobCount();
-      setJobCount(jobs);}
-    catch (error) {
-      console.error('Error fetching count:', error);
-    }
-  };
-  fetchData();
-}, []);
+//   const [jobCount, setJobCount] = useState(0);
+//   useEffect(() => {
+//     const fetchData = async () => {
+//     try{
+//       const jobs=await jobService.fetchJobCount();
+//       setJobCount(jobs);}
+//     catch (error) {
+//       console.error('Error fetching count:', error);
+//     }
+//   };
+//   fetchData();
+// }, []);
   const pageStyle = {
     backgroundColor: '#F3F2F7',
   };
@@ -63,7 +63,7 @@ const Jobdetail = () => {
       />
       <CardContent sx={{ flex: '1' }}>
       <Typography gutterBottom variant="h5" component="div">
-       {jobCount}
+       --
         </Typography>
         <Typography >
         Jobs
@@ -101,7 +101,7 @@ const Jobdetail = () => {
   {/*-----------form-left----------- */}
   <Grid item xs={12} sm={8} >
     <Card sx={{ display: 'flex', width: '100%', justifyContent: 'center', alignItems: 'center', overflow: 'auto', height: '300px' }}>        
-      <FormJobDetail />
+      {/* <FormJobDetail /> */}
     </Card>
   </Grid>
   {/*----------Right detail----------- */}
