@@ -201,7 +201,6 @@ const Review = () => {
                       />   </Box>
                        <Box sx={{display: 'flex',  position: 'absolute', bottom: 9, right: 50 }}>
                        <Stack direction="row" spacing={2}>
-                       <Button variant="contained" color="success">Show</Button>
                       <Button sx={{ color: 'red' }}>Remove</Button>
                     </Stack>
                             

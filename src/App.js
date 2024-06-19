@@ -15,6 +15,8 @@ import Footer from "./Components/Footer";
 import Searchbar from './Components/Searchbar';
 import Sidebar from "./Components/Sidebar";
 import IndividualUserDetail  from './Pages/IndividualUserDetail';
+import IndividualSuspendUserDetail  from './Pages/IndividualSuspendUser';
+import IndividualDeactivateUserDetail  from './Pages/IndividualDeactivatedUser';
 function App() {
 
       const Layout = () => {
@@ -45,8 +47,10 @@ function App() {
         <Route path="/review"   element={<Review/> }></Route>
         <Route path="/setting-page"   element={<Settingpage/> }></Route>
         <Route path="/user-detail"   element={<Userdetail/> }></Route>
-        <Route path="/appointment"   element={<Appointment/> }></Route>
+        <Route path="/bookings"   element={<Appointment/> }></Route>
         <Route path="/user-detail/:email" element={<IndividualUserDetail />} />
+        <Route path="/suspenduser-detail/:email" element={<IndividualSuspendUserDetail />} />
+        <Route path="/deactivateuser-detail/:email" element={<IndividualDeactivateUserDetail />} />
       </Routes>
       </BrowserRouter>
     </div>

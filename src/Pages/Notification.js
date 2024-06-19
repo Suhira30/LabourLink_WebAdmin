@@ -1,131 +1,122 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Sidebar from '../Components/Sidebar';
 import Footer from '../Components/Footer';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import Divider from '@mui/material/Divider';
 import ListItemText from '@mui/material/ListItemText';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import Pagination from '@mui/material/Pagination';
 import Typography from '@mui/material/Typography';
+import SockJS from 'sockjs-client';
+import { Client } from '@stomp/stompjs';
 
 const Notification = () => {
   const pageStyle = {
     backgroundColor: '#F3F2F7',
   };
 
-  const listData = [
-    { id: 1, User: 'James', avatar: '/static/images/avatar/1.jpg', details: "Submit the resume for the job", date: 'Today' },
-    { id: 2, User: 'Michael', avatar: '/static/images/avatar/2.jpg', details: "Submit the resume for the job", date: 'Today' },
-    { id: 3, User: 'Robert', avatar: '/static/images/avatar/3.jpg', details: "Add a review ", date: 'Yesterday' },
-    { id: 4, User: 'John', avatar: '/static/images/avatar/2.jpg', details: "Submit the resume for the job", date: 'Yesterday' },
-    { id: 5, User: 'Daniel', avatar: '/static/images/avatar/3.jpg', details: "Add a review ", date: 'Yesterday' },
-    { id: 6, User: 'William', avatar: '/static/images/avatar/2.jpg', details: "Submit the resume for the job", date: '2 days ago' },
-    { id: 7, User: 'Richard', avatar: '/static/images/avatar/3.jpg', details: "Add a review ", date: '2024-05-14' },
-    { id: 8, User: 'Joseph', avatar: '/static/images/avatar/2.jpg', details: "Add a review ", date: '2024-05-13' },
-    { id: 9, User: 'Paul', avatar: '/static/images/avatar/3.jpg', details: "Add a review ", date: '2024-05-12' },
-    { id: 10, User: 'Christopher', avatar: '/static/images/avatar/2.jpg', details: "Submit the resume for the job", date: '2024-05-11' },
-    { id: 11, User: 'Andrew', avatar: '/static/images/avatar/3.jpg', details: "Add a review ", date: '2024-05-10' },
-    { id: 12, User: 'Richard', avatar: '/static/images/avatar/2.jpg', details: "Submit the resume for the job", date: '2024-05-09' },
-    { id: 13, User: 'John', avatar: '/static/images/avatar/3.jpg', details: "Submit the resume for the job", date: '2024-05-08' },
-  ];
+  const [notifications, setNotifications] = useState([]);
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
+  useEffect(() => {
+    // Fetch all notifications from the backend
+    const fetchNotifications = () => {
+      fetch('http://localhost:1000/api/adminnotification')
+        .then(response => response.json())
+        .then(data => {
+          const storageAvailable = ('localStorage' in window);
+          const savedNotifications = storageAvailable ? JSON.parse(localStorage.getItem('notifications') || '[]') : [];
+          const mergedNotifications = [...data, ...savedNotifications];
+          setNotifications(mergedNotifications);
 
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = listData.slice(indexOfFirstItem, indexOfLastItem);
+          if (storageAvailable) {
+            localStorage.setItem('notifications', JSON.stringify(mergedNotifications));
+          }
+        })
+        .catch(error => console.error('Error fetching notifications:', error));
+    };
 
-  const totalPages = Math.ceil(listData.length / itemsPerPage);
+    fetchNotifications(); // Initial fetch
 
-  const handlePageChange = (event, value) => {
-    setCurrentPage(value);
-  };
+    // Set up WebSocket connection for real-time notifications
+    const socket = new SockJS('http://localhost:1000/ws');
+    const stompClient = new Client({
+      webSocketFactory: () => socket,
+      onConnect: () => {
+        console.log('Connected');
+        stompClient.subscribe('/topic/notifications', (message) => {
+          const notification = JSON.parse(message.body);
+          const updatedNotifications = [notification, ...notifications]; // Add new notification to the beginning
+          setNotifications(updatedNotifications);
+
+          // Store updated notifications in localStorage
+          const storageAvailable = ('localStorage' in window);
+          if (storageAvailable) {
+            localStorage.setItem('notifications', JSON.stringify(updatedNotifications));
+          }
+        });
+      },
+      onStompError: (frame) => {
+        console.error('Broker reported error: ' + frame.headers['message']);
+        console.error('Additional details: ' + frame.body);
+      },
+    });
+
+    stompClient.activate();
+
+    return () => {
+      stompClient.deactivate();
+    };
+  }, []); // Empty dependency array ensures this effect runs only once on component mount
 
   return (
     <>
       <div style={pageStyle}>
         <Sidebar>
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              padding: '0',
-              marginTop: '80px',
-              marginLeft: 'auto',
-              marginRight: 'auto',
-              maxWidth: '1000px',
-            }}
-          >
-            <Box
-              sx={{
-                flexGrow: 1,
-                padding: '0',
-                paddingRight: '0',
-                marginTop: '30px',
-                marginLeft: '15px',
-                marginRight: 'auto',
-                maxWidth: '1000px',
-              }}
-            >
-              <Grid
-                container
-                rowSpacing={2}
-                justifyContent="center"
-                columnSpacing={{ xs: 1, sm: 2, md: 2 }}
-              >
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '0', marginTop: '80px', marginLeft: 'auto', marginRight: 'auto', maxWidth: '1000px' }}>
+            <Box sx={{ flexGrow: 1, padding: '0', paddingRight: '0', marginTop: '30px', marginLeft: '15px', marginRight: 'auto', maxWidth: '1000px' }}>
+              <Grid container rowSpacing={2} justifyContent="center" columnSpacing={{ xs: 1, sm: 2, md: 2 }}>
+                {/* Add grid items if needed */}
               </Grid>
             </Box>
           </div>
 
-          {/* List Reviews */}
+          {/* List Notifications */}
           <Box sx={{ padding: '0', marginTop: '10px', marginLeft: 'auto', marginRight: 'auto', maxWidth: '700px' }}>
-            <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} justifyContent="center" alignItems="center">
-              <List sx={{ width: '100%', bgcolor: 'background.paper', marginLeft: '20px', }}>
-                {currentItems.map(item => (
-                  <React.Fragment key={item.id}>
-                    <ListItem sx={{ position: 'relative' }}>
-                      <ListItemAvatar>
-                        <Avatar alt={item.User} src={item.avatar} sx={{ width: 40, height: 40, marginRight: '10px' }} />
-                      </ListItemAvatar>
-                      <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <ListItemText
-                          primary={
-                            <Typography component="span" variant="body2" color="text.primary" fontSize="16px">
-                              <Typography component="span" variant="body2" fontWeight="bold">
-                                {item.User}
-                              </Typography>
-                              {" added a review — "}{item.details}
+            <div>
+              <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} justifyContent="center" alignItems="center">
+                <List sx={{ width: '100%', bgcolor: 'background.paper', marginLeft: '20px' }}>
+                  <Typography component="span" variant="body2" color="text.primary" fontSize="16px">Notifications</Typography>
+                  {notifications.map((notification, index) => (
+                    <React.Fragment key={index}>
+                      <ListItemText
+                        primary={
+                          <Typography component="span" variant="body2" color="text.primary" fontSize="16px">
+                            <Typography component="span" variant="body2" fontWeight="bold">
+                              {notification.name}
                             </Typography>
-                          }
-                        />
-                        <Typography component="span" variant="body2" color="text.secondary" fontSize="10px">
-                          {item.date}
-                        </Typography>
-                      </Box>
-                    </ListItem>
-                    <Divider variant="inset" component="li" />
-                  </React.Fragment>
-                ))}
-              </List>
-              <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
-                <Pagination
-                  count={totalPages}
-                  page={currentPage}
-                  onChange={handlePageChange}
-                  color="primary"
-                />
-              </Box>
-            </Grid>
+                            {` with ${notification.email} added ${notification.documentUri} for ${notification.jobRole} on ${notification.joinDate}`}
+                          </Typography>
+                        }
+                        secondary={
+                          <React.Fragment>
+                            <Typography component="span" variant="body2" color="text.secondary">
+                              Join Time: {notification.joinTime}
+                            </Typography>
+                          </React.Fragment>
+                        }
+                      />
+                      <Divider variant="inset" component="li" />
+                    </React.Fragment>
+                  ))}
+                </List>
+              </Grid>
+            </div>
           </Box>
-      {/*--------------------------------------------------------------Footer------------------------------------------------*/}
-      <div style={{marginTop:'30px',maxWidth:'100%'}}> 
-      <Footer />
+
+          {/* Footer */}
+          <div style={{ marginTop: '30px', maxWidth: '100%' }}>
+            <Footer />
           </div>
         </Sidebar>
       </div>

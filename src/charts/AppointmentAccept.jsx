@@ -2,24 +2,25 @@ import React, { useEffect, useState } from "react";
 import MUIDataTable from "mui-datatables";
 import appointmentService from "../Pages/Service/appointmentService";
 
-const AppointmentsPending = () => {
+const AppointmentAccept = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [rowData, setRowData] = useState([]);
     
     useEffect(() => {
-        const fetchdata=async () => {
+        const fetchdata =async () =>{
             try{
-                const tabledata=await appointmentService.fetchPendingAppointmentData();
-                setRowData(tabledata.data);
-                setLoading(false);
-               }catch(error){
-                setError(error);
-                setLoading(false);
-               }
+            const tabledata=await appointmentService.fetchAcceptAppointmentData();
+            setRowData(tabledata.data);
+            setLoading(false);
+            }catch (error){
+            setError(error);
+            setLoading(false);
+            }
         };
-        fetchdata();
-        },[]);
+       fetchdata();
+    }, []); 
+    
     const columns = [
         { name: 'id', label: "Number" },
         { name: 'customerName', label: "Customer" },
@@ -41,7 +42,7 @@ const AppointmentsPending = () => {
     return (
         <div style={{ width: '1000px', maxWidth: 'auto%', height: 'auto' }}>
             <MUIDataTable
-                title={"Pending Appointments"}
+                title={"Accept Booking"}
                 data={rowData}
                 columns={columns}
                 options={options}
@@ -50,4 +51,4 @@ const AppointmentsPending = () => {
     );
 };
 
-export default AppointmentsPending;
+export default AppointmentAccept;

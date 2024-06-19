@@ -25,7 +25,6 @@ import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import Menu from '@mui/material/Menu';
 import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
-import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import {alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
@@ -295,16 +294,7 @@ const Sidebar =  ({ children }) => {
           >
             LABOR LINK
           </Typography>
-          {/* <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search Here ...."
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </Search>
-           */}
+        
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
           <Box style={{ display: 'flex', alignItems: 'center', marginRight:"30px"}}>
@@ -410,7 +400,7 @@ const Sidebar =  ({ children }) => {
         </DrawerHeader>
       
         <List>
-          {['Dashboard', 'Appointment', 'User detail', 'Job detail','Review','Notification','Log out'].map((text, index) => (
+          {['Dashboard', 'Bookings', 'User detail', 'Job detail','Review','Notification','Log out'].map((text, index) => (
             <ListItem key={text} disablePadding onClick={() => handleItemClick(`/${text.toLowerCase().replace(' ', '-')}`)}
             sx={{
               '&:hover': {
@@ -430,8 +420,6 @@ const Sidebar =  ({ children }) => {
           {index === 3 && <WorkOutlineOutlinedIcon />}
           {index === 4 && <RateReviewOutlinedIcon  />}
           {index === 5 && <NotificationsNoneOutlinedIcon />}
-         {/* {index === 6 && <DateRangeOutlinedIcon/>}*/}
-          {/*{index === 7 && <SmsOutlinedIcon />}*/}
           {index === 6 && <LogoutOutlinedIcon />}
         </ListItemIcon>
                 <ListItemText primary={text} />

@@ -11,10 +11,10 @@ import Footer from '../Components/Footer';
 import cancel4 from '../Img/cancel.png';
 import delivery from '../Img/delivery.png';
 import order from '../Img/order.png';
-import revenue from '../Img/revenue.png';
 import AppTabledata from '../charts/AppointmentsPending';
 import DEliveredTabledata from '../charts/AppointmentsDeliver';
 import CancelTabledata from '../charts/AppointmentsCancel';
+import AcceptTabledata from '../charts/AppointmentAccept';
 import Appointment_vs_Total from '../charts/AppointmentJob_vs_Total';
 import CancelledAppointment_vs_Total from '../charts/AppointmentCancelled_vs_Total';
 import appointmentService from '../Pages/Service/appointmentService';
@@ -27,19 +27,22 @@ const Appointment = () => {
 //-----------------------delivered-------------------
 //------------------------Revenue-------------------
   const [pendingCount, setPendingCount] = useState(0);
-  const [cancelCount, setCancelCount] = useState(0);
-  const [deliveredCount, setDeliveredCount] = useState(0);
-  const [Revenue, setRevenue] = useState(0);
+  const [declinedCount, setDeclinedCount] = useState(0);
+  const [acceptCount, setAcceptCount] = useState(0);
+  const [completeCount, setCompleteCount] = useState(0);
+
 
   useEffect(() => {
     const fetchData=async()=>{
     try{
       const pending=await appointmentService.fetchPendingAppointmentCount();
       setPendingCount(pending);
-      const cancel=await appointmentService.fetchCancelAppointmentCount();
-      setCancelCount(cancel);
-      const deliver=await appointmentService.fetchDeliveredAppointmentCount();
-      setDeliveredCount(deliver);
+      const declined=await appointmentService.fetchDeclinedAppointmentCount();
+      setDeclinedCount(declined);
+      const accept=await appointmentService.fetchAcceptAppointmentCount();
+      setAcceptCount(accept);
+      const complete=await appointmentService.fetchCompleteAppointmentCount();
+      setCompleteCount(complete);
      
   }catch(error){
     console.error('Error fetching count:', error);
@@ -71,7 +74,7 @@ const Appointment = () => {
         ml: 2}}image={order}/>
       <CardContent sx={{ flex: '1' }}>
         <Typography gutterBottom variant="h5" component="div">{pendingCount}</Typography>
-        <Typography >Pending Appointment</Typography>
+        <Typography >Pending Booking</Typography>
       </CardContent>
       </Card>
     </Grid>
@@ -86,8 +89,8 @@ const Appointment = () => {
         ml: 2
         }}image={cancel4}/>
       <CardContent sx={{ flex: '1' }}>
-        <Typography gutterBottom variant="h5" component="div">{cancelCount}</Typography>
-        <Typography >Cancelled Appointment</Typography>
+        <Typography gutterBottom variant="h5" component="div">{declinedCount}</Typography>
+        <Typography >Declined Booking</Typography>
       </CardContent>
     </Card>
   </Grid>
@@ -102,12 +105,26 @@ const Appointment = () => {
         ml: 2
         }}image={delivery}/>
       <CardContent sx={{ flex: '1' }}>
-        <Typography gutterBottom variant="h5" component="div">{deliveredCount}</Typography>
-        <Typography >Delivered Appointment</Typography>
+        <Typography gutterBottom variant="h5" component="div">{acceptCount}</Typography>
+        <Typography >Accept Booking</Typography>
       </CardContent>
     </Card>
   </Grid>
-
+{/*top 4 boxes--04--------------------------------------------------------------------------------- */}
+<Grid item xs={12} sm={6} md={3}>
+    <Card sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', maxWidth: 220,height: 120}}>
+      <CardMedia
+        sx={{
+        width: 65,
+        height:65,
+        ml: 2
+        }}image={delivery}/>
+      <CardContent sx={{ flex: '1' }}>
+        <Typography gutterBottom variant="h5" component="div">{completeCount}</Typography>
+        <Typography >Complete Booking</Typography>
+      </CardContent>
+    </Card>
+  </Grid>
   </Grid>
   </Box>
   </div>
@@ -134,7 +151,7 @@ const Appointment = () => {
     </Card>
   </Grid>
   
-  {/*--------------------01 table : All Appointment  -------------------*/}
+  {/*--------------------01 table : pending Appointment  -------------------*/}
   <Grid item xs={12} sm={12}   >
     <Card sx={{ 
     display: 'flex', 
@@ -149,17 +166,23 @@ const Appointment = () => {
     </Card>
   </Grid>
   
-  {/*--------------------02 table ------------------- */}
+  {/*--------------------02 table complete------------------- */}
   <Grid item xs={12} >
     <Card sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', maxWidth: 'auto' , border: 'none',marginTop:'30px'}}>        
     <DEliveredTabledata />   
     </Card>
   </Grid>
  
-  {/*--------------------03  table ------------------- */}
+  {/*--------------------03  table declined------------------- */}
   <Grid item xs={12} marginBottom={0}>
     <Card sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', maxWidth: 'auto' , border: 'none',marginTop:'30px'}}>        
     <CancelTabledata />
+    </Card>
+  </Grid>
+  {/*--------------------03  table accept------------------- */}
+  <Grid item xs={12} marginBottom={0}>
+    <Card sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', maxWidth: 'auto' , border: 'none',marginTop:'30px'}}>        
+    <AcceptTabledata />
     </Card>
   </Grid>
   </Grid>

@@ -17,7 +17,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import TextField from '@mui/material/TextField';
 import userService from './Service/userService';
-
+import BookingHistory from '../Components/BookingHistory';
 
 const IndividualUserDetail = () => {
   const [user, setUser] = useState([]);
@@ -182,7 +182,7 @@ const IndividualUserDetail = () => {
               <Grid item xs={12} sm={6}>
                 <Card sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', maxWidth: 'auto', overflow: 'auto' ,height:'435px'}}>        
                   <CardContent>
-                    {/* Project List */}
+                   < BookingHistory/>
                   </CardContent>
                 </Card>
               </Grid>

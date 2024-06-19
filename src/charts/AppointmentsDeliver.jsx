@@ -10,7 +10,7 @@ const AppointmentsFinished = () => {
     useEffect(() => {
         const fetchdata =async () =>{
             try{
-            const tabledata=await appointmentService.fetchDeliveredAppointmentData();
+            const tabledata=await appointmentService.fetchCompleteAppointmentData();
             setRowData(tabledata.data);
             setLoading(false);
             }catch (error){
@@ -42,7 +42,7 @@ const AppointmentsFinished = () => {
     return (
         <div style={{ width: '1000px', maxWidth: 'auto%', height: 'auto' }}>
             <MUIDataTable
-                title={"Delivered Appointments"}
+                title={"Complete Appointments"}
                 data={rowData}
                 columns={columns}
                 options={options}

@@ -28,27 +28,37 @@ const appointmentService=axios.create({
       throw error;
     }
   };
-    //----------------------------------Cancel--------------------------------------------------
-    const fetchCancelAppointmentCount = async () => {
+    //----------------------------------Declined--------------------------------------------------
+    const fetchDeclinedAppointmentCount = async () => {
         try {
-          const response = await appointmentService.get('/cancel_count');
+          const response = await appointmentService.get('/declined_count');
           return response.data;
         } catch (error) {
           console.error('Error fetching Cancel count:', error);
           throw error;
         }
       };
-    //----------------------------------Delivered-----------------------------------------------
-    const fetchDeliveredAppointmentCount = async () => {
+    //----------------------------------Accept-----------------------------------------------
+    const fetchAcceptAppointmentCount = async () => {
         try {
-          const response = await appointmentService.get('/delivered_count');
+          const response = await appointmentService.get('/accept_count');
           return response.data;
         } catch (error) {
           console.error('Error fetching Delivered count:', error);
           throw error;
         }
       };
-    
+     //----------------------------------Complete-----------------------------------------------
+     const fetchCompleteAppointmentCount = async () => {
+      try {
+        const response = await appointmentService.get('/complete_count');
+        return response.data;
+      } catch (error) {
+        console.error('Error fetching Delivered count:', error);
+        throw error;
+      }
+    };
+  
       //---------------------------------barchar :- Appointment Vs Total number------------------
       const fetchAppointmentVsTotal = async () => {
         try {
@@ -74,14 +84,14 @@ const appointmentService=axios.create({
     //---------------------------------Table 1 :- pending Appointment------------------
     const fetchPendingAppointmentData = async () => {
       try {
-        const response = await appointmentService.get('/pendingbooking');
+        const response = await appointmentService.get('/pending');
         return (response.data);
     } catch (error) {
       throw (error);
     }
     };
     //---------------------------------Table 2 :- Delivered Appointment------------------
-    const fetchDeliveredAppointmentData = async () => {
+    const fetchCompleteAppointmentData = async () => {
       try {
         const response = await appointmentService.get('/deliver');
         return (response.data);
@@ -98,14 +108,25 @@ const appointmentService=axios.create({
       throw (error);
       }
     };
+      //---------------------------------Table 4 :- Accept Appointment------------------
+      const fetchAcceptAppointmentData = async () => {
+        try {
+          const response = await appointmentService.get('/accept');
+          return (response.data);
+        } catch (error) {
+        throw (error);
+        }
+      };
   export default{
     appointmentService,
     fetchPendingAppointmentCount,
-    fetchCancelAppointmentCount,
-    fetchDeliveredAppointmentCount,
+    fetchDeclinedAppointmentCount,
+    fetchAcceptAppointmentCount,
+    fetchCompleteAppointmentCount,
     fetchAppointmentVsTotal,
     fetchCancelledAppointmentVsTotal,
     fetchPendingAppointmentData,
-    fetchDeliveredAppointmentData,
+    fetchCompleteAppointmentData,
     fetchCancelledAppointmentData,
+    
   }
