@@ -1,8 +1,4 @@
-
-import './App.css';
-import ReactDOM from 'react-dom';
-//import ReactDOM from "react-dom/client";
-import { BrowserRouter, Routes, Route, Outlet,createBrowserRouter, RouterProvider,Switch  } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Appointment from "./Pages/Appointment";
 import Login from "./Pages/Login";
 import Dashboard from './Pages/Dashboard';
@@ -17,25 +13,8 @@ import Sidebar from "./Components/Sidebar";
 import IndividualUserDetail  from './Pages/IndividualUserDetail';
 import IndividualSuspendUserDetail  from './Pages/IndividualSuspendUser';
 import IndividualDeactivateUserDetail  from './Pages/IndividualDeactivatedUser';
+import Tostify from './Components/Tostify';
 function App() {
-
-      const Layout = () => {
-        return(
-  <div className="main">
-      <Searchbar/>
-    <div className="container">
-      <div className="menuContainer">
-      <Sidebar/>
-      </div>
-      <div className="ContentContainer">
-<Outlet/>
-      </div>
-    
-    </div>
-    <Footer/>
-  </div>
-        );
-      }
   return(
     <div >
       <BrowserRouter>
@@ -53,6 +32,7 @@ function App() {
         <Route path="/deactivateuser-detail/:email" element={<IndividualDeactivateUserDetail />} />
       </Routes>
       </BrowserRouter>
+      <Tostify/>
     </div>
   );
 

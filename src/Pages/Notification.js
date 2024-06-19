@@ -8,9 +8,7 @@ import ListItemText from '@mui/material/ListItemText';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import SockJS from 'sockjs-client';
-import { Client } from '@stomp/stompjs';
-
+import notificationService from './Service/notificationService';
 const Notification = () => {
   const pageStyle = {
     backgroundColor: '#F3F2F7',
@@ -19,56 +17,18 @@ const Notification = () => {
   const [notifications, setNotifications] = useState([]);
 
   useEffect(() => {
-    // Fetch all notifications from the backend
-    const fetchNotifications = () => {
-      fetch('http://localhost:1000/api/adminnotification')
-        .then(response => response.json())
-        .then(data => {
-          const storageAvailable = ('localStorage' in window);
-          const savedNotifications = storageAvailable ? JSON.parse(localStorage.getItem('notifications') || '[]') : [];
-          const mergedNotifications = [...data, ...savedNotifications];
-          setNotifications(mergedNotifications);
-
-          if (storageAvailable) {
-            localStorage.setItem('notifications', JSON.stringify(mergedNotifications));
-          }
-        })
-        .catch(error => console.error('Error fetching notifications:', error));
+    const fetchdata=async () => {
+        try{
+            const tabledata=await notificationService.fetctNotificationData();
+            console.log('Fetched data:', tabledata); 
+            setNotifications(tabledata);
+            
+           }catch(error){
+            console.log("error:", error);
+           }
     };
-
-    fetchNotifications(); // Initial fetch
-
-    // Set up WebSocket connection for real-time notifications
-    const socket = new SockJS('http://localhost:1000/ws');
-    const stompClient = new Client({
-      webSocketFactory: () => socket,
-      onConnect: () => {
-        console.log('Connected');
-        stompClient.subscribe('/topic/notifications', (message) => {
-          const notification = JSON.parse(message.body);
-          const updatedNotifications = [notification, ...notifications]; // Add new notification to the beginning
-          setNotifications(updatedNotifications);
-
-          // Store updated notifications in localStorage
-          const storageAvailable = ('localStorage' in window);
-          if (storageAvailable) {
-            localStorage.setItem('notifications', JSON.stringify(updatedNotifications));
-          }
-        });
-      },
-      onStompError: (frame) => {
-        console.error('Broker reported error: ' + frame.headers['message']);
-        console.error('Additional details: ' + frame.body);
-      },
-    });
-
-    stompClient.activate();
-
-    return () => {
-      stompClient.deactivate();
-    };
-  }, []); // Empty dependency array ensures this effect runs only once on component mount
-
+    fetchdata();
+    },[]);
   return (
     <>
       <div style={pageStyle}>
