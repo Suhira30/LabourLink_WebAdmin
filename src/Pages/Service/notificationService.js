@@ -16,14 +16,26 @@ const notificationService=axios.create({
                 return Promise.reject(error)
             }
     ); 
-  //---------------------------------All Notification-------------------
-  const fetctNotificationData = async () => {
+//---------------------------------Verified Labour -------------------
+  const verifiedLabour  = async (email) => {
     try {
-    const response = await notificationService.get('/adminnotification');
-    return (response.data);
+    const response = await notificationService.put(`/labour/getLabour/${email}`);
+    return (console.log("Successfully verified"));
     }catch (error) {
-      throw (error);
+       throw (error);
     }
-    };export default{
+    };
+//---------------------------------reports of Labour-------------------
+  const fetchReportofLabour  = async (email) => {
+    try {
+    const response = await notificationService.put(`/labour/getLabour/${email}`);
+    return (console.log("Successfully verified"));
+    }catch (error) {
+       throw (error);
+    }
+    };
+    export default{
         notificationService,
-        fetctNotificationData,}
+        verifiedLabour,
+        fetchReportofLabour
+    }     

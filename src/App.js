@@ -14,6 +14,7 @@ import IndividualUserDetail  from './Pages/IndividualUserDetail';
 import IndividualSuspendUserDetail  from './Pages/IndividualSuspendUser';
 import IndividualDeactivateUserDetail  from './Pages/IndividualDeactivatedUser';
 import Tostify from './Components/Tostify';
+import ReportTostify from "./Components/ReportTostify.js";
 function App() {
   return(
     <div >
@@ -33,6 +34,7 @@ function App() {
       </Routes>
       </BrowserRouter>
       <Tostify/>
+      {/* <ReportTostify/> */}
     </div>
   );
 
