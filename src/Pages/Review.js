@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import Sidebar from '../Components/Sidebar';
 import Footer from '../Components/Footer';
 import List from '@mui/material/List';
@@ -19,18 +20,41 @@ import Pagination from '@mui/material/Pagination';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import ReviewRating from '../Components/ReviewRating';
+import reviewService from './Service/reviewService';
+
 
 const Review = () => {
   const pageStyle = {
     backgroundColor: '#F3F2F7',
   };
 
-  const listData = [
-    { id: 1, Reviewer: 'James', avatar: '/static/images/avatar/1.jpg', Labourname: 'Ali Connors',rating:5, details: "I had an amazing stay at this hotel! The staff was so friendly and helpful, and the rooms were luxurious and spotless. I would definitely recommend this hotel to others." },
-  ];
-
+  const [listData, setListData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
+  const [loading, setLoading] = useState(true);
+
+  const fetchData = async () => {
+    try {
+      const response = await reviewService.fetchReviewData();
+      setListData(response);
+      setLoading(false);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const handleDelete = async (id) => {
+    try {
+      await reviewService.deleteReviewById(id);
+    } catch (error) {
+      console.error('Error deleting review:', error);
+    }
+  };
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -163,40 +187,40 @@ const Review = () => {
           </div>
           {/*----------------------------------List Reviews--------------------------------------------------------------------------------- */}
           <Box sx={{ padding: '0', marginTop: '40px', marginLeft: 'auto', marginRight: 'auto', maxWidth: '1000px' }}>
-            <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} justifyContent="center" alignItems="center">
+            <Grid container  columnSpacing={{ xs: 1, sm: 2, md: 3 }} justifyContent="center" alignItems="center">
               <List sx={{ width: '100%', bgcolor: 'background.paper', marginLeft: '20px', }}>
-                {currentItems.map(item => (
-                  <React.Fragment key={item.id}>
-                    <ListItem alignItems="flex-start"  sx={{ paddingY: 4 ,position: 'relative' }}>
-                      <ListItemAvatar>
-                        <Avatar alt={item.Labourname} src={item.avatar}  sx={{ width: 80, height: 80, marginRight:'30px' }}/>
-                      </ListItemAvatar>
-                      <Box sx={{ flexGrow: 1 }}>
+              {currentItems.map(item => (
+                <React.Fragment key={item.id}>
+                  <ListItem alignItems="flex-start" sx={{ paddingY: 2, position: 'relative' }}>
+                    <ListItemAvatar>
+                      <Avatar alt={item.labourName} src={item.avatar} sx={{ width: 50, height: 50, marginRight: '30px' }} />
+                    </ListItemAvatar>
+                    <Box sx={{ flexGrow: 1 }}>
                       <ListItemText
-                       primary={
-                        <Typography sx={{ fontWeight: 'bold' }}> 
-                          {item.Reviewer}
-                        </Typography>}
+                        primary={
+                          <Typography sx={{ fontWeight: 'bold' }}>
+                            {item.customerName}
+                          </Typography>}
                         secondary={
                           <React.Fragment>
-                            <Typography sx={{ display: 'inline' }} component="span" variant="body2" color="text.primary" >
-                            <ReviewRating value={item.rating} /> 
-                              {item.Labourname}
+                            <Typography sx={{ display: 'inline' }} component="span" variant="body2" color="text.primary">
+                              <ReviewRating value={item.rating} />
+                              {item.labourName}
                             </Typography>
-                            {` — ${item.details}`}
+                            {` — ${item.description}`}
                           </React.Fragment>
                         }
-                      />   </Box>
-                       <Box sx={{display: 'flex',  position: 'absolute', bottom: 9, right: 50 }}>
-                       <Stack direction="row" spacing={2}>
-                      <Button sx={{ color: 'red' }}>Remove</Button>
-                    </Stack>
-                            
+                      />
                     </Box>
-                    </ListItem>
-                    <Divider variant="inset" component="li" />
-                  </React.Fragment>
-                ))}
+                    <Box sx={{ display: 'flex', position: 'absolute', bottom: 9, right: 50 }}>
+                      <Stack direction="row" spacing={2}>
+                        <Button sx={{ color: 'red' }} onClick={() => handleDelete(item.id)}>Remove</Button>
+                      </Stack>
+                    </Box>
+                  </ListItem>
+                  <Divider variant="inset" component="li" />
+                </React.Fragment>
+              ))}
               </List>
               <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
                 <Pagination

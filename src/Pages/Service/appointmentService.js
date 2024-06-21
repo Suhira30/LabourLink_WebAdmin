@@ -63,8 +63,7 @@ const appointmentService=axios.create({
       const fetchAppointmentVsTotal = async () => {
         try {
           const response = await appointmentService.get('/graphleft');
-          const formattedData = response.data.map(item => [item[0], parseInt(item[1])]);
-          return [['Job', 'Total'], ...formattedData];
+          return response;
         } catch (error) {
           console.error('Error fetching appointment vs total appointments data:', error);
           throw error;
@@ -81,38 +80,38 @@ const appointmentService=axios.create({
         throw error;
       }
     };
-    //---------------------------------Table 1 :- pending Appointment------------------
+    //---------------------------------Table 1 :- pending booking------------------
     const fetchPendingAppointmentData = async () => {
       try {
         const response = await appointmentService.get('/pending');
-        return (response.data);
+        return (response);
     } catch (error) {
       throw (error);
     }
     };
-    //---------------------------------Table 2 :- Delivered Appointment------------------
+    //---------------------------------Table 2 :- Complete booking------------------
     const fetchCompleteAppointmentData = async () => {
       try {
         const response = await appointmentService.get('/deliver');
-        return (response.data);
+        return (response);
       } catch (error) {
       throw (error);
       }
     };
-    //---------------------------------Table 3 :- Cancelled Appointment------------------
+    //---------------------------------Table 3 :- Ccancel booking------------------
     const fetchCancelledAppointmentData = async () => {
       try {
         const response = await appointmentService.get('/cancel');
-        return (response.data);
+        return (response);
       } catch (error) {
       throw (error);
       }
     };
-      //---------------------------------Table 4 :- Accept Appointment------------------
+      //---------------------------------Table 4 :- Accept booking------------------
       const fetchAcceptAppointmentData = async () => {
         try {
           const response = await appointmentService.get('/accept');
-          return (response.data);
+          return (response);
         } catch (error) {
         throw (error);
         }
@@ -128,5 +127,7 @@ const appointmentService=axios.create({
     fetchPendingAppointmentData,
     fetchCompleteAppointmentData,
     fetchCancelledAppointmentData,
+    fetchAcceptAppointmentData,
+    
     
   }

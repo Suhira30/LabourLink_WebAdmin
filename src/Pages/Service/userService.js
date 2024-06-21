@@ -39,7 +39,7 @@ const userService=axios.create({
   const fetchIndividualUserData = async (email) => {
     try {
     const response = await userService.get(`/user/u/${email}`);
-    console.log(response.data);
+    //console.log(response.data);
     return (response.data);
     }catch (error) {
       throw (error);
@@ -68,7 +68,7 @@ const userService=axios.create({
   const fetchSuspendIndividualUserData = async (email) => {
     try {
     const response = await userService.get(`/suspend/${email}`);
-    console.log(response.data);
+    //console.log(response.data);
     return (response.data);
     }catch (error) {
       throw (error);
@@ -99,7 +99,7 @@ const userService=axios.create({
     const response = await userService.get('/user/deactivate/count');
     return response.data;
     } catch (error) {
-    console.error('Error fetching user count:', error);
+    //console.error('Error fetching user count:', error);
      throw error;
     }
     };
@@ -107,7 +107,17 @@ const userService=axios.create({
    const fetchDeactivatedIndividualUserData = async (email) => {
     try {
     const response = await userService.get(`/user/deactivate/${email}`);
-    console.log(response.data);
+    //console.log(response.data);
+    return (response.data);
+    }catch (error) {
+      throw (error);
+    }
+    };
+    //---------------------------------Individual booking detail------------------------
+  const fetchBookingData = async (email) => {
+    try {
+    const response = await userService.get(`/bookings/booking/${email}`);
+    console.log("booking per person",response);
     return (response.data);
     }catch (error) {
       throw (error);
@@ -125,4 +135,5 @@ const userService=axios.create({
     fetchDeactivatedUserData,
     fetchDeactivatedUserCount,
     fetchDeactivatedIndividualUserData,
+    fetchBookingData,
   }

@@ -34,8 +34,18 @@ const notificationService=axios.create({
        throw (error);
     }
     };
+//---------------------------------Is verified -------------------
+const IsVerifiedLabour  = async (email) => {
+    try {
+    const response = await notificationService.get(`/labour/getLabour/${email}`);
+    return (console.log("Success until notification service"));
+    }catch (error) {
+       throw (error);
+    }
+    };
     export default{
         notificationService,
         verifiedLabour,
-        fetchReportofLabour
+        fetchReportofLabour,
+        IsVerifiedLabour
     }     

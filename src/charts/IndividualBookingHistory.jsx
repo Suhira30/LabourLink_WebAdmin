@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import MUIDataTable from "mui-datatables";
 import { Link } from "react-router-dom";
+import IndividualUserDetail from "../Pages/IndividualUserDetail";
 import userService from "../Pages/Service/userService";
 
-const UserNew = () => {
+const IndividualBookingHistory = ({user}) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [rowData, setRowData] = useState([]);
@@ -11,7 +12,7 @@ const UserNew = () => {
   useEffect(() => {
     const fetchdata=async () => {
         try{
-            const tabledata=await userService.fetchNewUserData();
+            const tabledata=await userService.fetchBookingData(user);
             console.log('Fetched data:', tabledata); 
             setRowData(tabledata);
             setLoading(false);
@@ -24,31 +25,11 @@ const UserNew = () => {
     },[]);
 
   const columns = [
-    { name: 'name', label: "User Name" },
-    { name: 'email', label: "Email" },
-    { name: 'joinDate', label: "Join Date" },
-    { name: 'role', label: "Role" },
-    {
-      name: 'View',
-      label: "View",
-      options: {
-        customBodyRender: (value, tableMeta, updateValue) => (
-          <Link to={`/user-detail/${tableMeta.rowData[1]}`}
-          style={{
-            display: "inline-block",
-            padding: "10px 20px",
-            backgroundColor: "#1976d2",
-            color: "#fff",
-            border: "none",
-            borderRadius: "5px",
-            textDecoration: "none",
-            cursor: "pointer",
-          }}>
-            View</Link>
-          
-        )
-      }
-    }
+    { name: 'customer' },
+    { name: 'jobRole' },
+    { name: 'jobDescription' },
+    { name: 'date' },
+    { name: 'startTime' }
   ];
 
   const options = {
@@ -63,7 +44,7 @@ const UserNew = () => {
   return (
     <div style={{ width: '1000px', maxWidth: 'auto%', height: 'auto' }}>
       <MUIDataTable
-        title={"User"}
+        title={" Booking History"}
         data={rowData}
         columns={columns}
         options={options}
@@ -72,4 +53,4 @@ const UserNew = () => {
   );
 };
 
-export default UserNew;
+export default IndividualBookingHistory;

@@ -11,13 +11,14 @@ import Footer from '../Components/Footer';
 import cancel4 from '../Img/cancel.png';
 import delivery from '../Img/delivery.png';
 import order from '../Img/order.png';
-import AppTabledata from '../charts/AppointmentsPending';
-import DEliveredTabledata from '../charts/AppointmentsDeliver';
-import CancelTabledata from '../charts/AppointmentsCancel';
+import PendingTableData from '../charts/AppointmentsPending';
+import CompleteTabledata from '../charts/AppointmentsDeliver';
+import DeclinedTabledata from '../charts/AppointmentsCancel';
 import AcceptTabledata from '../charts/AppointmentAccept';
 import Appointment_vs_Total from '../charts/AppointmentJob_vs_Total';
 import CancelledAppointment_vs_Total from '../charts/AppointmentCancelled_vs_Total';
 import appointmentService from '../Pages/Service/appointmentService';
+import AppointmentComparison from '../charts/AppointmentComparison';
 const pageStyle = {
   backgroundColor: '#F3F2F7',
 };
@@ -134,23 +135,23 @@ const Appointment = () => {
   <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 2 }}>
   
   {/*--------------------chart : appointmet  VS Total order ------------------- */}    
-  <Grid item xs={12} sm={6}>
-    <Card sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', maxWidth: 'auto', overflow: 'auto',height:'500px'}}>        
-      <CardContent>
-        <Appointment_vs_Total/>
-      </CardContent>
+  <Grid item xs={12} >
+  <Card >        
+  <CardContent>
+        <AppointmentComparison/>
+        </CardContent>
     </Card>
-  </Grid>
-  
+   </Grid>
+{/*   
   {/*--------------------chart : cancelled appointment VS Total  ------------------- */}
-  <Grid item xs={12} sm={6}>
+  {/* <Grid item xs={12} sm={6}>
     <Card sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', maxWidth: 'auto', overflow: 'auto' ,height:'500px'}}>        
       <CardContent>
         <CancelledAppointment_vs_Total/>
       </CardContent>
     </Card>
-  </Grid>
-  
+  </Grid> */}
+   
   {/*--------------------01 table : pending Appointment  -------------------*/}
   <Grid item xs={12} sm={12}   >
     <Card sx={{ 
@@ -162,32 +163,32 @@ const Appointment = () => {
     border: 'none',
     marginBottom:'0',
     marginTop:'30px',}}>     
-    <AppTabledata />
+    <PendingTableData />
     </Card>
   </Grid>
   
-  {/*--------------------02 table complete------------------- */}
+  {/*--------------------02 table declined------------------- */}
   <Grid item xs={12} >
     <Card sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', maxWidth: 'auto' , border: 'none',marginTop:'30px'}}>        
-    <DEliveredTabledata />   
+    <DeclinedTabledata />  
     </Card>
   </Grid>
- 
-  {/*--------------------03  table declined------------------- */}
-  <Grid item xs={12} marginBottom={0}>
-    <Card sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', maxWidth: 'auto' , border: 'none',marginTop:'30px'}}>        
-    <CancelTabledata />
-    </Card>
-  </Grid>
-  {/*--------------------03  table accept------------------- */}
-  <Grid item xs={12} marginBottom={0}>
+
+ {/*--------------------04  table accept------------------- */}
+ <Grid item xs={12} marginBottom={0}>
     <Card sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', maxWidth: 'auto' , border: 'none',marginTop:'30px'}}>        
     <AcceptTabledata />
     </Card>
   </Grid>
+  {/*--------------------03  table complete------------------- */}
+  <Grid item xs={12} marginBottom={0}>
+    <Card sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', maxWidth: 'auto' , border: 'none',marginTop:'30px'}}>        
+    <CompleteTabledata /> 
+    </Card>
+  </Grid>
+  
   </Grid>
 </Box>
-
   {/*---------------------------Footer------------------------------------------------------- */}
     <div style={{marginTop:'30px',maxWidth:'100%'}}> 
     <Footer/>

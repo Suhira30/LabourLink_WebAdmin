@@ -21,11 +21,12 @@ const AppointmentsCancel = () => {
         fetchdata();
     } ,[]);
     const columns = [
-        { name: 'id', label: "Number" },
+        //{ name: 'id', label: "Number" },
         { name: 'customerName', label: "Customer" },
         { name: 'customerEmail', label: "Customer Email" },
         { name: 'labourName', label: "Labour" },
-        { name: 'jobTitle', label: "Job" },
+        { name: 'jobRole', label: "Job" },
+        { name: 'bookingMadeDate', label: "Date" }
         
     ];
 

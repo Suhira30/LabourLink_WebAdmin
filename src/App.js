@@ -13,8 +13,8 @@ import Sidebar from "./Components/Sidebar";
 import IndividualUserDetail  from './Pages/IndividualUserDetail';
 import IndividualSuspendUserDetail  from './Pages/IndividualSuspendUser';
 import IndividualDeactivateUserDetail  from './Pages/IndividualDeactivatedUser';
-import Tostify from './Components/Tostify';
-import ReportTostify from "./Components/ReportTostify.js";
+import Tostify from './Components/Tostify';import 'react-toastify/dist/ReactToastify.css';
+
 function App() {
   return(
     <div >

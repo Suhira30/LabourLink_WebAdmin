@@ -13,12 +13,12 @@ import user from '../Img/user.png';
 import Barchart from '../charts/DashBoardBarchartLeft';
 import DashBoardBarchartRight from '../charts/DashBoardBarchartRight';
 import Order from '../charts/DashBoardLineChart';
-import { Revenue } from '../charts/DashboardRevenue';
 import Pie_Dashboard from '../charts/Pie_Dashboard';
 import Todo from "../Components/Todo"
 import Calender from '../Components/Calender';
 import { useEffect, useState } from "react";
 import dashboardService from '../Pages/Service/dashboardService';
+import jobService from './Service/jobService';
 
 const pageStyle = {
   backgroundColor: '#F3F2F7',
@@ -37,7 +37,7 @@ const Dashboard = () => {
       try{
         const users=await dashboardService.fetchUserCount();
         setUserCount(users);
-        const jobs=await dashboardService.fetchJobCount();
+        const jobs=await jobService.fetchJobCount();
         setJobCount(jobs);
         const appointment=await dashboardService.fetchAppointmentCount();
         setAppointmentCount(appointment);

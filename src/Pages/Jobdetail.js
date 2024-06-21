@@ -19,19 +19,23 @@ import { useEffect, useState } from "react";
 import jobService from './Service/jobService';
 
 const Jobdetail = () => {
-  //------------------------Count of job------------------
-//   const [jobCount, setJobCount] = useState(0);
-//   useEffect(() => {
-//     const fetchData = async () => {
-//     try{
-//       const jobs=await jobService.fetchJobCount();
-//       setJobCount(jobs);}
-//     catch (error) {
-//       console.error('Error fetching count:', error);
-//     }
-//   };
-//   fetchData();
-// }, []);
+  // ------------------------Count of job------------------
+  const [jobCount, setJobCount] = useState(0);
+  const [demandJob, setHighDemandJob] = useState(0);
+  useEffect(() => {
+    const fetchData = async () => {
+    try{
+      const jobs=await jobService.fetchJobCount();
+      setJobCount(jobs);
+      const highDemandJob=await jobService.fetchHighDemand();
+      setHighDemandJob(highDemandJob);
+    }
+    catch (error) {
+      console.error('Error fetching count:', error);
+    }
+  };
+  fetchData();
+}, []);
   const pageStyle = {
     backgroundColor: '#F3F2F7',
   };
@@ -63,7 +67,7 @@ const Jobdetail = () => {
       />
       <CardContent sx={{ flex: '1' }}>
       <Typography gutterBottom variant="h5" component="div">
-       --
+      {jobCount}
         </Typography>
         <Typography >
         Jobs
@@ -84,10 +88,10 @@ const Jobdetail = () => {
         image={user}
       />
       <CardContent sx={{ flex: '1' }}>
-      <Typography gutterBottom variant="h5" component="div">
-        --
+      <Typography gutterBottom variant="h6" component="div">
+        {demandJob}
         </Typography>
-        <Typography >        High number
+        <Typography >        High Demand
         </Typography>
       </CardContent>
     </Card>
