@@ -7,7 +7,7 @@ export default function DashBoardBarchartRight() {
   useEffect(() => {
   const fetchData = async () => {
       try {
-        const chartData = await dashboardService.fetchActiveCustomerData();
+        const chartData = await dashboardService.fetchActiveLabourData();
         setDataFromBackend(chartData);
       } catch (error) {
         console.error("Error fetching active customer data:", error);

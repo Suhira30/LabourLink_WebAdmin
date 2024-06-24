@@ -146,7 +146,8 @@ const handleReportNotification = (report) => {
                 <Typography component="span" fontWeight="bold">
                   {notification.name}
                 </Typography>
-                {` with ${notification.email} added ${notification.documentUri} for job verification on ${notification.joinDate}`}
+                {` with ${notification.email} added `} 
+                <a href= {notification.documentUri} target="__blank">document </a> {`for job verification on ${notification.joinDate}`}
               </Typography>
             }/>
                 <IconButton color="primary" onClick={() => handelNotificationOnClick((notification.email),index)}>

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
@@ -35,33 +35,34 @@ import MailOutlinedIcon from '@mui/icons-material/MailOutlined';
 import Avatar from '@mui/material/Avatar';
 import imglogo from '../Img/app-logo.png';
 import { Link } from 'react-router-dom';
+import userService from '../Pages/Service/userService';
 
 const drawerWidth = 280;
-const Search = styled('div')(({ theme }) => ({
-  position: 'relative',
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  '&:hover': {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginRight: theme.spacing(2),
-  marginLeft: 0,
-  width: '100%',
-  [theme.breakpoints.up('sm')]: {
-    marginLeft: theme.spacing(3),
-    width: 'auto',
-  },
-}));
+// const Search = styled('div')(({ theme }) => ({
+//   position: 'relative',
+//   borderRadius: theme.shape.borderRadius,
+//   backgroundColor: alpha(theme.palette.common.white, 0.15),
+//   '&:hover': {
+//     backgroundColor: alpha(theme.palette.common.white, 0.25),
+//   },
+//   marginRight: theme.spacing(2),
+//   marginLeft: 0,
+//   width: '100%',
+//   [theme.breakpoints.up('sm')]: {
+//     marginLeft: theme.spacing(3),
+//     width: 'auto',
+//   },
+// }));
 
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-}));
+// const SearchIconWrapper = styled('div')(({ theme }) => ({
+//   padding: theme.spacing(0, 2),
+//   height: '100%',
+//   position: 'absolute',
+//   pointerEvents: 'none',
+//   display: 'flex',
+//   alignItems: 'center',
+//   justifyContent: 'center',
+// }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: 'inherit',
@@ -125,15 +126,31 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   ...theme.mixins.toolbar,
   justifyContent: 'flex-end',
 }));
+
 const Sidebar =  ({ children }) => {
   const theme = useTheme();
   const [open, setOpen] = React.useState(true);
   const navigate = useNavigate();
+  
+  const [userProfile, setUserProfile] = useState({});
+
   const handleItemClick = (route) => {
     navigate(route);
   };
   
 
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      try {
+        const response = await userService.fetchProfileName();
+        setUserProfile(response);
+      } catch (error) {
+        console.error('Error fetching user profile:', error);
+      }
+    };
+
+    fetchUserProfile();
+  }, []);
 
   const handleNotificationClick = () => {
     handleItemClick('/notification');
@@ -354,11 +371,11 @@ const Sidebar =  ({ children }) => {
             {/*------------------------profile-f----------------------------------------------------------*/}
             <Typography>
   <p style={{ marginBottom: 0 }}>Hello,</p>
-  <h3 style={{ marginTop: 0 }}>Sharadha</h3>
+  <p style={{ marginTop: 0,fontStyle:"italic" }}>{userProfile.name}</p>
 </Typography>
            
            <Box sx={{ display: 'flex', gap: 2, alignItems: 'center',marginLeft:"10px" }}>
-      <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+      <Avatar src="/static/images/avatar/1.jpg" />
     </Box>
 
           </Box>

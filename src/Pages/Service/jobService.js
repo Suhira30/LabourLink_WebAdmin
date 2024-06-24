@@ -44,19 +44,30 @@ const jobService=axios.create({
 //        throw (error);
 //     }
 //     };
-//     //--------------------------------Table  :- JOb and labour   -------------------
-//   const fetchLabourJobCountsForPie = async () => {
-//     try {
-//     const response = await jobService.get('/job/countwithname');
-//     return (response.data);
-//     }catch (error) {
-//        throw (error);
-//     }
-//     };
+//--------------------------------Table  :- JOb and labour   -------------------
+  const fetchLabourJobCountsForPie = async () => {
+    try {
+    const response = await jobService.get('/api/labour/count');
+    console.log("job per job role :",response.data);
+    return (response.data);
+    }catch (error) {
+       throw (error);
+    }
+    };
+  //--------------------------------List  :- JOb list  -------------------
+  const fetchLabourJobCounts = async () => {
+    try {
+    const response = await jobService.get('/api/jobrole/joblist');
+    console.log("job for list :",response.data);
+    return (response);
+    }catch (error) {
+       throw (error);
+    }
+    };
     export default{
         jobService,
         fetchJobCount,
         fetchHighDemand,
-        // fetchLabour_Job,
-        // fetchLabourJobCountsForPie,
+        fetchLabourJobCounts,
+        fetchLabourJobCountsForPie,
       }

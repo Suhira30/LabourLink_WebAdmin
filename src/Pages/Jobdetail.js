@@ -1,8 +1,7 @@
-import React from 'react'
+import React ,{ useEffect, useState } from 'react'
 import Sidebar from '../Components/Sidebar';
 import Footer from '../Components/Footer';
 import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -10,13 +9,10 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import user from '../Img/user.png';
 import job from '../Img/job.png';
-import { styled } from '@mui/material/styles';
 import JobDetailTable from '../charts/JobDetailTable';
-import JobDemandLine from '../charts/JobDemandLine';
-import { FormJobDetail } from '../Components/FormJobDetail';
-import axios from 'axios';
-import { useEffect, useState } from "react";
 import jobService from './Service/jobService';
+import JobPieChart from '../charts/JobPieChart';
+
 
 const Jobdetail = () => {
   // ------------------------Count of job------------------
@@ -102,26 +98,21 @@ const Jobdetail = () => {
   {/*---------------------------02 grid------------------------------------------------------- */}
   <Box sx={{ padding: '0', marginTop:'30px', marginLeft: 'auto', marginRight: 'auto', maxWidth: '1000px' }}>
   <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} justifyContent="center" alignItems="center">
-  {/*-----------form-left----------- */}
-  <Grid item xs={12} sm={8} >
-    <Card sx={{ display: 'flex', width: '100%', justifyContent: 'center', alignItems: 'center', overflow: 'auto', height: '300px' }}>        
-      {/* <FormJobDetail /> */}
-    </Card>
-  </Grid>
-  {/*----------Right detail----------- */}
-  <Grid item xs={12} sm={4} sx={{ height: '100%' }}>
-    <Card sx={{ display: 'flex', width: '100%', justifyContent: 'center', overflow: 'auto', height: '300px' }}>       
+  {/*-----------form-table----------- */}
+  <Grid item xs={6}  sx={{ height: '400px' }}>
+    <Card sx={{ overflow: 'auto' }}>       
       <JobDetailTable />
     </Card>
   </Grid>
+
+  {/* ----------Pie chart----------- */}
+  <Grid item xs={6} sx={{ height: '400px' }}  >
+    <Card >        
+      {<JobPieChart/>}
+    </Card>
+  </Grid>
 </Grid>
-     {/*----------Jod Demand per a day----------- */}
-    <Grid item xs={12} sm={12}>
-    <Card sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', maxWidth: 'auto', overflow: 'auto',marginTop:'30px'}}>        <CardContent>
-          <JobDemandLine />
-        </CardContent>
-      </Card>
-    </Grid>
+    
     </Box>
 
   {/*---------------------------Footer------------------------------------------------------- */}

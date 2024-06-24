@@ -123,6 +123,16 @@ const userService=axios.create({
       throw (error);
     }
     };
+     //---------------------------------Profie------------------------
+  const fetchProfileName = async () => {
+    try {
+    const response = await userService.get('user/userProfile');
+    console.log("profile ",response.data);
+    return (response.data);
+    }catch (error) {
+      throw (error);
+    }
+    };
   export default{
     userService,
     fetchNewUserData,
@@ -136,4 +146,5 @@ const userService=axios.create({
     fetchDeactivatedUserCount,
     fetchDeactivatedIndividualUserData,
     fetchBookingData,
+    fetchProfileName,
   }

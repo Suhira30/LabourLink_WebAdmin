@@ -19,7 +19,7 @@ import Calender from '../Components/Calender';
 import { useEffect, useState } from "react";
 import dashboardService from '../Pages/Service/dashboardService';
 import jobService from './Service/jobService';
-
+import NewlyVerified from '../Components/NewlyVerified'
 const pageStyle = {
   backgroundColor: '#F3F2F7',
 };
@@ -164,7 +164,7 @@ const Dashboard = () => {
     <Grid item xs={12} sm={6}>
     <Card sx={{ display: 'flex', justifyContent: 'center', marginTop:'30px',alignItems: 'center', maxWidth: 'auto', overflow: 'auto',height:'440px' }}>        
       <CardContent>
-        <Pie_Dashboard />
+        <NewlyVerified />
       </CardContent>
     </Card>
     </Grid>

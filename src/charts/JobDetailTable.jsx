@@ -1,94 +1,61 @@
 import React, { useEffect, useState } from "react";
-import MUIDataTable from "mui-datatables";
-import { BorderColor, Height } from "@mui/icons-material";
-import { makeStyles } from '@mui/styles';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import ListSubheader from '@mui/material/ListSubheader';
 import jobService from "../Pages/Service/jobService";
 
-const useStyles = makeStyles({
-  root: {
-    '& .MuiPaper-root': {
-      boxShadow: 'none', 
-      Height:'100%',
-    },
-    '& .MuiTable-root': {
-      border: 'none', 
-      Height:'100%',
-    },
-    '& .MuiTableCell-root, & .MuiTableCell-body, & .MuiTableCell-sizeMedium, & .tss-1qtl85h-MUIDataTableBodyCell-root, & .tss-1y3wvy9-MUIDataTableBodyCell-stackedParent, & .tss-iwylj0-MUIDataTableBodyCell-responsiveStackedSmallParent, & .css-1ex1afd-MuiTableCell-root': {
-      height: '15px', // Set the desired height for table cells
-      paddingLeft: '15px', 
-      paddingRight: '0px', 
-    },
-    '& .MuiTableFooter-root': {
-      border: 'none', 
-      boxShadow: 'none', 
-    },
-    '& .MuiTableBody-root .MuiTableCell-root': {
-      paddingLeft: '35px', 
-      paddingRight: '30px', 
-    },
-    '& .MuiTableHead-root .MuiTableCell-root': {
-      background: '#f0f0f0',
-      paddingTop: '5px',
-      paddingBottom: '5px', 
-      fontSize: '14px', 
-    },
-  },
-});
-
-const JobDetailTable = () => {
-  const classes = useStyles(); 
-
+export default function JobDetailTable() {
+  const [jobRoles, setJobRoles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [rowData, setRowData] = useState([]);
-  
+
   useEffect(() => {
-      const fetchdata = async () =>{
-          try{
-          const tabledata = await jobService.fetchLabour_Job();
-          console.log('Fetched data:', tabledata); 
-          setRowData(tabledata);
-          setLoading(false);
-          } catch (error) {
-          setError(error);
-          setLoading(false);
-          }
-      };
-    fetchdata();
-  }, []); 
+    const fetchData = async () => {
+      try {
+        const jobRolesData = await jobService.fetchLabourJobCounts(); // Adjust function name as per your jobService implementation
+        console.log('Fetched job roles:', jobRolesData); 
+        setJobRoles(jobRolesData.data);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching job roles:', error);
+        setError(error);
+        setLoading(false);
+      }
+    };
 
-  const columns = [
-      { name: 'job', label: "Job" },
-      { name: 'total', label: "Total" }
-  ];
+    fetchData();
+  }, []);
 
+  // Handling loading state
+  if (loading) {
+    return <p>Loading...</p>;
+  }
 
+  // Handling error state
+  if (error) {
+    return <p>Error: {error.message}</p>;
+  }
 
-  const options = {
-      selectableRows: "none",
-      rowsPerPageOptions: false,
-      rowsPerPage: 4,
-      search: false,
-      download: false,
-      print: false,
-      viewColumns: false,
-      filter: false,
-  };
-
- 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
-
+  // Rendering the list of job roles
   return (
-      <div className={classes.root} style={{ height: "100%", width: "400px" }}>
-          <MUIDataTable
-              data={rowData}
-              columns={columns}
-              options={options}
-          />
-      </div>
+    <List
+      sx={{
+        width: '100%',
+        maxWidth: 360,
+        bgcolor: 'background.paper',
+        position: 'relative',
+        overflow: 'auto',
+        maxHeight: 300,
+        '& ul': { padding: 0 },
+      }}
+      subheader={<li />}
+    >
+      {jobRoles.map((jobRole, index) => (
+        <ListItem key={`job-role-${index}`}>
+          <ListItemText primary={jobRole} />
+        </ListItem>
+      ))}
+    </List>
   );
-};
-
-export default JobDetailTable;
+}
