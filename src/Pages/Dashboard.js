@@ -168,14 +168,7 @@ const Dashboard = () => {
       </CardContent>
     </Card>
     </Grid>
-{/*-----------graph-line------------------------------- */}
-    {/* <Grid item xs={12} sm={12}>
-    <Card sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', maxWidth: 'auto', overflow: 'auto',marginTop:'30px', height:'400px'}}>        
-      <CardContent>
-        <Revenue />
-      </CardContent>
-    </Card>
-    </Grid> */}
+
   </Grid>
 </Box>
 

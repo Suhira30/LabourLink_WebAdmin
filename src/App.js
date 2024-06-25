@@ -14,10 +14,12 @@ import IndividualUserDetail  from './Pages/IndividualUserDetail';
 import IndividualSuspendUserDetail  from './Pages/IndividualSuspendUser';
 import IndividualDeactivateUserDetail  from './Pages/IndividualDeactivatedUser';
 import Tostify from './Components/Tostify';import 'react-toastify/dist/ReactToastify.css';
+import { VerifiedLabourProvider } from "./Context/VerifiedLabourContext ";
 
 function App() {
   return(
     <div >
+      <VerifiedLabourProvider>
       <BrowserRouter>
       <Routes>
         <Route path="/" index element={ <Login />}/>
@@ -33,6 +35,7 @@ function App() {
         <Route path="/deactivateuser-detail/:email" element={<IndividualDeactivateUserDetail />} />
       </Routes>
       </BrowserRouter>
+      </VerifiedLabourProvider>
       <Tostify/>
     </div>
   );

@@ -9,7 +9,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import user from '../Img/user.png';
 import job from '../Img/job.png';
-import JobDetailTable from '../charts/JobDetailTable';
+import JobVSBooking from '../charts/JobVsBooking';
 import jobService from './Service/jobService';
 import JobPieChart from '../charts/JobPieChart';
 
@@ -100,15 +100,15 @@ const Jobdetail = () => {
   <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} justifyContent="center" alignItems="center">
   {/*-----------form-table----------- */}
   <Grid item xs={6}  sx={{ height: '400px' }}>
-    <Card sx={{ overflow: 'auto' }}>       
-      <JobDetailTable />
+    <Card >       
+      <JobVSBooking />
     </Card>
   </Grid>
 
   {/* ----------Pie chart----------- */}
   <Grid item xs={6} sx={{ height: '400px' }}  >
     <Card >        
-      {<JobPieChart/>}
+    <JobPieChart/>
     </Card>
   </Grid>
 </Grid>

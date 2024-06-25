@@ -55,11 +55,11 @@ const jobService=axios.create({
     }
     };
   //--------------------------------List  :- JOb list  -------------------
-  const fetchLabourJobCounts = async () => {
+  const fetchJobRoleVsBooking = async () => {
     try {
-    const response = await jobService.get('/api/jobrole/joblist');
+    const response = await jobService.get('/api/bookings/jobrole-count');
     console.log("job for list :",response.data);
-    return (response);
+    return (response.data);
     }catch (error) {
        throw (error);
     }
@@ -68,6 +68,6 @@ const jobService=axios.create({
         jobService,
         fetchJobCount,
         fetchHighDemand,
-        fetchLabourJobCounts,
+        fetchJobRoleVsBooking,
         fetchLabourJobCountsForPie,
       }

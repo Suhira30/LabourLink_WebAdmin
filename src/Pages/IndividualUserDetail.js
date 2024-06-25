@@ -100,11 +100,6 @@ const IndividualUserDetail = () => {
                                                                 <td>{user.email}</td>
                                                             </tr>
                                                             <tr>
-                                                                <td style={{ width: 'auto' }}><strong>Role</strong></td>
-                                                                <td>:</td>
-                                                                <td>{user.role}</td>
-                                                            </tr>
-                                                            <tr>
                                                                 <td style={{ width: 'auto' }}><strong>Join date</strong></td>
                                                                 <td>:</td>
                                                                 <td>{user.joinDate}</td>
@@ -114,6 +109,18 @@ const IndividualUserDetail = () => {
                                                                 <td>:</td>
                                                                 <td>{user.mobileNumber}</td>
                                                             </tr>
+                                                            <tr>
+                                                                <td style={{ width: 'auto' }}><strong>Role</strong></td>
+                                                                <td>:</td>
+                                                                <td>{user.role}</td>
+                                                            </tr>
+                                                            {user.role === 'LABOUR' && (
+                                                                <tr>
+                                                                    <td style={{ width: 'auto' }}><strong>Job Role</strong></td>
+                                                                    <td>:</td>
+                                                                    <td>{user.jobRole.join(', ')}</td>
+                                                                </tr>
+                                                            )}
                                                         </tbody>
                                                     </table>
                                                 </div>

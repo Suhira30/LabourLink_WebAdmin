@@ -12,7 +12,7 @@ const UserNew = () => {
     const fetchdata=async () => {
         try{
             const tabledata=await userService.fetchNewUserData();
-            console.log('Fetched data:', tabledata); 
+           // console.log('Fetched data:', tabledata); 
             setRowData(tabledata);
             setLoading(false);
            }catch(error){

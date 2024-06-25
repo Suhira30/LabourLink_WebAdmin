@@ -32,6 +32,8 @@ const Review = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
   const [loading, setLoading] = useState(true);
+  const [clickedButtons, setClickedButtons] = useState({});
+
 
   const fetchData = async () => {
     try {
@@ -56,6 +58,12 @@ const Review = () => {
     }
   };
 
+  const handleClick = (id) => {
+    const updatedClickedButtons = { ...clickedButtons, [id]: true };
+    setClickedButtons(updatedClickedButtons);
+    localStorage.setItem('clickedButtons', JSON.stringify(updatedClickedButtons));
+  };
+
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = listData.slice(indexOfFirstItem, indexOfLastItem);
@@ -70,7 +78,7 @@ const Review = () => {
     <>
       <div style={pageStyle}>
         <Sidebar>
-          <div
+          {/* <div
             style={{
               display: 'flex',
               justifyContent: 'center',
@@ -81,8 +89,8 @@ const Review = () => {
               marginRight: 'auto',
               maxWidth: '1000px',
             }}
-          >
-            <Box
+          > */}
+            {/* <Box
               sx={{
                 flexGrow: 1,
                 padding: '0',
@@ -92,15 +100,15 @@ const Review = () => {
                 marginRight: 'auto',
                 maxWidth: '1000px',
               }}
-            >
-              <Grid
+            > */}
+              {/* <Grid
                 container
                 rowSpacing={2}
                 justifyContent="center"
                 columnSpacing={{ xs: 1, sm: 2, md: 2 }}
-              >
+              > */}
                 {/*top 4 boxes--01--------------------------------------------------------------------------------- */}
-                <Grid item xs={12} sm={6} md={3}>
+                {/* <Grid item xs={12} sm={6} md={3}>
                   <Card
                     sx={{
                       display: 'flex',
@@ -125,10 +133,10 @@ const Review = () => {
                       <Typography>Total Review</Typography>
                     </CardContent>
                   </Card>
-                </Grid>
+                </Grid> */}
 
                 {/*top 4 boxes--02--------------------------------------------------------------------------------- */}
-                <Grid item xs={12} sm={6} md={3}>
+                {/* <Grid item xs={12} sm={6} md={3}>
                   <Card
                     sx={{
                       display: 'flex',
@@ -153,10 +161,10 @@ const Review = () => {
                       <Typography>Average Rating</Typography>
                     </CardContent>
                   </Card>
-                </Grid>
+                </Grid> */}
 
                 {/*top 4 boxes--03--------------------------------------------------------------------------------- */}
-                <Grid item xs={12} sm={6} md={3}>
+                {/* <Grid item xs={12} sm={6} md={3}>
                   <Card
                     sx={{
                       display: 'flex',
@@ -184,9 +192,10 @@ const Review = () => {
                 </Grid>
               </Grid>
             </Box>
-          </div>
+          </div> */}
           {/*----------------------------------List Reviews--------------------------------------------------------------------------------- */}
-          <Box sx={{ padding: '0', marginTop: '40px', marginLeft: 'auto', marginRight: 'auto', maxWidth: '1000px' }}>
+          
+          <Box sx={{ padding: '0', marginTop: '120px', marginLeft: 'auto', marginRight: 'auto', maxWidth: '1000px' }}>
             <Grid container  columnSpacing={{ xs: 1, sm: 2, md: 3 }} justifyContent="center" alignItems="center">
               <List sx={{ width: '100%', bgcolor: 'background.paper', marginLeft: '20px', }}>
               {currentItems.map(item => (
@@ -213,10 +222,18 @@ const Review = () => {
                       />
                     </Box>
                     <Box sx={{ display: 'flex', position: 'absolute', bottom: 9, right: 50 }}>
-                      <Stack direction="row" spacing={2}>
-                        <Button sx={{ color: 'red' }} onClick={() => handleDelete(item.id)}>Remove</Button>
-                      </Stack>
-                    </Box>
+                        <Stack direction="row" spacing={2}>
+                          <Button
+                            sx={{ color: clickedButtons[item.id] ? 'red' : 'inherit' }}
+                            onClick={() => {
+                              handleClick(item.id);
+                              handleDelete(item.id);
+                            }}
+                          >
+                            Remove
+                          </Button>
+                        </Stack>
+                      </Box>
                   </ListItem>
                   <Divider variant="inset" component="li" />
                 </React.Fragment>
