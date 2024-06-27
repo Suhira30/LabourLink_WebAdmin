@@ -1,88 +1,41 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext, useEffect,useState } from 'react';
 import Sidebar from '../Components/Sidebar';
 import Footer from '../Components/Footer';
 import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
 import ListItemText from '@mui/material/ListItemText';
 import Box from '@mui/material/Box';
-import ListItem from '@mui/material/ListItem'; // Corrected usage
+import ListItem from '@mui/material/ListItem';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import SockJS from 'sockjs-client';
 import { Client } from '@stomp/stompjs';
 import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
-import DeleteIcon from '@mui/icons-material/Delete';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { Link } from 'react-router-dom';
 import notificationService from './Service/notificationService';
-import { NotificationsOff } from '@mui/icons-material';
 import { useVerifiedLabour } from '../Context/VerifiedLabourContext ';
-import Button from '@mui/material/Button';
+import Pagination from '@mui/material/Pagination';
+import { NotificationContext } from '../Context/NotificationContext'; // Adjust the path accordingly
 
 const Notification = () => {
   const pageStyle = {
     backgroundColor: '#F3F2F7',
   };
-  
-  const [notifications, setNotifications] = useState([]); // Uncommented
-  const [reports, setReports] = useState([]);
-  const [clickedButtons, setClickedButtons] = useState({});
-  const [clickedReportButtons, setClickedReportButtons] = useState({});
-  const { setVerifiedList } = useVerifiedLabour(); // Correct context usage
 
+  const formatDate = (date) => {
+    const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+    return date.toLocaleDateString(undefined, options);
+  };
+  const [currentDate, setCurrentDate] = useState(new Date());
   useEffect(() => {
-    const socket = new SockJS('http://localhost:1000/ws');
-    const stompClient = new Client({
-      webSocketFactory: () => socket,
-      onConnect: () => {
-        stompClient.subscribe('/topic/reports', (message) => {
-          console.log('Connected report notification for page');
-          const report = JSON.parse(message.body);
-          console.log('Connected report notification for page',report.id);
-
-          handleReportNotification(report);
-        });
-      },
-      onStompError: (frame) => {
-        console.error('Broker reported error: ' + frame.headers['message']);
-        console.error('Additional details: ' + frame.body);
-      },
-    });
-
-    stompClient.activate();
-
-    const storedNotifications = JSON.parse(localStorage.getItem('notifications')) || [];
-    const storedReports = JSON.parse(localStorage.getItem('reports')) || [];
-    const storedClickedButtons = JSON.parse(localStorage.getItem('clickedButtons')) || {};
-    const storedClickedReportButtons = JSON.parse(localStorage.getItem('clickedReportButtons')) || {};
-
-    setNotifications(storedNotifications);
-    setReports(storedReports);
-    setClickedButtons(storedClickedButtons);
-    setClickedReportButtons(storedClickedReportButtons);
-
-    return () => {
-      stompClient.deactivate();
-    };
+    setCurrentDate(new Date());
   }, []);
 
-  // const handleNotification = (notification) => {
-  //   setNotifications(prevNotifications => {
-  //     const newNotifications = [notification, ...prevNotifications];
-  //     localStorage.setItem('notifications', JSON.stringify(newNotifications));
-  //     return newNotifications;
-  //   });
-  // };
-
-  const handleReportNotification = (report) => {
-    setReports(prevReports => {
-      const newReports = [report, ...prevReports];
-      localStorage.setItem('reports', JSON.stringify(newReports));
-      return newReports;
-    });
-  };
+  const { notifications, setNotifications,  clickedButtons, setClickedButtons } = useContext(NotificationContext);
+  const { setVerifiedList } = useVerifiedLabour();
 
   const handleClearLocalStorage = () => {
     localStorage.removeItem('notifications');
@@ -90,11 +43,11 @@ const Notification = () => {
     alert('LocalStorage items removed.');
   };
 
-  const handleClearReportLocalStorage = () => {
-    localStorage.removeItem('reports');
-    setReports([]); // Clear state
-    alert('LocalStorage items removed.');
-  };
+  // const handleClearReportLocalStorage = () => {
+  //   localStorage.removeItem('reports');
+  //   setReports([]); // Clear state
+  //   alert('LocalStorage items removed.');
+  // };
 
   const handleNotificationOnClick = async (email, index) => {
     try {
@@ -109,21 +62,31 @@ const Notification = () => {
         return notification;
       });
       setNotifications(updatedNotifications);
-      localStorage.setItem('notifications', JSON.stringify(updatedNotifications));
       const updatedClickedButtons = { ...clickedButtons, [email]: true };
       setClickedButtons(updatedClickedButtons);
-      localStorage.setItem('clickedButtons', JSON.stringify(updatedClickedButtons));
-
     } catch (error) {
       console.error('Verified error:', error);
     }
   };
+
+  // const handleReportOnClick = (id) => {
+  //   // Update clickedReportButtons
+  //   const updatedClickedReportButtons = { ...clickedReportButtons, [id]: true };
+  //   setClickedReportButtons(updatedClickedReportButtons);
+  // };
+
   
-  const handleReportOnClick = (id) => {
-    // Update clickedReportButtons
-    const updatedClickedReportButtons = { ...clickedReportButtons, [id]: true };
-    setClickedReportButtons(updatedClickedReportButtons);
-    localStorage.setItem('clickedReportButtons', JSON.stringify(updatedClickedReportButtons));
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 8;
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = notifications.slice(indexOfFirstItem, indexOfLastItem); // Use 'reports' instead of 'setReports'
+
+  const totalPages = Math.ceil(notifications.length / itemsPerPage);
+
+  const handlePageChange = (event, value) => {
+    setCurrentPage(value);
   };
 
   return (
@@ -131,21 +94,14 @@ const Notification = () => {
       <Sidebar>
         <Box sx={{ padding: '0', marginTop: '120px', marginLeft: 'auto', marginRight: 'auto', maxWidth: '800px', overflow: 'hidden' }}>
           <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '0px' }}>
-            <Typography
-              component="span"
-              variant="body2"
-              color="primary"
-              fontSize="16px"
-              style={{ cursor: 'pointer' }}
-              onClick={handleClearLocalStorage}
-            >
+            <Typography component="span" variant="body2" color="primary" fontSize="16px" style={{ cursor: 'pointer' }} onClick={handleClearLocalStorage}>
               Clear all
             </Typography>
           </Grid>
-          {/*-----Notification Registeration ------------ */}
+          {/*-----Notification Registration ------------ */}
           <Box sx={{ flexGrow: 1 }}>
-            <List sx={{ width: '100%', bgcolor: 'background.paper', maxHeight: '400px', overflow: 'auto' }}>
-              {notifications.map((notification, index) => (
+            <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
+              {currentItems.map((notification, index) => (
                 <React.Fragment key={index}>
                   <ListItem
                     sx={{
@@ -165,7 +121,12 @@ const Notification = () => {
                             {notification.name}
                           </Typography>
                           {` with ${notification.email} added `}
-                          <a href={notification.documentUri} target="__blank" rel="noopener noreferrer">document </a> {`for job verification on ${notification.joinDate}`}
+                          <a href={notification.documentUri} target="__blank" rel="noopener noreferrer">
+                            document{' '}
+                          </a>{`for job verification  `}<br></br>
+                          <Typography component="span" variant="body2" color="text.secondary">
+                          {`${notification.joinDate}`}
+                          </Typography> 
                         </Typography>
                       }
                     />
@@ -177,21 +138,23 @@ const Notification = () => {
                 </React.Fragment>
               ))}
             </List>
+            <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+              <Pagination
+                count={totalPages}
+                page={currentPage}
+                onChange={handlePageChange}
+                color="primary"
+              />
+            </Box>
+
           </Box>
           {/*-----Notification Report ------------ */}
-          <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '0px' }}>
-            <Typography
-              component="span"
-              variant="body2"
-              color="primary"
-              fontSize="16px"
-              style={{ cursor: 'pointer' }}
-              onClick={handleClearReportLocalStorage}
-            >
+          {/* <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '0px' }}>
+            <Typography component="span" variant="body2" color="primary" fontSize="16px" style={{ cursor: 'pointer' }} onClick={handleClearReportLocalStorage}>
               Clear all
             </Typography>
-          </Grid>
-          <Box sx={{ flexGrow: 1 }}>
+          </Grid> */}
+          {/* <Box sx={{ flexGrow: 1 }}>
             <List sx={{ width: '100%', bgcolor: 'background.paper', maxHeight: '400px', overflow: 'auto' }}>
               {reports.map((report, index) => (
                 <React.Fragment key={index}>
@@ -205,29 +168,31 @@ const Notification = () => {
                       paddingTop: '8px',
                       paddingBottom: '8px',
                     }}
-                  >
-                    <ListItemText
+                  > */}
+                    {/* <ListItemText
                       primary={
                         <Typography component="span" variant="body2" color="text.primary" fontSize="16px">
-                          <Typography component="span" variant="body2" fontWeight="bold">{report.ReportedByName}</Typography>
-                          {` reported ${report.title} to ${report.reportedToId} ${report.id} `}
-                          <Typography component="span" variant="body2" color="text.secondary">{`Reported on: ${report.reportedDate}`}</Typography>
+                          <Typography component="span" variant="body2" fontWeight="bold">
+                            {report.ReportedByName}
+                          </Typography>
+                          {` reported ${report.title} to ${report.reportedToId} `}
+                          
                         </Typography>
                       }
-                    />
-                     <Stack direction="row" spacing={2}>
-                     <Link to={`/user-detail/${report.reportedToId}`}>
-                     <Button variant="outlined" color={clickedReportButtons[report.id] ? 'success' : 'secondary'} onClick={() => handleReportOnClick(report.id)}>
+                    /> */}
+                    {/* <Stack direction="row" spacing={2}>
+                      <Link to={`/user-detail/${report.reportedToId}`}>
+                        <Button variant="outlined" color={clickedReportButtons[report.id] ? 'success' : 'secondary'} onClick={() => handleReportOnClick(report.id)}>
                           View
                         </Button>
-                        </Link>
+                      </Link>
                     </Stack>
                   </ListItem>
                   <Divider variant="inset" component="li" />
-                </React.Fragment>
-              ))}
+                </React.Fragment> */}
+              {/* ))}
             </List>
-          </Box>
+          </Box> */}
         </Box>
         {/*---------------------------Footer------------------------------------------------------- */}
         <div style={{ marginTop: '30px', maxWidth: '100%' }}>

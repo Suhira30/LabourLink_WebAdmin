@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import Sidebar from '../Components/Sidebar';
 import Footer from '../Components/Footer';
 import List from '@mui/material/List';
@@ -50,6 +49,15 @@ const Review = () => {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    fetchData();
+    const interval = setInterval(() => {
+      fetchData();
+    }, 60000); // 60s
+
+    return () => clearInterval(interval); // Clear the interval on component unmount
+  }, []);
+
   const handleDelete = async (id) => {
     try {
       await reviewService.deleteReviewById(id);
@@ -78,121 +86,7 @@ const Review = () => {
     <>
       <div style={pageStyle}>
         <Sidebar>
-          {/* <div
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              padding: '0',
-              marginTop: '80px',
-              marginLeft: 'auto',
-              marginRight: 'auto',
-              maxWidth: '1000px',
-            }}
-          > */}
-            {/* <Box
-              sx={{
-                flexGrow: 1,
-                padding: '0',
-                paddingRight: '0',
-                marginTop: '30px',
-                marginLeft: '15px',
-                marginRight: 'auto',
-                maxWidth: '1000px',
-              }}
-            > */}
-              {/* <Grid
-                container
-                rowSpacing={2}
-                justifyContent="center"
-                columnSpacing={{ xs: 1, sm: 2, md: 2 }}
-              > */}
-                {/*top 4 boxes--01--------------------------------------------------------------------------------- */}
-                {/* <Grid item xs={12} sm={6} md={3}>
-                  <Card
-                    sx={{
-                      display: 'flex',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      maxWidth: 220,
-                      height: 120,
-                    }}
-                  >
-                    <CardMedia
-                      sx={{
-                        width: 65,
-                        height: 65,
-                        ml: 2,
-                      }}
-                      image={review}
-                    />
-                    <CardContent sx={{ flex: '1' }}>
-                      <Typography gutterBottom variant="h5" component="div">
-                        {"--"}
-                      </Typography>
-                      <Typography>Total Review</Typography>
-                    </CardContent>
-                  </Card>
-                </Grid> */}
-
-                {/*top 4 boxes--02--------------------------------------------------------------------------------- */}
-                {/* <Grid item xs={12} sm={6} md={3}>
-                  <Card
-                    sx={{
-                      display: 'flex',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      maxWidth: 220,
-                      height: 120,
-                    }}
-                  >
-                    <CardMedia
-                      sx={{
-                        width: 65,
-                        height: 65,
-                        ml: 2,
-                      }}
-                      image={averagereview}
-                    />
-                    <CardContent sx={{ flex: '1' }}>
-                      <Typography gutterBottom variant="h5" component="div">
-                        {"--"}
-                      </Typography>
-                      <Typography>Average Rating</Typography>
-                    </CardContent>
-                  </Card>
-                </Grid> */}
-
-                {/*top 4 boxes--03--------------------------------------------------------------------------------- */}
-                {/* <Grid item xs={12} sm={6} md={3}>
-                  <Card
-                    sx={{
-                      display: 'flex',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      maxWidth: 220,
-                      height: 120,
-                    }}
-                  >
-                    <CardMedia
-                      sx={{
-                        width: 65,
-                        height: 65,
-                        ml: 2,
-                      }}
-                      image={review}
-                    />
-                    <CardContent sx={{ flex: '1' }}>
-                      <Typography gutterBottom variant="h5" component="div">
-                        {"--"}
-                      </Typography>
-                      <Typography>Total Appointments</Typography>
-                    </CardContent>
-                  </Card>
-                </Grid>
-              </Grid>
-            </Box>
-          </div> */}
+         
           {/*----------------------------------List Reviews--------------------------------------------------------------------------------- */}
           
           <Box sx={{ padding: '0', marginTop: '120px', marginLeft: 'auto', marginRight: 'auto', maxWidth: '1000px' }}>

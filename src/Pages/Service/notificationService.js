@@ -25,15 +25,24 @@ const notificationService=axios.create({
        throw (error);
     }
     };
-//---------------------------------reports of Labour-------------------
-  const fetchReportofLabour  = async (email) => {
+//---------------------------------register notification -------------------
+    const fetchRegisterNotification  = async () => {
     try {
-    const response = await notificationService.put(`/labour/getLabour/${email}`);
-    return (console.log("Successfully verified"));
+    const response = await notificationService.get(`/adminnotification`);
+    return (response);
     }catch (error) {
        throw (error);
     }
     };
+// //---------------------------------reports of Labour-------------------
+//   const fetchReportofLabour  = async (email) => {
+//     try {
+//     const response = await notificationService.put(``);
+//     return (console.log("Successfully verified"));
+//     }catch (error) {
+//        throw (error);
+//     }
+//     };
 //---------------------------------Is verified -------------------
 const IsVerifiedLabour  = async (email) => {
     try {
@@ -46,6 +55,7 @@ const IsVerifiedLabour  = async (email) => {
     export default{
         notificationService,
         verifiedLabour,
-        fetchReportofLabour,
-        IsVerifiedLabour
+        //fetchReportofLabour,
+        IsVerifiedLabour,
+        fetchRegisterNotification,
     }     

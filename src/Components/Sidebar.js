@@ -135,7 +135,12 @@ const Sidebar =  ({ children }) => {
   const [userProfile, setUserProfile] = useState({});
 
   const handleItemClick = (route) => {
-    navigate(route);
+    if (route === 'logout') {
+      //localStorage.removeItem('token');
+      navigate('/logout'); 
+    } else {
+      navigate(route);
+    }
   };
   
 
@@ -228,7 +233,7 @@ const Sidebar =  ({ children }) => {
     >
     {/*------------------------Messages----------------------------------------------------------*/}
     
-      <MenuItem onClick={() => handleItemClick('/Review')}>
+      <MenuItem onClick={() => handleItemClick('/mail')}>
           <IconButton size="large" aria-label="show 4 new mails" color="inherit" >
             <Badge badgeContent={4} color="error">
             <MailOutlinedIcon />
@@ -316,7 +321,7 @@ const Sidebar =  ({ children }) => {
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
           <Box style={{ display: 'flex', alignItems: 'center', marginRight:"30px"}}>
           {/*------------------------Messages-f---------------------------------------------------------*/}
-          <MenuItem component={Link} to="/Review"
+          <MenuItem component={Link} to="/mail"
            sx={{
             '&:hover': {
               backgroundColor: 'transparent',
@@ -417,7 +422,7 @@ const Sidebar =  ({ children }) => {
         </DrawerHeader>
       
         <List>
-          {['Dashboard', 'Bookings', 'User detail', 'Job detail','Review','Notification','Log out'].map((text, index) => (
+          {['Dashboard', 'Bookings', 'User detail', 'Job detail','Review','Notification','Report','Logout'].map((text, index) => (
             <ListItem key={text} disablePadding onClick={() => handleItemClick(`/${text.toLowerCase().replace(' ', '-')}`)}
             sx={{
               '&:hover': {
@@ -437,7 +442,8 @@ const Sidebar =  ({ children }) => {
           {index === 3 && <WorkOutlineOutlinedIcon />}
           {index === 4 && <RateReviewOutlinedIcon  />}
           {index === 5 && <NotificationsNoneOutlinedIcon />}
-          {index === 6 && <LogoutOutlinedIcon />}
+          {index === 6 && <NotificationsNoneOutlinedIcon />}
+          {index === 7 && <LogoutOutlinedIcon />}
         </ListItemIcon>
                 <ListItemText primary={text} />
               </ListItemButton>

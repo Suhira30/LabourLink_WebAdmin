@@ -7,6 +7,9 @@ import Notification from "./Pages/Notification"
 import Review from "./Pages/Review"
 import Settingpage from "./Pages/Settingpage";
 import Userdetail from "./Pages/Userdetail";
+import Logout from "./Pages/Logout";
+import Mail from "./Pages/mail";
+import Reports from "./Pages/Reports";
 import Footer from "./Components/Footer";
 import Searchbar from './Components/Searchbar';
 import Sidebar from "./Components/Sidebar";
@@ -15,10 +18,13 @@ import IndividualSuspendUserDetail  from './Pages/IndividualSuspendUser';
 import IndividualDeactivateUserDetail  from './Pages/IndividualDeactivatedUser';
 import Tostify from './Components/Tostify';import 'react-toastify/dist/ReactToastify.css';
 import { VerifiedLabourProvider } from "./Context/VerifiedLabourContext ";
-
+import {NotificationProvider} from "./Context/NotificationContext";
+import { ReportNotificationProvider } from "./Context/ReportNotificationContext";
 function App() {
   return(
     <div >
+      <ReportNotificationProvider>
+      <NotificationProvider>
       <VerifiedLabourProvider>
       <BrowserRouter>
       <Routes>
@@ -33,9 +39,15 @@ function App() {
         <Route path="/user-detail/:email" element={<IndividualUserDetail />} />
         <Route path="/suspenduser-detail/:email" element={<IndividualSuspendUserDetail />} />
         <Route path="/deactivateuser-detail/:email" element={<IndividualDeactivateUserDetail />} />
+        <Route path="/logout"  element={ <Logout/>}/>
+        <Route path="/mail"  element={ <Mail/>}/>
+        <Route path="/report"  element={ <Reports/>}/>
+
       </Routes>
       </BrowserRouter>
       </VerifiedLabourProvider>
+      </NotificationProvider>
+      </ReportNotificationProvider>
       <Tostify/>
     </div>
   );
