@@ -114,8 +114,9 @@ const IndividualDeactivatedUser = () => {
               </Grid>
             </Grid>
           </Box>
+          <div  style={{backgroundColor:"#E7ECFF"}}>
           <div style={{ marginTop: '30px', maxWidth: '100%' }}> 
-            <Footer />
+            <Footer /></div>
           </div>
         </Sidebar>
       </div>

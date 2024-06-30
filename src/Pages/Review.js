@@ -101,12 +101,19 @@ const Review = () => {
                     <Box sx={{ flexGrow: 1 }}>
                       <ListItemText
                         primary={
-                          <Typography sx={{ fontWeight: 'bold' }}>
+                          <React.Fragment>
+                          <Typography sx={{ fontWeight: 'bold', display: 'inline' }}>
                             {item.customerName}
-                          </Typography>}
+                          </Typography>
+                          <Typography sx={{ display: 'inline', marginLeft: '10px' ,fontSize:"12px",fontWeight:'lightss'}}>
+                            {item.customerEmail}
+                          </Typography>
+                        </React.Fragment>}
                         secondary={
                           <React.Fragment>
+                          
                             <Typography sx={{ display: 'inline' }} component="span" variant="body2" color="text.primary">
+                             
                               <ReviewRating value={item.rating} />
                               {item.labourName}
                             </Typography>
@@ -144,8 +151,9 @@ const Review = () => {
             </Grid>
           </Box>
   {/*---------------------------Footer------------------------------------------------------- */}
+  <div  style={{backgroundColor:"#E7ECFF"}}>
           <div style={{marginTop:'30px',maxWidth:'100%'}}> 
-          <Footer />
+          <Footer /></div>
           </div>
         </Sidebar>
       </div>

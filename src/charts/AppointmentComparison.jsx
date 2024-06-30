@@ -17,18 +17,19 @@ export default function AppointmentComparison() {
                 // Transform the data
                 const jobRoles = data.map(item => item.jobRole);
                 const totalCounts = data.map(item => item.totalCount);
+                const declinedCounts = data.map(item => item.declinedCount);
                 const pendingCounts = data.map(item => item.pendingCount);
                 const acceptedCounts = data.map(item => item.acceptedCount);
                 const completedCounts = data.map(item => item.completedCount);
-                const declinedCounts = data.map(item => item.declinedCount);
 
                 setChartData({
                     series: [
                         { label: 'Total', data: totalCounts },
+                        { label: 'Declined', data: declinedCounts },
                         { label: 'Pending', data: pendingCounts },
                         { label: 'Accepted', data: acceptedCounts },
                         { label: 'Completed', data: completedCounts },
-                        { label: 'Declined', data: declinedCounts },
+                       
                     ],
                     xAxis: [{ data: jobRoles, scaleType: 'band' }]
                 });

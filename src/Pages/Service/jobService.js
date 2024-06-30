@@ -44,7 +44,7 @@ const jobService=axios.create({
 //        throw (error);
 //     }
 //     };
-//--------------------------------Table  :- JOb and labour   -------------------
+//-------------------------------Count labours by job role pie chart 2 -------------------
   const fetchLabourJobCountsForPie = async () => {
     try {
     const response = await jobService.get('/api/labour/count');
@@ -54,7 +54,7 @@ const jobService=axios.create({
        throw (error);
     }
     };
-  //--------------------------------List  :- JOb list  -------------------
+  //--------------------------------pie chart 1  -------------------
   const fetchJobRoleVsBooking = async () => {
     try {
     const response = await jobService.get('/api/bookings/jobrole-count');

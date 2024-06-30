@@ -22,6 +22,8 @@ import WorkOutlineOutlinedIcon from '@mui/icons-material/WorkOutlineOutlined';
 import RateReviewOutlinedIcon from '@mui/icons-material/RateReviewOutlined';
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
+import ReportProblemOutlinedIcon from '@mui/icons-material/ReportProblemOutlined';
+import Groups3OutlinedIcon from '@mui/icons-material/Groups3Outlined';
 import Menu from '@mui/material/Menu';
 import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
@@ -314,7 +316,7 @@ const Sidebar =  ({ children }) => {
             marginLeft: '10px',
             color: 'black'  }}
           >
-            LABOR LINK
+            Labor <Box component="span" sx={{  backgroundColor: 'rgba(255, 255, 255, 0.8)',color:'orange' }}>Link</Box>
           </Typography>
         
           <Box sx={{ flexGrow: 1 }} />
@@ -328,10 +330,11 @@ const Sidebar =  ({ children }) => {
             },
           }}>
             <IconButton size="large" 
-            aria-label="show 4 new mails" 
+          variant="dot"
             color="inherit" 
-            sx={{ padding:'0'}}>
-              <Badge badgeContent={4} color="error">
+            sx={{ padding:'0',margin:"0"}}>
+              <Badge color="error">
+              {/* <Badge variant="dot" overlap="circular" color="error"> */}
               <MailOutlinedIcon />
               </Badge>
             </IconButton>
@@ -345,18 +348,35 @@ const Sidebar =  ({ children }) => {
           }}>
             <IconButton
               size="large"
-              aria-label="show 17 new notifications"
               color="inherit"
               sx={{ padding:'0' }}
                >
-              <Badge badgeContent={17} color="error">
+              <Badge  color="error">
+              {/* <Badge variant="dot" overlap="circular" color="error"> */}
                 <NotificationsNoneOutlinedIcon />
               </Badge>
             </IconButton>
             </MenuItem>
+            {/*------------------------Report-f---------------------------------------------------------*/}
+          <MenuItem component={Link} to="/report"
+          sx={{
+            '&:hover': {
+              backgroundColor: 'transparent',
+            },
+          }}>
+            <IconButton
+              size="large"
+              color="inherit"
+              sx={{ padding:'0' }}
+               >
+              <Badge color="error">
+                <ReportProblemOutlinedIcon />
+              </Badge>
+            </IconButton>
+            </MenuItem>
          
-            {/*------------------------setting-f---------------------------------------------------------*/}
-            <MenuItem component={Link} to="/setting-page"
+            {/* ------------------------setting-f--------------------------------------------------------- */}
+            {/* <MenuItem component={Link} to="/setting-page"
           sx={{
             '&:hover': {
               backgroundColor: 'transparent',
@@ -371,7 +391,7 @@ const Sidebar =  ({ children }) => {
               <Badge badgeContent={3} color="error">
                 <SettingsOutlinedIcon />
               </Badge>
-            </IconButton>  </MenuItem>
+            </IconButton>  </MenuItem> */}
        </Box>
             {/*------------------------profile-f----------------------------------------------------------*/}
             <Typography>
@@ -437,12 +457,12 @@ const Sidebar =  ({ children }) => {
               <ListItemButton>
               <ListItemIcon>
           {index === 0 && <HomeOutlinedIcon />}
-          {index === 1 && < WorkOutlineOutlinedIcon/>}
+          {index === 1 && < Groups3OutlinedIcon/>}
           {index === 2 && <PersonOutlineOutlinedIcon />}
           {index === 3 && <WorkOutlineOutlinedIcon />}
           {index === 4 && <RateReviewOutlinedIcon  />}
           {index === 5 && <NotificationsNoneOutlinedIcon />}
-          {index === 6 && <NotificationsNoneOutlinedIcon />}
+          {index === 6 && <ReportProblemOutlinedIcon />}
           {index === 7 && <LogoutOutlinedIcon />}
         </ListItemIcon>
                 <ListItemText primary={text} />

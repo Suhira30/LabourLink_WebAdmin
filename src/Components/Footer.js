@@ -1,17 +1,16 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import IconButton from '@mui/material/IconButton';
-import Link from '@mui/material/Link';
+// import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
-import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import FacebookIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import TwitterIcon from '@mui/icons-material/X';
 import imglogo from '../Img/app-logo.png';
-
+import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined';
+import {Link } from 'react-router-dom';
 
   
   function Copyright() {
@@ -99,12 +98,9 @@ const Footer = () => {
           }}
         >
           <Typography variant="body2" fontWeight={600}>
-            Help
+           About Us
           </Typography>
-          <Link color="text.secondary" href="#">
-            About Intelij
-          </Link>
-          
+          <Link to={`/ourstory`} style={{ color: 'text.secondary' }}>Our Story</Link>
         </Box>
         <Box
           sx={{
@@ -149,11 +145,11 @@ const Footer = () => {
         >
           <IconButton
             color="inherit"
-            href="https://github.com/mui"
+            href="#"
             aria-label="GitHub"
             sx={{ alignSelf: 'center' }}
           >
-            <FacebookIcon />
+            <FacebookOutlinedIcon />
           </IconButton>
           <IconButton
             color="inherit"

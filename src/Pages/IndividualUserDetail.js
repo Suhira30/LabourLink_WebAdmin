@@ -31,6 +31,7 @@ const IndividualUserDetail = () => {
         try {
             const userData = await userService.fetchIndividualUserData(email);
             setUser(userData);
+            console.log("person data:",userData);
         } catch (error) {
             console.error('Error fetching individual user data:', error);
         }
@@ -67,7 +68,9 @@ const IndividualUserDetail = () => {
         <>
             <div style={{ backgroundColor: '#F3F2F7' }}>
                 <Sidebar>
-                    <Box sx={{ padding: '0', marginTop: '130px', marginLeft: '100px', marginRight: 'auto',maxWidth:'1000px' }}>
+                    {/* <Box sx={{ padding: '0', marginTop: '130px', marginLeft: '100px', marginRight: 'auto'}}> */}
+                    <Box sx={{padding: '0',paddingRight:'0',marginTop:'130px', marginLeft: '100px', marginRight: 'auto',maxWidth: '1000px' }}>
+
                         <Grid container spacing={5}>
                             {/* User Detail Section */}
                             <Grid item xs={12} sm={6}>
@@ -199,10 +202,12 @@ const IndividualUserDetail = () => {
                                 <IndividualBookingHistory user={email} />
                             </Grid>
                         </Grid>
+                        </Box>
+                        <div  style={{backgroundColor:"#E7ECFF"}}>
                         <div style={{ marginTop: '30px', maxWidth: '100%' }}>
-                            <Footer />
+                            <Footer /></div>
                         </div>
-                    </Box>
+                    
                 </Sidebar>
             </div>
         </>

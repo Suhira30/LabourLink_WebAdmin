@@ -5,7 +5,7 @@ import jobService from "../Pages/Service/jobService";
 const options = {
   legend: "none",
   pieSliceText: "label",
-  title: "Labour Job Distribution",
+  title: "Job role vs Booking Distribution",
   pieStartAngle: 100,
 };
 

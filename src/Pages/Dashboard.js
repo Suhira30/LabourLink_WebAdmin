@@ -13,7 +13,6 @@ import user from '../Img/user.png';
 import Barchart from '../charts/DashBoardBarchartLeft';
 import DashBoardBarchartRight from '../charts/DashBoardBarchartRight';
 import Order from '../charts/DashBoardLineChart';
-import Pie_Dashboard from '../charts/Pie_Dashboard';
 import Todo from "../Components/Todo"
 import Calender from '../Components/Calender';
 import { useEffect, useState } from "react";
@@ -173,9 +172,10 @@ const Dashboard = () => {
 </Box>
 
  {/*---------------------------Footer------------------------------------------------------- */}
+ <div  style={{backgroundColor:"#E7ECFF"}}>
   <div style={{marginTop:'30px',maxWidth:'100%'}}> 
     <Footer/>
-  </div>
+  </div></div>
     </Sidebar>
   </div>
 </>

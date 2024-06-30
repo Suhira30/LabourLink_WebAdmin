@@ -116,9 +116,9 @@ const Jobdetail = () => {
     </Box>
 
   {/*---------------------------Footer------------------------------------------------------- */}
-   
+  <div  style={{backgroundColor:"#E7ECFF"}}>
   <div style={{marginTop:'100px',maxWidth:'100%'}}> 
-    <Footer/>
+    <Footer/></div>
     </div>
     </Sidebar>
     </div>

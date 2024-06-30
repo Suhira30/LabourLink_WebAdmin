@@ -10,6 +10,7 @@ import Userdetail from "./Pages/Userdetail";
 import Logout from "./Pages/Logout";
 import Mail from "./Pages/mail";
 import Reports from "./Pages/Reports";
+import OurStory from "./Pages/OurStory";
 import Footer from "./Components/Footer";
 import Searchbar from './Components/Searchbar';
 import Sidebar from "./Components/Sidebar";
@@ -20,6 +21,7 @@ import Tostify from './Components/Tostify';import 'react-toastify/dist/ReactToas
 import { VerifiedLabourProvider } from "./Context/VerifiedLabourContext ";
 import {NotificationProvider} from "./Context/NotificationContext";
 import { ReportNotificationProvider } from "./Context/ReportNotificationContext";
+
 function App() {
   return(
     <div >
@@ -42,7 +44,7 @@ function App() {
         <Route path="/logout"  element={ <Logout/>}/>
         <Route path="/mail"  element={ <Mail/>}/>
         <Route path="/report"  element={ <Reports/>}/>
-
+        <Route path="/ourstory" element={<OurStory/>}/>
       </Routes>
       </BrowserRouter>
       </VerifiedLabourProvider>
