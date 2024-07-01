@@ -8,9 +8,10 @@ import mission1 from "../Img/mission1.png";
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import { CardActionArea } from '@mui/material';
 import Footer from "../Components/Footer";
-
+import Founder from "../Img/Founder.jpg";
+import CoFounder from "../Img/CoFounder.jpg";
+import CoFounder2 from "../Img/CoFounder2.jpg"
 const OurStory = () => {
   return (
 <>
@@ -58,7 +59,7 @@ const OurStory = () => {
 
 
 {/*-------------Contact --------*/}
-<Box sx={{width: 'auto%',height: '100vh',display: 'grid',gridTemplateColumns: { xs: '1fr', sm: '50% 50%' },bgcolor: '#fde8e3',}}>
+{/* <Box sx={{width: 'auto%',height: '100vh',display: 'grid',gridTemplateColumns: { xs: '1fr', sm: '50% 50%' },bgcolor: '#fde8e3',}}>
         <Box sx={{my: 22,mx: 3,display: 'flex',flexDirection: 'column',alignItems: 'center',marginLeft:"90px",marginRight:"90px",}}>
             <Typography component="h1" variant="h4">
             Labor <span style={{ color: '#ec762f' }}>Link</span>
@@ -78,13 +79,13 @@ const OurStory = () => {
         <Box sx={{ gridRow: '1', gridColumn: '2',width: '100%', bgcolor: 'white',display: 'flex',alignItems: 'center',justifyContent: 'center',}}>
         <img src={aboutUs} style={{ maxWidth: '100%', maxHeight: '100%', height: 'auto', width: 'auto' }} />
         </Box>
-    </Box>
+    </Box> */}
         {/*-----------Leaders------------------------ */}
-    <Box sx={{ width: '100%', height: '100vh', display: 'flex', alignContent: 'center', marginLeft: '0', padding: '0px',alignItems:"center" }}>
+    <Box sx={{ width: '100%', height: 'auto', display: 'flex', alignContent: 'center', marginLeft: '0', padding: '0px',alignItems:"center" ,marginTop:"20px"}}>
   <Grid container alignContent={"center"} spacing={3} padding={"0px"} margin={"0"} alignItems={"center"} justifyContent={"center"}>
     <Grid item xs={3}>
-      <Card sx={{ width: "300px", height: "400px", padding: "0px", margin: "0" }}>
-          <CardMedia component="img" height="140" image="/static/images/cards/contemplative-reptile.jpg" alt="green iguana" />
+      <Card sx={{ width: "300px", height: "600px", padding: "0px", margin: "0" }}>
+          <CardMedia component="img" height="340" image={Founder} alt="green iguana" />
           <CardContent sx={{ padding: "16px" }}>
             <Typography gutterBottom variant="h5" component="div">
               S.B.Balachandran 
@@ -93,33 +94,42 @@ const OurStory = () => {
               Founder
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica
+            As the founder of this innovative platform, I am deeply
+            passionate about creating solutions that make a tangible 
+            difference in people's lives.
+            Thank you for choosing to be a part of our community. Your trust and feedback 
+            are invaluable to us as we strive to continuously improve and evolve.
             </Typography>
           </CardContent>
       </Card>
     </Grid>
     <Grid item xs={3}>
-      <Card sx={{ width: "300px", height: "400px", padding: "0px", margin: "0" }}>
-          <CardMedia component="img" height="140" image="/static/images/cards/contemplative-reptile.jpg" alt="green iguana" />
+      <Card sx={{ width: "300px", height: "600px", padding: "0px", margin: "0" }}>
+          <CardMedia component="img" height="340" image={CoFounder} alt="green iguana" />
           <CardContent sx={{ padding: "16px" }}>
             <Typography gutterBottom variant="h5" component="div">
-              Lizard
+              William Davis
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica
+            As one of the co-founders, I am incredibly excited to share our journey with you.
+            and this application is the result of countless hours of dedication, creativity, and teamwork.
+            Thank you for being a part of our vision and for allowing us to be a part of your journey.
             </Typography>
           </CardContent>
       </Card>
     </Grid>
     <Grid item xs={3}>
-      <Card sx={{ width: "300px", height: "400px", padding: "0px", margin: "0" }}>
-          <CardMedia component="img" height="140" image="/static/images/cards/contemplative-reptile.jpg" alt="green iguana" />
+      <Card sx={{ width: "300px",  height: "600px", padding: "0px", margin: "0" }}>
+          <CardMedia component="img" height="340" image={CoFounder2} />
           <CardContent sx={{ padding: "16px" }}>
             <Typography gutterBottom variant="h5" component="div">
-              Lizard
+              Charles Jessy
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica
+            As a co-founder, I am thrilled to have you on board and excited for you to experience what we’ve built. 
+            Our journey started with a simple idea to LABOUR LINK.Thank you for being a part of our story. Your journey 
+            with us is just beginning, and we’re here to support you every step of the way.      
+
             </Typography>
           </CardContent>
       </Card>
@@ -128,7 +138,7 @@ const OurStory = () => {
 </Box>
 </Box>
    {/*---------------------------Footer------------------------------------------------------- */}
-   <div  style={{backgroundColor:"#E7ECFF"}}>
+   <div  style={{backgroundColor:"#E7ECFF",marginTop:"40px"}}>
  <div style={{width:"100%"}}> 
     <Footer/>
   </div>

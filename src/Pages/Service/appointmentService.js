@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL='http://localhost:1000/api/bookings';
+const BASE_URL='http://localhost:8080/api/bookings';
 const appointmentService=axios.create({
     baseURL:BASE_URL,});
  

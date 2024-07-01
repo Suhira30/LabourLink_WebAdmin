@@ -8,7 +8,7 @@ import Review from "./Pages/Review"
 import Settingpage from "./Pages/Settingpage";
 import Userdetail from "./Pages/Userdetail";
 import Logout from "./Pages/Logout";
-import Mail from "./Pages/mail";
+import Mail from "./Pages/Mail";
 import Reports from "./Pages/Reports";
 import OurStory from "./Pages/OurStory";
 import Footer from "./Components/Footer";

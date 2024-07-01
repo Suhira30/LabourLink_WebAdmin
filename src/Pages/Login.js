@@ -54,7 +54,7 @@ export const Login = () => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     
-    axios.post('http://localhost:1000/api/v1/auth/login/admin', {
+    axios.post('http://localhost:8080/api/v1/auth/login/admin', {
       email: data.get('email'),
       password: data.get('password'),
   })

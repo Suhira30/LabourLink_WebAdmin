@@ -1,5 +1,5 @@
 import axios from 'axios';
-const BASE_URL='http://localhost:1000/api';
+const BASE_URL='http://localhost:8080/api';
 const notificationService=axios.create({
     baseURL:BASE_URL,});
    

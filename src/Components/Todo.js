@@ -8,7 +8,7 @@ import ListItem from '@mui/material/ListItem';
 import Container from '@mui/material/Container';
 import axios from 'axios';
 
-const api = "http://localhost:1000/";
+const api = "http://localhost:8080/";
 
 const Todo = () => {
   const [inputVal, setInputVal] = useState("");

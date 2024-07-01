@@ -1,5 +1,5 @@
 import axios from 'axios';
-const BASE_URL='http://localhost:1000/api/v1/labourReview/';
+const BASE_URL='http://localhost:8080/api/v1/labourReview/';
 const reviewService=axios.create({
     baseURL:BASE_URL,});
 

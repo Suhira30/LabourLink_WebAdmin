@@ -9,7 +9,7 @@ const Tostify = () => {
   const [reports, setReports] = useState([]);
 
   useEffect(() => {
-    const socket = new SockJS('http://localhost:1000/ws');
+    const socket = new SockJS('http://localhost:8080/ws');
     const stompClient = new Client({
       webSocketFactory: () => socket,
       onConnect: () => {

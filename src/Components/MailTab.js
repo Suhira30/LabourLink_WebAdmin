@@ -4,7 +4,9 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-
+import MailsVacancy from './MailsVacanccy';
+import MailWarning from './MailWarning';
+import MailsAnniversary from './MailAnniversary';
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -17,7 +19,7 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box sx={{ p: 3 }}>
+        <Box sx={{ p: 3}}>
           <Typography>{children}</Typography>
         </Box>
       )}
@@ -47,7 +49,7 @@ export default function MailTab() {
 
   return (
     <Box
-      sx={{ flexGrow: 1, bgcolor: 'background.paper', display: 'flex', height: 224 }}
+      sx={{ height:"100%", bgcolor: 'background.paper', display: 'flex'}}
     >
       <Tabs
         orientation="vertical"
@@ -55,23 +57,23 @@ export default function MailTab() {
         value={value}
         onChange={handleChange}
         aria-label="Vertical tabs example"
-        sx={{ borderRight: 1, borderColor: 'divider' }}
-      >
-        <Tab label="Anniversary" {...a11yProps(0)} />
-        <Tab label="Vaccancy " {...a11yProps(1)} />
-        <Tab label="Warning " {...a11yProps(2)} />
+        sx={{ borderRight: 1, borderColor: 'divider' ,minWidth: '160px', display: 'flex',flexShrink: 0 ,alignContent:"center",justifyContent:"center",marginTop:"40px"}} >
+
+        <Tab label="Vaccancy " {...a11yProps(0)} />
+        <Tab label="Warning " {...a11yProps(1)} />
+        <Tab label="Anniversary" {...a11yProps(2)} />
 
       </Tabs>
+     
       <TabPanel value={value} index={0}>
-        Item One
+      <MailsVacancy/>
       </TabPanel>
       <TabPanel value={value} index={1}>
-        Item Two
+      <MailWarning/>
       </TabPanel>
       <TabPanel value={value} index={2}>
-        Item Three
+        <MailsAnniversary/>
       </TabPanel>
-      
     </Box>
   );
 }
