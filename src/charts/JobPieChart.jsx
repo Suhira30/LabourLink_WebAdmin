@@ -1,26 +1,20 @@
-import React, { useEffect, useState } from "react";
-import { Chart } from "react-google-charts";
-import jobService from "../Pages/Service/jobService";
+import React, { useEffect, useState } from 'react';
+import { PieChart, pieArcLabelClasses } from '@mui/x-charts/PieChart';
+import jobService from '../Pages/Service/jobService';
 
-const options = {
-  legend: "none",
-  pieSliceText: "label",
-  title: "Job Roles vs Labour count",
-  pieStartAngle: 100,
-};
-
-function JobPieChart() {
+export default function PieArcLabel() {
   const [chartData, setChartData] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const data = await jobService.fetchLabourJobCountsForPie();
-        // Format data into expected format for PieChart: [['Job Role', 'Count'], ['Electrician', 72], ['Welder', 72], ...]
-        const formattedData = [["Job Role", "Count"]]; // Initial array with headers
-        for (const key in data) {
-          formattedData.push([key, data[key]]);
-        }
+        // Format data into the expected format for PieChart: [{ id: 0, value: 72, label: 'Electrician' }, ...]
+        const formattedData = Object.keys(data).map((key, index) => ({
+          id: index,
+          value: data[key],
+          label: key,
+        }));
         setChartData(formattedData);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -31,14 +25,28 @@ function JobPieChart() {
   }, []);
 
   return (
-    <Chart
-      chartType="PieChart"
-      data={chartData}
-      options={options}
-      width={"auto"}
-      height={"400px"}
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '400px',marginLeft:"80px" }}>
+    <PieChart
+     colors={['#ba181b', '#390099', '#eb5e28','#cbdfbd','#1982c4','#ffbd00','#4d194d','#e9ff70']} 
+      series={[
+        {
+          arcLabel: (item) => `${item.label} (${item.value})`,
+          arcLabelMinAngle: 45,
+          data: chartData,
+        },
+      ]}
+      width={400}
+      height={400}
+      sx={{
+        [`& .MuiChartsLegend-root`]: {
+          display: 'none', // Hide the legend element
+        },
+        [`& .${pieArcLabelClasses.root}`]: {
+          fill: 'white',
+          fontWeight: 'bold', // Ensure labels are styled as desired
+        },
+      }}
     />
-  );
+  </div>
+);
 }
-
-export default JobPieChart;

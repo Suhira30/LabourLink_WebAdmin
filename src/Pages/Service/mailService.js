@@ -1,7 +1,6 @@
 import axios from 'axios';
-const BASE_URL='http://localhost:8080';
-const mailService=axios.create({
-    baseURL:BASE_URL,});
+import BASE_URL from './baseUrl';
+const mailService=axios.create({ baseURL:BASE_URL,});
 
     mailService.interceptors.request.use(
         (config)=>

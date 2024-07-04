@@ -1,5 +1,6 @@
 import React,{createContext, useState, useContext, useEffect} from 'react'
 import SockJS from 'sockjs-client';
+import BASE_URL from '../Pages/Service/baseUrl';
 import { Client } from '@stomp/stompjs';
 
 const VerifiedLabourContext = createContext();
@@ -8,7 +9,7 @@ export const VerifiedLabourProvider  = ({children}) => {
     const [verifiedList, setVerifiedList] = useState([]);
 
     useEffect(() => {
-        const socket = new SockJS('http://localhost:1000/ws');
+        const socket = new SockJS(`${BASE_URL}/ws`);
         const stompClient = new Client({
             webSocketFactory: () => socket,
             onConnect: () => {
@@ -42,7 +43,8 @@ export const VerifiedLabourProvider  = ({children}) => {
     const handleVerifiedList = (list) => {
         setVerifiedList((prevList) => {
             const updatedNotification = [list, ...prevList];
-            return updatedNotification.slice(0, 5);
+            console.log(updatedNotification);
+            return updatedNotification;
         });
     };
 

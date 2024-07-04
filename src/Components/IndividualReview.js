@@ -14,7 +14,7 @@ import reviewService from '../Pages/Service/reviewService'
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 
-const IndividualReport = ({user}) => {
+const IndividualReview = ({user}) => {
    
   const [listData, setListData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -61,13 +61,14 @@ const IndividualReport = ({user}) => {
                       <ListItemText
                         primary={
                           <Typography sx={{ fontWeight: 'bold' }}>
-                            {item.customerEmail}
+                            {item.customerEmail} 
+                            <Typography component="span" sx={{ color: 'gray' ,fontSize:"10px"}}> customer</Typography>
                           </Typography>}
                         secondary={
                           <React.Fragment>
                             <Typography sx={{ display: 'inline' }} component="span" variant="body2" color="text.primary">
                               <ReviewRating value={item.rating} />
-                              {item.labourName}
+                              {item.labourName }<Typography component="span" sx={{ color: 'gray' ,fontSize:"10px"}}> Labour</Typography>
                             </Typography>
                             {` — ${item.description}`}
                           </React.Fragment>
@@ -91,4 +92,4 @@ const IndividualReport = ({user}) => {
           </Box>
    </>
   )
-};export default IndividualReport
+};export default IndividualReview

@@ -10,7 +10,8 @@ import { useParams } from 'react-router-dom';
 import { Link } from "react-router-dom";
 import userService from './Service/userService';
 import IndividualBookingHistory from '../charts/IndividualBookingHistory';
-import IndividualReport from '../Components/IndividualReport';
+import IndividualReview from '../Components/IndividualReview';
+import ReportIndividual from '../charts/ReportIndividual';
 
 const IndividualSuspendUser = () => {
   const { email } = useParams();
@@ -22,7 +23,7 @@ const IndividualSuspendUser = () => {
       setLoading(true);
       const userData = await userService.fetchSuspendIndividualUserData(email);
       setUser(userData);
-      console.log("Indiviudal data : ",userData);
+      // console.log("Indiviudal data : ",userData);
       setLoading(false);
     } catch (error) {
       console.error('Error fetching individual user data:', error);
@@ -76,8 +77,8 @@ const IndividualSuspendUser = () => {
                                 <td>:</td>
                                 <td>{user.role}</td>
                               </tr>
-                              {user.role === 'LABOUR' && (
-                                <tr>
+                              {user.role === 'LABOUR' && user.jobRole && Array.isArray(user.jobRole) && (
+                                  <tr>
                                   <td style={{ width: 'auto' }}><strong>Job Role</strong></td>
                                   <td>:</td>
                                   <td>{user.jobRole.join(', ')}</td>
@@ -112,17 +113,18 @@ const IndividualSuspendUser = () => {
                   </CardContent>
                 </Card>
               </Grid>
-              {/* Report Detail Section */}
+              {/* Review Detail Section */}
               <Grid item xs={12} sm={6}>
                 <Card sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', maxWidth: 'auto', overflow: 'auto', height: '100%' }}>
                   <CardContent>
-                    <IndividualReport user={email} />
+                    <IndividualReview user={email} />
                   </CardContent>
                 </Card>
               </Grid>
               <Grid item xs={12}>
-                <IndividualBookingHistory user={email} />
+                <ReportIndividual user={email} />
               </Grid>
+              
             </Grid>
           </Box>
           <div  style={{backgroundColor:"#E7ECFF"}}>

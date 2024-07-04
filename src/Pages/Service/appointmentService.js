@@ -1,89 +1,76 @@
 import axios from 'axios';
+import BASE_URL from './baseUrl';
 
-const BASE_URL='http://localhost:8080/api/bookings';
-const appointmentService=axios.create({
-    baseURL:BASE_URL,});
+const appointmentService=axios.create({baseURL:BASE_URL,});
  
-    appointmentService.interceptors.request.use(
-        (config)=>
-            {
-                const token = localStorage.getItem('token');
-                if(token){
-                    config.headers.Authorization=`Bearer ${token}`;
-                }
-                return config;
-            },
-            (error)=>{
-                return Promise.reject(error)
-            }
-    );
+appointmentService.interceptors.request.use(
+  (config)=>{
+  const token = localStorage.getItem('token');
+    if(token){
+      config.headers.Authorization=`Bearer ${token}`;
+    }
+    return config;
+  },(error)=>{
+     return Promise.reject(error)
+    }
+);
      // ----------------------Data fetching methods
      //----------------------------------Pending----------------------------------------------
   const fetchPendingAppointmentCount = async () => {
     try {
-      const response = await appointmentService.get('/pending_count');
+      const response = await appointmentService.get('/api/bookings/pending_count');
       return response.data;
     } catch (error) {
-      console.error('Error fetching pending count:', error);
+      //console.error('Error fetching pending count:', error);
       throw error;
     }
   };
     //----------------------------------Declined--------------------------------------------------
     const fetchDeclinedAppointmentCount = async () => {
         try {
-          const response = await appointmentService.get('/declined_count');
+          const response = await appointmentService.get('/api/bookings/declined_count');
           return response.data;
         } catch (error) {
-          console.error('Error fetching Cancel count:', error);
+          //console.error('Error fetching Cancel count:', error);
           throw error;
         }
       };
     //----------------------------------Accept-----------------------------------------------
     const fetchAcceptAppointmentCount = async () => {
         try {
-          const response = await appointmentService.get('/accept_count');
+          const response = await appointmentService.get('/api/bookings/accept_count');
           return response.data;
         } catch (error) {
-          console.error('Error fetching Delivered count:', error);
+          //console.error('Error fetching Delivered count:', error);
           throw error;
         }
       };
      //----------------------------------Complete-----------------------------------------------
      const fetchCompleteAppointmentCount = async () => {
       try {
-        const response = await appointmentService.get('/complete_count');
+        const response = await appointmentService.get('/api/bookings/complete_count');
         return response.data;
       } catch (error) {
-        console.error('Error fetching Delivered count:', error);
+        //console.error('Error fetching Delivered count:', error);
         throw error;
       }
     };
   
-      //---------------------------------barchar :- Appointment Vs Total number------------------
+      //-----------------Booking : -graph : -Job Vs  Booking count along with booking stage------------------
       const fetchAppointmentVsTotal = async () => {
         try {
-          const response = await appointmentService.get('/graphleft');
+          const response = await appointmentService.get('/api/bookings/graphleft');
           return response;
         } catch (error) {
-          console.error('Error fetching appointment vs total appointments data:', error);
+          //console.error('Error fetching appointment vs total appointments data:', error);
           throw error;
         }
       };
-    //-------------------barchar right :- Cancelled Appointment Vs Total number----------
-    const fetchCancelledAppointmentVsTotal = async () => {
-      try {
-        const response = await appointmentService.get('/graphright');
-        const formattedData = response.data.map(item => [item[0], parseInt(item[1])]);
-        return [['Job', 'Total'], ...formattedData];
-      } catch (error) {
-        console.error('Error fetching cancelled appointment vs total appointments data:', error);
-        throw error;
-      }
-    };
+
     //---------------------------------Table 1 :- pending booking------------------
     const fetchPendingAppointmentData = async () => {
       try {
-        const response = await appointmentService.get('/pending');
+        const response = await appointmentService.get('/api/bookings/pending');
         return (response);
     } catch (error) {
       throw (error);
@@ -92,7 +79,7 @@ const appointmentService=axios.create({
     //---------------------------------Table 2 :- Complete booking------------------
     const fetchCompleteAppointmentData = async () => {
       try {
-        const response = await appointmentService.get('/deliver');
+        const response = await appointmentService.get('/api/bookings/deliver');
         return (response);
       } catch (error) {
       throw (error);
@@ -101,7 +88,7 @@ const appointmentService=axios.create({
     //---------------------------------Table 3 :- Ccancel booking------------------
     const fetchCancelledAppointmentData = async () => {
       try {
-        const response = await appointmentService.get('/cancel');
+        const response = await appointmentService.get('/api/bookings/cancel');
         return (response);
       } catch (error) {
       throw (error);
@@ -110,12 +97,23 @@ const appointmentService=axios.create({
       //---------------------------------Table 4 :- Accept booking------------------
       const fetchAcceptAppointmentData = async () => {
         try {
-          const response = await appointmentService.get('/accept');
+          const response = await appointmentService.get('/api/bookings/accept');
           return (response);
         } catch (error) {
         throw (error);
         }
       };
+    //-------------------barchar right :- Cancelled Appointment Vs Total number----------
+    // const fetchCancelledAppointmentVsTotal = async () => {
+    //   try {
+    //     const response = await appointmentService.get('/graphright');
+    //     const formattedData = response.data.map(item => [item[0], parseInt(item[1])]);
+    //     return [['Job', 'Total'], ...formattedData];
+    //   } catch (error) {
+    //     console.error('Error fetching cancelled appointment vs total appointments data:', error);
+    //     throw error;
+    //   }
+    // };
   export default{
     appointmentService,
     fetchPendingAppointmentCount,
@@ -123,7 +121,6 @@ const appointmentService=axios.create({
     fetchAcceptAppointmentCount,
     fetchCompleteAppointmentCount,
     fetchAppointmentVsTotal,
-    fetchCancelledAppointmentVsTotal,
     fetchPendingAppointmentData,
     fetchCompleteAppointmentData,
     fetchCancelledAppointmentData,

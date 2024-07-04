@@ -52,7 +52,7 @@ const Jobdetail = () => {
        <Grid container rowSpacing={2} justifyContent= 'center' columnSpacing={{ xs: 1, sm: 2, md: 2 }}>
      {/*top 4 boxes--01--------------------------------------------------------------------------------- */}
       <Grid item xs={12} sm={6} md={3}>
-          <Card  sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', maxWidth: 220}}>
+  <Card  sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', maxWidth: 220,height: 120, backgroundColor: 'rgba(255, 141, 41, 0.4)'  }}>
       <CardMedia
         sx={{
         width: 65,
@@ -74,8 +74,8 @@ const Jobdetail = () => {
 
   {/*top 4 boxes--02--------------------------------------------------------------------------------- */}
   <Grid item xs={12} sm={6} md={3}>
-          <Card sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', maxWidth: 220}}>
-      <CardMedia
+  <Card  sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', maxWidth: 220,height: 120, backgroundColor: 'rgba(255, 141, 41, 0.4)'  }}>
+  <CardMedia
         sx={{
           width: 65,
           height:65,
@@ -99,15 +99,15 @@ const Jobdetail = () => {
   <Box sx={{ padding: '0', marginTop:'30px', marginLeft: 'auto', marginRight: 'auto', maxWidth: '1000px' }}>
   <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} justifyContent="center" alignItems="center">
   {/*-----------form-table----------- */}
-  <Grid item xs={6}  sx={{ height: '400px' }}>
+  <Grid item xs={6}  sx={{ height: '800px' }}>
     <Card >       
       <JobVSBooking />
     </Card>
   </Grid>
 
   {/* ----------Pie chart----------- */}
-  <Grid item xs={6} sx={{ height: '400px' }}  >
-    <Card >        
+  <Grid item xs={6} sx={{ height: '800px' }}  >
+    <Card sx={{alignContent:"center",justifyContent:'center'}}>        
     <JobPieChart/>
     </Card>
   </Grid>

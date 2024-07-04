@@ -3,17 +3,12 @@ import { BarChart } from '@mui/x-charts/BarChart';
 import appointmentService from '../Pages/Service/appointmentService';
 
 export default function AppointmentComparison() {
-    const [chartData, setChartData] = useState({
-        series: [],
-        xAxis: []
-    });
-
+    const [chartData, setChartData] = useState({ series: [], xAxis: []});
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await appointmentService.fetchAppointmentVsTotal();
                 const data = response.data;
-
                 // Transform the data
                 const jobRoles = data.map(item => item.jobRole);
                 const totalCounts = data.map(item => item.totalCount);
@@ -47,9 +42,7 @@ export default function AppointmentComparison() {
             <BarChart
                 series={chartData.series}
                 xAxis={chartData.xAxis}
-                height={400}
-                //margin={{ top: 10, bottom: 50, left: 50, right: 10 }}
-                
+                height={400}                
             />
         </div>
     );

@@ -40,7 +40,7 @@ const AppointmentAccept = () => {
     if (error) return <div>Error: {error.message}</div>; 
 
     return (
-        <div style={{ width: '1000px', maxWidth: 'auto%', height: 'auto' }}>
+            <div style={{ width: '1000px', maxWidth: 'auto%', height: 'auto', backgroundColor: 'rgba(233, 246, 255)' }}>
             <MUIDataTable
                 title={"Accept Booking"}
                 data={rowData}

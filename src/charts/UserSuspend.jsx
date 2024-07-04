@@ -12,7 +12,7 @@ export default function UserDeactivate() {
     const fetchdata=async () => {
         try{
             const tabledata=await userService.fetchSuspendedUsers();
-            console.log('Fetched data:', tabledata); 
+            // console.log('Fetched data:', tabledata); 
             setRowData(tabledata);
             setLoading(false);
            }catch(error){

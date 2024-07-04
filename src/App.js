@@ -17,14 +17,18 @@ import Sidebar from "./Components/Sidebar";
 import IndividualUserDetail  from './Pages/IndividualUserDetail';
 import IndividualSuspendUserDetail  from './Pages/IndividualSuspendUser';
 import IndividualDeactivateUserDetail  from './Pages/IndividualDeactivatedUser';
-import Tostify from './Components/Tostify';import 'react-toastify/dist/ReactToastify.css';
+import Tostify from './Components/Tostify'; // Ensure correct path
+import 'react-toastify/dist/ReactToastify.css'; // Import Toastify CSS only once
 import { VerifiedLabourProvider } from "./Context/VerifiedLabourContext ";
 import {NotificationProvider} from "./Context/NotificationContext";
 import { ReportNotificationProvider } from "./Context/ReportNotificationContext";
-
+import TostifyReport from "./Components/TostifyReport"
 function App() {
   return(
     <div >
+      <Tostify/>
+      {/* <TostifyReport/> */}
+      {/* <NotificationComponent />  */}
       <ReportNotificationProvider>
       <NotificationProvider>
       <VerifiedLabourProvider>
@@ -41,7 +45,7 @@ function App() {
         <Route path="/user-detail/:email" element={<IndividualUserDetail />} />
         <Route path="/suspenduser-detail/:email" element={<IndividualSuspendUserDetail />} />
         <Route path="/deactivateuser-detail/:email" element={<IndividualDeactivateUserDetail />} />
-        <Route path="/logout"  element={ <Logout/>}/>
+        <Route path="/log-out"  element={ <Logout/>}/>
         <Route path="/mail"  element={ <Mail/>}/>
         <Route path="/report"  element={ <Reports/>}/>
         <Route path="/ourstory" element={<OurStory/>}/>
@@ -50,7 +54,6 @@ function App() {
       </VerifiedLabourProvider>
       </NotificationProvider>
       </ReportNotificationProvider>
-      <Tostify/>
     </div>
   );
 

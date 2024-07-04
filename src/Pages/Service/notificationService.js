@@ -1,7 +1,6 @@
 import axios from 'axios';
-const BASE_URL='http://localhost:8080/api';
-const notificationService=axios.create({
-    baseURL:BASE_URL,});
+import BASE_URL from './baseUrl';
+const notificationService=axios.create({baseURL:BASE_URL,});
    
     notificationService.interceptors.request.use(
         (config)=>
@@ -19,7 +18,7 @@ const notificationService=axios.create({
 //---------------------------------Verified Labour -------------------
   const verifiedLabour  = async (email) => {
     try {
-    const response = await notificationService.put(`/labour/getLabour/${email}`);
+    const response = await notificationService.put(`/api/labour/getLabour/${email}`);
     return (console.log("Successfully verified"));
     }catch (error) {
        throw (error);
@@ -28,7 +27,7 @@ const notificationService=axios.create({
 //---------------------------------register notification -------------------
     const fetchRegisterNotification  = async () => {
     try {
-    const response = await notificationService.get(`/adminnotification`);
+    const response = await notificationService.get(`/api/adminnotification`);
     return (response);
     }catch (error) {
        throw (error);
@@ -46,7 +45,7 @@ const notificationService=axios.create({
 //---------------------------------Is verified -------------------
 const IsVerifiedLabour  = async (email) => {
     try {
-    const response = await notificationService.get(`/labour/getLabour/${email}`);
+    const response = await notificationService.get(`/api/labour/getLabour/${email}`);
     return (console.log("Success until notification service"));
     }catch (error) {
        throw (error);

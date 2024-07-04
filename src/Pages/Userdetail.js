@@ -57,7 +57,7 @@ const pageStyle = {
        <Grid container rowSpacing={2} justifyContent= 'center' columnSpacing={{ xs: 1, sm: 2, md: 2 }}>
      {/*top  boxes--01--------------------------------------------------------------------------------- */}
       <Grid item xs={12} sm={6} md={3}>
-          <Card  sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', maxWidth: 220,'&:hover': { backgroundColor: '#f0f0f0' } }}>
+      <Card  sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', maxWidth: 220,height: 120, backgroundColor: 'rgba(255, 141, 41, 0.4)'  }}>
       <CardMedia
         sx={{
         width: 65,
@@ -79,7 +79,7 @@ const pageStyle = {
 
   {/*top 4 boxes--02--------------------------------------------------------------------------------- */}
   <Grid item xs={12} sm={6} md={3}>
-          <Card sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', maxWidth: 220}}>
+  <Card  sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', maxWidth: 220,height: 120, backgroundColor: 'rgba(255, 141, 41, 0.4)'  }}>
       <CardMedia
         sx={{
           width: 65,
@@ -98,7 +98,7 @@ const pageStyle = {
         </Grid>
       {/*top 4 boxes--03--------------------------------------------------------------------------------- */}
       <Grid item xs={12} sm={6} md={3}>
-          <Card sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', maxWidth: 220}}>
+      <Card  sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', maxWidth: 220,height: 120, backgroundColor: 'rgba(255, 141, 41, 0.4)'  }}>
       <CardMedia
          sx={{
           width: 65,
@@ -147,11 +147,11 @@ const pageStyle = {
       </Card>
     </Grid>
     {/*--------------------03  table ------------------- */}
-    <Grid item xs={12} marginBottom={0}>
+    {/* <Grid item xs={12} marginBottom={0}>
     <Card sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', maxWidth: 'auto' , border: 'none',marginTop:'30px'}}>        
     <UserDeactivate />
       </Card>
-    </Grid>
+    </Grid> */}
   </Grid>
 </Box>
 

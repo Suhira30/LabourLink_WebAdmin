@@ -10,7 +10,6 @@ import TwitterIcon from '@mui/icons-material/X';
 import imglogo from '../Img/app-logo.png';
 import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined';
 import {Link } from 'react-router-dom';
-
   
   function Copyright() {
     return (

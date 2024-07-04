@@ -15,6 +15,7 @@ import frontlogin from '../Img/frontlogin.png';
 import applogo from '../Img/app-logo.png';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import BASE_URL from './Service/baseUrl';
 // function Copyright(props) {
 //   return (
 //   <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -54,7 +55,7 @@ export const Login = () => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     
-    axios.post('http://localhost:8080/api/v1/auth/login/admin', {
+    axios.post(`${BASE_URL}/api/v1/auth/login/admin`, {
       email: data.get('email'),
       password: data.get('password'),
   })
@@ -93,26 +94,19 @@ return (
     </Box>
     </Box>
   <CssBaseline />
-    <Box sx={{my: 25,mx: 4,display: 'flex',flexDirection: 'column',alignItems: 'center',}}>
+    <Box sx={{my: 28,mx: 4,display: 'flex',flexDirection: 'column',alignItems: 'center',}}>
     <Typography component="h1" variant="h4" >Labor <span style={{ color: '#ec762f' }}>Link</span></Typography>
     <Typography component="h1" variant="h6"> Log in to your Account</Typography>
-    <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+    <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 ,width:"500px"}}>
     <Typography variant="subtitle1" gutterBottom style={{ marginBottom: '-15px' }}>Email Address</Typography>
       <TextField margin="normal" required fullWidth id="email" name="email"autoComplete="email" autoFocus/>
     <Typography variant="subtitle1" gutterBottom style={{ marginBottom: '-15px' }}>Password </Typography>
       <TextField margin="normal" required fullWidth name="password"type="password"id="password"autoComplete="current-password"/>
-      <FormControlLabel control={<Checkbox value="remember" color="primary" />}label="Remember me"/>
       <Button type="submit"fullWidth variant="contained" sx={{  mt: 3, mb: 2,backgroundColor: '#ec762f', borderRadius:'20px'}}>
         LOG IN
       </Button>
     <Grid container spacing={2}>
-      <Grid item xs={12} sm={6}>
-      <Link href="#" variant="body2">Forgot password?</Link>
       </Grid>
-    <Grid item xs={12} sm={6}>
-      <Link href="#" variant="body2"> {"Don't have an account? Sign Up"} </Link>
-    </Grid>
-    </Grid>
     {/*<Copyright sx={{ mt: 5 }} />*/}
     </Box>
     </Box>

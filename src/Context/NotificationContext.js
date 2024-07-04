@@ -1,14 +1,13 @@
 import React, { createContext, useState, useEffect } from 'react';
 import SockJS from 'sockjs-client';
 import { Client } from '@stomp/stompjs';
+import BASE_URL from '../Pages/Service/baseUrl';
 import notificationService from '../Pages/Service/notificationService';
 export const NotificationContext = createContext();
 
 export const NotificationProvider = ({ children }) => {
   const [notifications, setNotifications] = useState([]);
-  // const [reports, setReports] = useState([]);
   const [clickedButtons, setClickedButtons] = useState({});
-  // const [clickedReportButtons, setClickedReportButtons] = useState({});
   const [loading, setLoading] = useState(false);
 
   const fetchData = async () => {
@@ -27,45 +26,34 @@ export const NotificationProvider = ({ children }) => {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    fetchData();
+    const intervalId = setInterval(fetchData, 5000);
+    return () => clearInterval(intervalId);
+  }, []);
   
 
   useEffect(() => {
     const storedNotifications = JSON.parse(localStorage.getItem('notifications')) || [];
-    // const storedReports = JSON.parse(localStorage.getItem('reports')) || [];
     const storedClickedButtons = JSON.parse(localStorage.getItem('clickedButtons')) || {};
-    // const storedClickedReportButtons = JSON.parse(localStorage.getItem('clickedReportButtons')) || {};
 
     setNotifications(storedNotifications);
-    // setReports(storedReports);
     setClickedButtons(storedClickedButtons);
-    // setClickedReportButtons(storedClickedReportButtons);
   }, []);
 
   useEffect(() => {
     localStorage.setItem('notifications', JSON.stringify(notifications));
   }, [notifications]);
 
-  // useEffect(() => {
-  //   localStorage.setItem('reports', JSON.stringify(reports));
-  // }, [reports]);
-
   useEffect(() => {
     localStorage.setItem('clickedButtons', JSON.stringify(clickedButtons));
   }, [clickedButtons]);
 
-  // useEffect(() => {
-  //   localStorage.setItem('clickedReportButtons', JSON.stringify(clickedReportButtons));
-  // }, [clickedReportButtons]);
-
   useEffect(() => {
-    const socket = new SockJS('http://localhost:1000/ws');
+    const socket = new SockJS(`${BASE_URL}/ws`);
     const stompClient = new Client({
       webSocketFactory: () => socket,
       onConnect: () => {
-        // stompClient.subscribe('/topic/reports', (message) => {
-        //   const report = JSON.parse(message.body);
-        //   setReports((prevReports) => [report, ...prevReports]);
-        // });
         stompClient.subscribe('/topic/notifications', (message) => {
           const notification = JSON.parse(message.body);
           setNotifications(prevNotifications => [notification, ...prevNotifications]);
@@ -82,7 +70,6 @@ export const NotificationProvider = ({ children }) => {
    
     const handleVisibilityChange = () => {
       if (!document.hidden) {
-        // If the document becomes visible, fetch notifications again
         fetchData();
       }
     };

@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import MUIDataTable from "mui-datatables";
-import userService from "../Pages/Service/userService";
 
-const IndividualBookingHistory = ({user}) => {
+import reportService from "../Pages/Service/reportService";
+
+const ReportIndividual = ({user}) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [rowData, setRowData] = useState([]);
@@ -10,7 +11,7 @@ const IndividualBookingHistory = ({user}) => {
   useEffect(() => {
     const fetchdata=async () => {
         try{
-            const tabledata=await userService.fetchBookingData(user);
+            const tabledata=await reportService.fetchReportData(user);
             console.log('Fetched data:', tabledata); 
             setRowData(tabledata);
             setLoading(false);
@@ -23,12 +24,11 @@ const IndividualBookingHistory = ({user}) => {
     },[]);
 
   const columns = [
-    { name: 'customer' },
-    { name: 'labour' },
-    { name: 'jobRole' },
-    { name: 'jobDescription' },
-    { name: 'date' },
-    { name: 'bookingStage' }
+
+    {label:"Reported By", name: 'reportedByName' },
+    { label:"Reported To",name: 'reportedToName' },
+    { label:"Description",name: 'description' },
+  
   ];
 
   const options = {
@@ -43,7 +43,7 @@ const IndividualBookingHistory = ({user}) => {
   return (
     <div style={{ width: '1000px', maxWidth: 'auto%', height: 'auto' }}>
       <MUIDataTable
-        title={" Booking History"}
+        title={" Reports"}
         data={rowData}
         columns={columns}
         options={options}
@@ -52,4 +52,4 @@ const IndividualBookingHistory = ({user}) => {
   );
 };
 
-export default IndividualBookingHistory;
+export default ReportIndividual;

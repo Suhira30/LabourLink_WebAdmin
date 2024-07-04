@@ -96,7 +96,7 @@ const Review = () => {
                 <React.Fragment key={item.id}>
                   <ListItem alignItems="flex-start" sx={{ paddingY: 2, position: 'relative' }}>
                     <ListItemAvatar>
-                      <Avatar alt={item.labourName} src={item.avatar} sx={{ width: 50, height: 50, marginRight: '30px' }} />
+                      <Avatar alt={item.labourName} src={item.customerImage} sx={{ width: 50, height: 50, marginRight: '30px' }} />
                     </ListItemAvatar>
                     <Box sx={{ flexGrow: 1 }}>
                       <ListItemText

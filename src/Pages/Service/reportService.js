@@ -1,7 +1,7 @@
 import axios from 'axios';
-const BASE_URL='http://localhost:8080/api';
-const reportService=axios.create({
-    baseURL:BASE_URL,});
+import BASE_URL from './baseUrl';
+
+const reportService=axios.create({ baseURL:BASE_URL,});
    
     reportService.interceptors.request.use(
         (config)=>
@@ -19,9 +19,19 @@ const reportService=axios.create({
     //---------------------------------Report all  -------------------
 const fetchAllReport  = async () => {
     try {
-    const response = await reportService.get(`/v1/report/allReports/admin`);
+    const response = await reportService.get(`/api/v1/report/allReports/admin`);
     console.log(response.data);
         return (response);
+    }catch (error) {
+       throw (error);
+    }
+    };
+    //---------------------------------Report by mail -------------------
+const fetchReportData  = async (email) => {
+    try {
+    const response = await reportService.get(`/api/v1/report/individual/${email}`);
+    console.log(response.data);
+        return (response.data);
     }catch (error) {
        throw (error);
     }
@@ -29,4 +39,5 @@ const fetchAllReport  = async () => {
     export default{
         reportService,
         fetchAllReport,
+        fetchReportData,
     }

@@ -1,7 +1,7 @@
 import axios from 'axios';
-const BASE_URL='http://localhost:8080';
-const jobService=axios.create({
-    baseURL:BASE_URL,});
+import BASE_URL from './baseUrl';
+
+const jobService=axios.create({ baseURL:BASE_URL,});
 
     jobService.interceptors.request.use(
         (config)=>

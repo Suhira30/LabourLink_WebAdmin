@@ -1,25 +1,24 @@
 import axios from 'axios';
-const BASE_URL='http://localhost:8080/api';
-const userService=axios.create({
-    baseURL:BASE_URL,});
-   
-    userService.interceptors.request.use(
-        (config)=>
-            {
-                const token = localStorage.getItem('token');
-                if(token){
-                    config.headers.Authorization=`Bearer ${token}`;
-                }
-                return config;
-            },
-            (error)=>{
-                return Promise.reject(error)
-            }
-    ); 
+import BASE_URL from './baseUrl';
+const userService=axios.create({baseURL:BASE_URL,});
+ 
+  userService.interceptors.request.use(
+      (config)=>
+          {
+              const token = localStorage.getItem('token');
+              if(token){
+                  config.headers.Authorization=`Bearer ${token}`;
+              }
+              return config;
+          },
+          (error)=>{
+              return Promise.reject(error)
+          }
+  ); 
   //---------------------------------Table 01 :- users All-------------------
   const fetchNewUserData = async () => {
     try {
-    const response = await userService.get('/user/all');
+    const response = await userService.get('/api/user/all');
     return (response.data);
     }catch (error) {
       throw (error);
@@ -28,17 +27,17 @@ const userService=axios.create({
   //----------------------------------Count of user--------------------------------
   const fetchUserCount = async () => {
     try {
-      const response = await userService.get('/user/count');
+      const response = await userService.get('/api/user/count');
       return response.data;
     } catch (error) {
-      console.error('Error fetching user count:', error);
+      // console.error('Error fetching user count:', error);
       throw error;
     }
   };
   //---------------------------------Individual user detail------------------------
   const fetchIndividualUserData = async (email) => {
     try {
-    const response = await userService.get(`/user/u/${email}`);
+    const response = await userService.get(`/api/user/u/${email}`);
     //console.log(response.data);
     return (response.data);
     }catch (error) {
@@ -48,7 +47,7 @@ const userService=axios.create({
   //---------------------------------Individual user detail remove -------------------
   const removeUserData  = async (email,removalPurpose) => {
     try {
-    const response = await userService.put(`/user/u/${email}`,{removalPurpose});
+    const response = await userService.put(`/api/user/u/${email}`,{removalPurpose});
     return (console.log("Successfully removed"));
     }catch (error) {
        throw (error);
@@ -58,7 +57,7 @@ const userService=axios.create({
   //--------------------------------Table 02 :-suspend  user all  -------------------
   const fetchSuspendedUsers = async () => {
     try {
-    const response = await userService.get('/suspend/all');
+    const response = await userService.get('/api/suspend/all');
     return (response.data);
     }catch (error) {
        throw (error);
@@ -67,7 +66,7 @@ const userService=axios.create({
   //--------------------------------Suspend Individual user detail-------------------
   const fetchSuspendIndividualUserData = async (email) => {
     try {
-    const response = await userService.get(`/suspend/${email}`);
+    const response = await userService.get(`/api/suspend/${email}`);
     //console.log(response.data);
     return (response.data);
     }catch (error) {
@@ -77,17 +76,17 @@ const userService=axios.create({
   //---------------------------------Suspended Count of user------------------
   const fetchSuspendUserCount = async () => {
     try {
-    const response = await userService.get('/suspend/count');
+    const response = await userService.get('/api/suspend/count');
     return response.data;
     } catch (error) {
-    console.error('Error fetching user count:', error);
+    // console.error('Error fetching user count:', error);
      throw error;
     }
     };
   //---------------------------------Table 03 :- Deactivated users All-------------------
   const fetchDeactivatedUserData = async () => {
     try {
-    const response = await userService.get('/user/deactivate/all');
+    const response = await userService.get('/api/user/deactivate/all');
     return (response.data);
     }catch (error) {
       throw (error);
@@ -96,7 +95,7 @@ const userService=axios.create({
   //---------------------------------Deactivate Count of user------------------
   const fetchDeactivatedUserCount = async () => {
     try {
-    const response = await userService.get('/user/deactivate/count');
+    const response = await userService.get('/api/user/deactivate/count');
     return response.data;
     } catch (error) {
     //console.error('Error fetching user count:', error);
@@ -106,7 +105,7 @@ const userService=axios.create({
    //--------------------------------Deactivate Individual user detail-------------------
    const fetchDeactivatedIndividualUserData = async (email) => {
     try {
-    const response = await userService.get(`/user/deactivate/${email}`);
+    const response = await userService.get(`/api/user/deactivate/${email}`);
     //console.log(response.data);
     return (response.data);
     }catch (error) {
@@ -116,8 +115,8 @@ const userService=axios.create({
     //---------------------------------Individual booking detail------------------------
   const fetchBookingData = async (email) => {
     try {
-    const response = await userService.get(`/bookings/booking/${email}`);
-    console.log("booking per person",response);
+    const response = await userService.get(`/api/bookings/booking/${email}`);
+    // console.log("booking per person",response);
     return (response.data);
     }catch (error) {
       throw (error);
@@ -126,8 +125,8 @@ const userService=axios.create({
      //---------------------------------Profie------------------------
   const fetchProfileName = async () => {
     try {
-    const response = await userService.get('user/userProfile');
-    console.log("profile ",response.data);
+    const response = await userService.get('/api/user/userProfile');
+    // console.log("profile ",response.data);
     return (response.data);
     }catch (error) {
       throw (error);

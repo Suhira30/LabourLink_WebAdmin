@@ -12,7 +12,7 @@ import userService from "../Pages/Service/userService";
       const fetchdata=async () => {
           try{
               const tabledata=await userService.fetchDeactivatedUserData();
-              console.log('Fetched data:', tabledata); 
+              // console.log('Fetched data:', tabledata); 
               setRowData(tabledata);
               setLoading(false);
              }catch(error){

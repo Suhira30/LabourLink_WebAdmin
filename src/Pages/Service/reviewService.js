@@ -1,7 +1,7 @@
 import axios from 'axios';
-const BASE_URL='http://localhost:8080/api/v1/labourReview/';
-const reviewService=axios.create({
-    baseURL:BASE_URL,});
+import BASE_URL from './baseUrl';
+
+const reviewService=axios.create({baseURL:BASE_URL,});
 
     reviewService.interceptors.request.use(
         (config)=>
@@ -19,31 +19,31 @@ const reviewService=axios.create({
     //-------------------------------------Review all-----------------
     const fetchReviewData = async () => {
         try {
-          const response = await reviewService.get('/getAllReviewForAdmin');
+          const response = await reviewService.get('/api/v1/labourReview/getAllReviewForAdmin');
           return response.data;
         } catch (error) {
-          console.error('Error fetching job count:', error);
+          // console.error('Error fetching job count:', error);
           throw error;
         }
       };
       //-------------------------------------remove reviews-----------------
     const deleteReviewById = async (id) => {
         try {
-          const response = await reviewService.delete(`/deleteByAdmin/${id}`);
+          const response = await reviewService.delete(`/api/v1/labourReview/deleteByAdmin/${id}`);
           fetchReviewData();
           return response.data;
         } catch (error) {
-          console.error('Error fetching job count:', error);
+          // console.error('Error fetching:', error);
           throw error;
         }
       };
     //-------------------------------------Individual review-----------------
     const fetchIndividualReviewData = async (email) => {
       try {
-        const response = await reviewService.get(`/review/${email}`);
+        const response = await reviewService.get(`/api/v1/labourReview/review/${email}`);
         return response.data;
       } catch (error) {
-        console.error('Error  fetching indivudal reviews:', error);
+        // console.error('Error  fetching indivudal reviews:', error);
         throw error;
       }
     };

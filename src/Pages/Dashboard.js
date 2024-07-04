@@ -1,24 +1,18 @@
-import React from 'react'
+import React,{ useEffect, useState } from "react";
+import {Box,Grid,Card,CardContent,CardMedia,Typography} from '@mui/material';
 import Sidebar from '../Components/Sidebar';
 import Footer from '../Components/Footer';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
+import Calender from '../Components/Calender';
+import Todo from "../Components/Todo";
+import NewlyVerified from '../Components/NewlyVerified'
 import appointment from '../Img/appointment.png';
 import job from '../Img/job.png';
 import user from '../Img/user.png';
 import Barchart from '../charts/DashBoardBarchartLeft';
 import DashBoardBarchartRight from '../charts/DashBoardBarchartRight';
 import Order from '../charts/DashBoardLineChart';
-import Todo from "../Components/Todo"
-import Calender from '../Components/Calender';
-import { useEffect, useState } from "react";
 import dashboardService from '../Pages/Service/dashboardService';
 import jobService from './Service/jobService';
-import NewlyVerified from '../Components/NewlyVerified'
 const pageStyle = {
   backgroundColor: '#F3F2F7',
 };
@@ -49,8 +43,8 @@ const Dashboard = () => {
   
   return (
 <>
-    <div style={pageStyle}>
-    <Sidebar>
+<div style={pageStyle}>
+  <Sidebar>
     <div style={{display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
@@ -59,62 +53,47 @@ const Dashboard = () => {
       marginLeft: 'auto',
       marginRight: 'auto',
       maxWidth: '1000px',
-     }}> 
-  <Box sx={{ flexGrow: 1,padding: '0',paddingRight:'0',marginTop:'30px', marginLeft: '15px', marginRight: 'auto',maxWidth: '1000px' }}>
-  <Grid container rowSpacing={2} justifyContent= 'center' columnSpacing={{ xs: 1, sm: 2, md: 2 }}>
+    }}> 
+    <Box sx={{ flexGrow: 1,padding: '0',paddingRight:'0',marginTop:'30px', marginLeft: '15px', marginRight: 'auto',maxWidth: '1000px' }}>
+    <Grid container rowSpacing={2} justifyContent= 'center' columnSpacing={{ xs: 1, sm: 2, md: 2 }}>
      {/*top  boxes--01--------------------------------------------------------------------------------- */}
-  <Grid item xs={12} sm={6} md={3}>
-    <Card  sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', maxWidth: 220,height: 120 }}>
-      <CardMedia
-        sx={{
-        width: 65,
-        height:65,
-        ml: 2
-       }}
+      <Grid item xs={12} sm={6} md={3}>
+      <Card  sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', maxWidth: 220,height: 120, backgroundColor: 'rgba(255, 141, 41, 0.4)'  }}>
+      <CardMedia sx={{ width: 65, height:65, ml: 2 }}
         image={user}/>
       <CardContent sx={{ flex: '1' }}>
       <Typography gutterBottom variant="h5" component="div">{userCount}</Typography>
         <Typography >Total Users</Typography>
       </CardContent>
-    </Card>
-  </Grid>
+        </Card>
+      </Grid>
 
   {/*top 4 boxes--02--------------------------------------------------------------------------------- */}
-  <Grid item xs={12} sm={6} md={3}>
-    <Card sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', maxWidth: 220,height: 120}}>
-      <CardMedia
-        sx={{
-          width: 65,
-          height:65,
-          ml: 2
-         }}
+    <Grid item xs={12} sm={6} md={3}>
+    <Card  sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', maxWidth: 220,height: 120, backgroundColor: 'rgba(255, 141, 41, 0.4)'  }}>
+    <CardMedia sx={{width: 65,  height:65,ml: 2}}
          image={job}/>
-      <CardContent sx={{ flex: '1' }}>
-      <Typography gutterBottom variant="h5" component="div">{jobCount}</Typography>
-        <Typography >Total Job</Typography>
-      </CardContent>
-    </Card>
-  </Grid>
+        <CardContent sx={{ flex: '1' }}>
+          <Typography gutterBottom variant="h5" component="div">{jobCount}</Typography>
+            <Typography >Total Job</Typography>
+        </CardContent>
+      </Card>
+    </Grid>
       {/*top 4 boxes--03--------------------------------------------------------------------------------- */}
-  <Grid item xs={12} sm={6} md={3}>
-    <Card sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', maxWidth: 220,height: 120}}>
-      <CardMedia
-         sx={{
-          width: 65,
-          height:65,
-          ml: 2
-         }}
+    <Grid item xs={12} sm={6} md={3}>
+    <Card  sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', maxWidth: 220,height: 120, backgroundColor: 'rgba(255, 141, 41, 0.4)'  }}>
+    <CardMedia sx={{width: 65,  height:65,ml: 2}} 
         image={appointment}/>
       <CardContent sx={{ flex: '1' }}>
-      <Typography gutterBottom variant="h5" component="div">
-        {appointmentCount}
+        <Typography gutterBottom variant="h5" component="div">
+          {appointmentCount}
         </Typography>
-        <Typography >Total Appointments</Typography>
+          <Typography >Total Appointments</Typography>
       </CardContent>
-    </Card>
-  </Grid>
-  </Grid>
-  </Box>
+      </Card>
+    </Grid>
+    </Grid>
+    </Box>
   </div>
   <Box sx={{ padding: '0',marginTop:'30px', marginLeft: 'auto', marginRight: 'auto',maxWidth: '1000px' }}>
   <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} justifyContent="center" alignItems="center"  >
@@ -167,7 +146,6 @@ const Dashboard = () => {
       </CardContent>
     </Card>
     </Grid>
-
   </Grid>
 </Box>
 
@@ -175,7 +153,8 @@ const Dashboard = () => {
  <div  style={{backgroundColor:"#E7ECFF"}}>
   <div style={{marginTop:'30px',maxWidth:'100%'}}> 
     <Footer/>
-  </div></div>
+  </div>
+  </div>
     </Sidebar>
   </div>
 </>
