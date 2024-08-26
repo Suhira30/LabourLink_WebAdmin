@@ -20,7 +20,7 @@ const reportService=axios.create({ baseURL:BASE_URL,});
 const fetchAllReport  = async () => {
     try {
     const response = await reportService.get(`/api/v1/report/allReports/admin`);
-    console.log(response.data);
+    //console.log(response.data);
         return (response);
     }catch (error) {
        throw (error);
@@ -30,7 +30,7 @@ const fetchAllReport  = async () => {
 const fetchReportData  = async (email) => {
     try {
     const response = await reportService.get(`/api/v1/report/individual/${email}`);
-    console.log(response.data);
+    //console.log(response.data);
         return (response.data);
     }catch (error) {
        throw (error);

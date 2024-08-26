@@ -10,7 +10,7 @@ export default function DashBoardBarchartRight() {
         const chartData = await dashboardService.fetchActiveLabourData();
         setDataFromBackend(chartData);
       } catch (error) {
-        console.error("Error fetching active customer data:", error);
+        console.error("Error fetching active labour data:", error);
       }
     };    
     fetchData();

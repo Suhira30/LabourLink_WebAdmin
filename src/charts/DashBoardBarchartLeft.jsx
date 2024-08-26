@@ -22,11 +22,11 @@ export default function DashBoardBarchartLeft() {
       hAxis: { title: "Days" },
       vAxis: { title: "Active Customers" },
     },
-    animation: {
-      startup: true, // This enables the animation when the chart is first drawn
-      easing: 'inAndOut', // Animation type
-      duration: 1000, // Animation duration in milliseconds
-    },
+    // animation: {
+    //   startup: true, // This enables the animation when the chart is first drawn
+    //   easing: 'inAndOut', // Animation type
+    //   duration: 1000, // Animation duration in milliseconds
+    // },
     bars: 'verti', // Make bars horizontal (optional)
   };
   return (

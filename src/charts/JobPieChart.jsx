@@ -25,12 +25,23 @@ export default function PieArcLabel() {
   }, []);
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '400px',marginLeft:"80px" }}>
+    <div style={{ justifyContent: 'center', alignItems: 'center', height: '400px',marginLeft:"85px" ,backgroundColor:"none"}}>
+          <div style={{ 
+        fontSize: '18px', 
+        color: 'rgba(57,57,57,1)', 
+        fontWeight:'200',
+        marginLeft:"55px",
+        marginBottom:'-20px',
+        paddingTop:"15px",
+      }}>
+        Job Roles vs Labour
+      </div>
+
     <PieChart
      colors={['#ba181b', '#390099', '#eb5e28','#cbdfbd','#1982c4','#ffbd00','#4d194d','#e9ff70']} 
       series={[
         {
-          arcLabel: (item) => `${item.label} (${item.value})`,
+          arcLabel: (item) => `${item.label}`,
           arcLabelMinAngle: 45,
           data: chartData,
         },
@@ -42,8 +53,7 @@ export default function PieArcLabel() {
           display: 'none', // Hide the legend element
         },
         [`& .${pieArcLabelClasses.root}`]: {
-          fill: 'white',
-          fontWeight: 'bold', // Ensure labels are styled as desired
+          fill: 'white',fontSize:"12px"
         },
       }}
     />

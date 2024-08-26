@@ -13,7 +13,7 @@ import Pagination from '@mui/material/Pagination';
 const NewlyVerified = () => {
     const { verifiedList } = useVerifiedLabour();
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 5;
+    const itemsPerPage = 6;
     const [loading, setLoading] = useState(true);
     useEffect(() => {
         // Simulate a loading delay

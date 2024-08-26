@@ -20,7 +20,7 @@ const toDoService=axios.create({ baseURL:BASE_URL,});
      const fetchAll = async () => {
         try {
           const response = await toDoService.get('/apptodo/api/todo');
-          console.log(response.data)
+          //console.log(response.data)
           return response.data;
         } catch (error) {
           console.error('Error fetching pending count:', error);
@@ -33,7 +33,7 @@ const toDoService=axios.create({ baseURL:BASE_URL,});
           const response = await toDoService.post('/apptodo/',todo);
           return response.data;
         } catch (error) {
-          console.error('Error fetching pending count:', error);
+          //console.error('Error fetching pending count:', error);
           throw error;
         }
       };
@@ -43,7 +43,7 @@ const toDoService=axios.create({ baseURL:BASE_URL,});
           const response = await toDoService.delete(`/apptodo/${id}`);
           return response.data;
         } catch (error) {
-          console.error('Error fetching pending count:', error);
+          //console.error('Error fetching pending count:', error);
           throw error;
         }
       };
@@ -53,7 +53,7 @@ const toDoService=axios.create({ baseURL:BASE_URL,});
           const response = await toDoService.put(`/apptodo/${id}`);
           return response.data;
         } catch (error) {
-          console.error('Error fetching pending count:', error);
+          //console.error('Error fetching pending count:', error);
           throw error;
         }
       };

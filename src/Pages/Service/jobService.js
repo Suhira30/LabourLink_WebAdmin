@@ -22,7 +22,7 @@ const jobService=axios.create({ baseURL:BASE_URL,});
           const response = await jobService.get('/api/jobrole');
           return response.data;
         } catch (error) {
-          console.error('Error fetching job count:', error);
+          //console.error('Error fetching job count:', error);
           throw error;
         }
       };
@@ -48,7 +48,7 @@ const jobService=axios.create({ baseURL:BASE_URL,});
   const fetchLabourJobCountsForPie = async () => {
     try {
     const response = await jobService.get('/api/labour/count');
-    console.log("job per job role :",response.data);
+    //console.log("job per job role :",response.data);
     return (response.data);
     }catch (error) {
        throw (error);
@@ -58,7 +58,7 @@ const jobService=axios.create({ baseURL:BASE_URL,});
   const fetchJobRoleVsBooking = async () => {
     try {
     const response = await jobService.get('/api/bookings/jobrole-count');
-    console.log("job for list :",response.data);
+    //console.log("job for list :",response.data);
     return (response.data);
     }catch (error) {
        throw (error);

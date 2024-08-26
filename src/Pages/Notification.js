@@ -18,7 +18,7 @@ import { Link } from 'react-router-dom';
 import notificationService from './Service/notificationService';
 import { useVerifiedLabour } from '../Context/VerifiedLabourContext ';
 import Pagination from '@mui/material/Pagination';
-import { NotificationContext } from '../Context/NotificationContext'; // Adjust the path accordingly
+import { NotificationContext } from '../Context/NotificationContext'; 
 
 const Notification = () => {
   const pageStyle = {
@@ -81,7 +81,7 @@ const Notification = () => {
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = notifications.slice(indexOfFirstItem, indexOfLastItem); // Use 'reports' instead of 'setReports'
+  const currentItems = notifications.slice(indexOfFirstItem, indexOfLastItem); 
 
   const totalPages = Math.ceil(notifications.length / itemsPerPage);
 

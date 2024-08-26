@@ -59,10 +59,10 @@ const handleConfirm = async () => {
     } else if (currentMailType === 'Warning') {
         response = await mailService.sendWarningMail({recipientEmail: senderMail, body: warningMailBody});
     }
-    console.log('Email sent successfully');
+   // console.log('Email sent successfully');
   } catch (error) {
       console.error('Error:', error);
-      console.error('Failed to send email');
+     // console.error('Failed to send email');
 
   } finally {
       setLoading(false);

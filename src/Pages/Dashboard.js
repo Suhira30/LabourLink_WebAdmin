@@ -99,7 +99,7 @@ const Dashboard = () => {
   <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} justifyContent="center" alignItems="center"  >
 {/*----------------Calendar-------------------------*/}
     <Grid item xs={12} sm={6}>
-    <Card sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', maxWidth: 'auto', overflow: 'auto',height:'435px'}}>        
+    <Card sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', maxWidth: 'auto', overflow: 'auto',height:'435px',backgroundColor: 'rgba(200,216, 239, 0.2)'}}>        
       <CardContent>
        <Calender/>
       </CardContent>
@@ -107,13 +107,28 @@ const Dashboard = () => {
     </Grid>
 {/*----------------Todo list-------------------------*/}
     <Grid item xs={12} sm={6}>
-    <Card sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', maxWidth: 'auto', overflow: 'auto' ,height:'435px'}}> 
+    <Card sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', maxWidth: 'auto', overflow: 'auto' ,height:'435px',backgroundColor: 'rgba(200,216, 239, 0.2)'}}> 
       <CardContent>
        <Todo/>
       </CardContent>
     </Card>
     </Grid>
-
+{/*------------------graph-line-Order----------------- */}
+<Grid item xs={12} sm={6}>
+    <Card sx={{  display: 'flex', justifyContent: 'center', alignItems: 'center', overflow: 'auto',marginTop:'30px', maxWidth: 'auto' }}>
+      <CardContent>
+        <Order/>
+      </CardContent>
+    </Card>
+    </Grid>
+{/*-----------newly verified----------------- */}
+    <Grid item xs={12} sm={6}>
+    <Card sx={{ display: 'flex', justifyContent: 'center', marginTop:'30px',alignItems: 'center', maxWidth: 'auto', overflow: 'auto',height:'440px' }}>        
+      <CardContent>
+        <NewlyVerified />
+      </CardContent>
+    </Card>
+    </Grid>
 {/*------------graph-Bar left------------------------ */}
     <Grid item xs={12} sm={6}>
     <Card sx={{ display: 'flex', justifyContent: 'center',marginTop:'30px', alignItems: 'center', maxWidth: 'auto', overflow: 'auto'}}>
@@ -130,22 +145,7 @@ const Dashboard = () => {
       </CardContent>
     </Card>
     </Grid>
-{/*------------------graph-line-Order----------------- */}
-    <Grid item xs={12} sm={6}>
-    <Card sx={{  display: 'flex', justifyContent: 'center', alignItems: 'center', overflow: 'auto',marginTop:'30px', maxWidth: 'auto' }}>
-      <CardContent>
-        <Order/>
-      </CardContent>
-    </Card>
-    </Grid>
-{/*-----------graph-pie-Demands order----------------- */}
-    <Grid item xs={12} sm={6}>
-    <Card sx={{ display: 'flex', justifyContent: 'center', marginTop:'30px',alignItems: 'center', maxWidth: 'auto', overflow: 'auto',height:'440px' }}>        
-      <CardContent>
-        <NewlyVerified />
-      </CardContent>
-    </Card>
-    </Grid>
+
   </Grid>
 </Box>
 

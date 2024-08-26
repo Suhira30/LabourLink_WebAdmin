@@ -44,8 +44,8 @@ const Tostify = () => {
       try {
         const response = await fetch(`${BASE_URL}/api/v1/report/poll?lastCheckedReportedId=${lastCheckedReportedId}`);
         const responseText = await response.text(); // Get the raw response text
-        console.log('Response Status:', response.status); // Log the response status
-        console.log('Response Text:', responseText); // Log the raw response text
+        // console.log('Response Status:', response.status); // Log the response status
+        // console.log('Response Text:', responseText); // Log the raw response text
 
         if (!response.ok) {
           throw new Error(`Network response was not ok: ${response.statusText}`);
@@ -57,7 +57,7 @@ const Tostify = () => {
           data.forEach(report => handleReportNotification(report));
           const latestId = Math.max(...data.map(report => report.id));
           setLastCheckedReportedId(latestId);
-          console.log(latestId);
+          // console.log(latestId);
           localStorage.setItem('lastCheckedReportedId', latestId);
         }
       } catch (error) {

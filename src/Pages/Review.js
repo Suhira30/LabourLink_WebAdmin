@@ -53,7 +53,7 @@ const Review = () => {
     fetchData();
     const interval = setInterval(() => {
       fetchData();
-    }, 60000); // 60s
+    }, 6000); // 6s
 
     return () => clearInterval(interval); // Clear the interval on component unmount
   }, []);

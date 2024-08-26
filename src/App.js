@@ -5,15 +5,11 @@ import Dashboard from './Pages/Dashboard';
 import Jobdetail from "./Pages/Jobdetail"
 import Notification from "./Pages/Notification"
 import Review from "./Pages/Review"
-import Settingpage from "./Pages/Settingpage";
 import Userdetail from "./Pages/Userdetail";
 import Logout from "./Pages/Logout";
 import Mail from "./Pages/Mail";
 import Reports from "./Pages/Reports";
 import OurStory from "./Pages/OurStory";
-import Footer from "./Components/Footer";
-import Searchbar from './Components/Searchbar';
-import Sidebar from "./Components/Sidebar";
 import IndividualUserDetail  from './Pages/IndividualUserDetail';
 import IndividualSuspendUserDetail  from './Pages/IndividualSuspendUser';
 import IndividualDeactivateUserDetail  from './Pages/IndividualDeactivatedUser';
@@ -39,7 +35,6 @@ function App() {
         <Route path="/job-detail"   element={<Jobdetail/> }></Route>
         <Route path="/notification"   element={<Notification/> }></Route>
         <Route path="/review"   element={<Review/> }></Route>
-        <Route path="/setting-page"   element={<Settingpage/> }></Route>
         <Route path="/user-detail"   element={<Userdetail/> }></Route>
         <Route path="/bookings"   element={<Appointment/> }></Route>
         <Route path="/user-detail/:email" element={<IndividualUserDetail />} />

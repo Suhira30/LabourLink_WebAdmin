@@ -20,7 +20,7 @@ const mailService=axios.create({ baseURL:BASE_URL,});
 const fetchVaccancyMail = async () => {
     try {
     const response = await mailService.get('/api/admin_emails');
-    console.log("mails :",response.data);
+    //console.log("mails :",response.data);
     return (response.data);
     }catch (error) {
        throw (error);
@@ -30,7 +30,7 @@ const fetchVaccancyMail = async () => {
 const fetchWarningMail = async () => {
     try {
     const response = await mailService.get('/api/admin_emails/warning');
-    console.log("warninig mails :",response.data);
+    //console.log("warninig mails :",response.data);
     return (response.data);
     }catch (error) {
        throw (error);
@@ -40,7 +40,7 @@ const fetchWarningMail = async () => {
 const fetchAnniversaryMail = async () => {
     try {
     const response = await mailService.get('/api/admin_emails/anniversary');
-    console.log("Anniversary mails :",response.data);
+   // console.log("Anniversary mails :",response.data);
     return (response.data);
     }catch (error) {
        throw (error);
@@ -50,7 +50,7 @@ const fetchAnniversaryMail = async () => {
 const sendVaccancyMail = async (body) => {
     try {
     const response = await mailService.post('/api/admin_emails',body);
-    console.log("Vaccancy mails :",response);
+    //console.log("Vaccancy mails :",response);
     fetchVaccancyMail();
     return (response);
     }catch (error) {
@@ -62,7 +62,7 @@ const sendWarningMail = async (recipientEmail, body) => {
     try {
     const response = await mailService.post('/api/admin_emails/warning',recipientEmail, body);
     fetchWarningMail();
-    console.log("Vaccancy mails :",response);
+    //console.log("Vaccancy mails :",response);
     return (response);
     }catch (error) {
        throw (error);

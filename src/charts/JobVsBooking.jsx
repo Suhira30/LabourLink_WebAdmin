@@ -27,12 +27,23 @@ function JobVsBooking() {
   }, []);
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '400px',marginLeft:"80px" }}>
+    <div style={{  justifyContent: 'center', alignItems: 'center', height: '400px',marginLeft:"85px", }}>
+      <div style={{ 
+        fontSize: '18px', 
+        color: 'rgba(57,57,57,1)', 
+        fontWeight:'200',
+        marginLeft:"55px",
+        marginBottom:'-20px',
+        paddingTop:"15px",
+      }}>
+        Job Roles vs Bookings
+      </div>
     <PieChart
      colors={['#cc0444', '#03256c', '#03cea4','#7a7317','#610402','#cb8927','#5f0a87','#e9ff70']} 
       series={[
         {
-          arcLabel: (item) => `${item.label} (${item.value})`,
+          label: 'Job',
+          arcLabel: (item) => `${item.label}`,
           arcLabelMinAngle: 45,
           data: chartData,
         },
@@ -44,8 +55,7 @@ function JobVsBooking() {
           display: 'none', // Hide the legend element
         },
         [`& .${pieArcLabelClasses.root}`]: {
-          fill: 'white',
-          fontWeight: 'bold', // Ensure labels are styled as desired
+          fill: 'white',fontSize:"12px"
         },
       }}
     />

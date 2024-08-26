@@ -99,14 +99,14 @@ const Jobdetail = () => {
   <Box sx={{ padding: '0', marginTop:'30px', marginLeft: 'auto', marginRight: 'auto', maxWidth: '1000px' }}>
   <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} justifyContent="center" alignItems="center">
   {/*-----------form-table----------- */}
-  <Grid item xs={6}  sx={{ height: '800px' }}>
+  <Grid item xs={6}  sx={{ height: '450px' ,}}>
     <Card >       
       <JobVSBooking />
     </Card>
   </Grid>
 
   {/* ----------Pie chart----------- */}
-  <Grid item xs={6} sx={{ height: '800px' }}  >
+  <Grid item xs={6} sx={{ height: '450px' }}  >
     <Card sx={{alignContent:"center",justifyContent:'center'}}>        
     <JobPieChart/>
     </Card>
@@ -117,7 +117,7 @@ const Jobdetail = () => {
 
   {/*---------------------------Footer------------------------------------------------------- */}
   <div  style={{backgroundColor:"#E7ECFF"}}>
-  <div style={{marginTop:'100px',maxWidth:'100%'}}> 
+  <div style={{maxWidth:'100%'}}> 
     <Footer/></div>
     </div>
     </Sidebar>

@@ -79,7 +79,7 @@ dashboardService.interceptors.request.use(
       });
      return chartData;
     } catch (error) {
-      //console.error("Error fetching active labour data:", error);
+      console.error("Error fetching active labour data:", error);
       throw error ;
     }
   };
@@ -98,7 +98,7 @@ const fetchTotalAppointmentPerDay = async () => {
     });
    return chartData;
   } catch (error) {
-    console.error("Error fetching active labour data:", error);
+   // console.error("Error fetching active labour data:", error);
     throw error ;
   }
 };
